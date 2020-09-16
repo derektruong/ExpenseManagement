@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/BackGr/bkgr_Login.jpg</file>
+        <file>Images/BackGr/bkgr_SignUp.jpg</file>
+        <file>Images/BackGr/budget.jpg</file>
+        <file>Images/Pictures/User_Avatar_.png</file>
+    </qresource>
+</RCC>
