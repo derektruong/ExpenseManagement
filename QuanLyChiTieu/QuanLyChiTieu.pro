@@ -1,4 +1,4 @@
-QT += core gui sql
+QT += core gui sql charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,19 +18,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     adduser.cpp \
     changepin.cpp \
+    chitieu.cpp \
     expensetracker.cpp \
     main.cpp \
-    loginapp.cpp
+    loginapp.cpp \
+    quanlychitieu.cpp \
+    quanlytaikhoan.cpp
 
 HEADERS += \
     adduser.h \
     changepin.h \
+    chitieu.h \
     expensetracker.h \
-    loginapp.h
+    loginapp.h \
+    quanlychitieu.h \
+    quanlytaikhoan.h
 
 FORMS += \
     adduser.ui \
     changepin.ui \
+    chitieu.ui \
     expensetracker.ui \
     loginapp.ui
 

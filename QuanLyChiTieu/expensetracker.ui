@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1549</width>
-    <height>950</height>
+    <width>1473</width>
+    <height>961</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,6 @@
    <string notr="true">QPushButton:hover:!pressed
 {
   	border: 4px solid white;
-	background-color: red;
 }</string>
   </property>
   <widget class="QStackedWidget" name="stackedWidget">
@@ -25,37 +24,751 @@
     <rect>
      <x>120</x>
      <y>0</y>
-     <width>1431</width>
-     <height>951</height>
+     <width>1351</width>
+     <height>961</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(47, 47, 59);</string>
    </property>
    <property name="currentIndex">
-    <number>5</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page_TrangChinh">
-    <widget class="QLabel" name="label">
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+    <widget class="QLabel" name="label_Avatar">
      <property name="geometry">
       <rect>
-       <x>500</x>
-       <y>390</y>
-       <width>251</width>
-       <height>151</height>
+       <x>10</x>
+       <y>0</y>
+       <width>48</width>
+       <height>48</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Images/Pictures/user-icon.png);</string>
+     </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt; color:#ffffff;&quot;&gt;Page 1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string/>
      </property>
     </widget>
+    <widget class="QLabel" name="label_HoVaTen_page1">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>0</y>
+       <width>281</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 17pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string>&lt;strong&gt;Họ và tên&lt;strong&gt;</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::RichText</enum>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox">
+     <property name="geometry">
+      <rect>
+       <x>560</x>
+       <y>0</y>
+       <width>291</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius: 7px;
+color: rgb(0, 0, 0);
+background-color: rgb(217, 204, 204, 130);
+font: 75 16pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="duplicatesEnabled">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Tất cả tài khoản</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QPushButton" name="btn_BachHoaPic">
+     <property name="geometry">
+      <rect>
+       <x>410</x>
+       <y>210</y>
+       <width>71</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Images/Pictures/bachHoa.png);
+border-color: rgb(170, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_GiaDinhPic">
+     <property name="geometry">
+      <rect>
+       <x>680</x>
+       <y>150</y>
+       <width>68</width>
+       <height>68</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Images/Pictures/GiaDinh.png);
+border-color: rgb(170, 255, 255);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_SucKhoePic">
+     <property name="geometry">
+      <rect>
+       <x>940</x>
+       <y>210</y>
+       <width>68</width>
+       <height>69</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Images/Pictures/SucKhoe.png);
+border-color: rgb(170, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_HoaDonPic">
+     <property name="geometry">
+      <rect>
+       <x>970</x>
+       <y>710</y>
+       <width>68</width>
+       <height>68</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Images/Pictures/HoaDon.png);
+border-color: rgb(170, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_MuaSamPic">
+     <property name="geometry">
+      <rect>
+       <x>1040</x>
+       <y>360</y>
+       <width>68</width>
+       <height>68</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Images/Pictures/MuaSam.png);
+border-color: rgb(170, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_KinhDoanhPic">
+     <property name="geometry">
+      <rect>
+       <x>760</x>
+       <y>840</y>
+       <width>71</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Images/Pictures/KinhDoanh.png);
+border-color: rgb(170, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_HocPhiPic">
+     <property name="geometry">
+      <rect>
+       <x>1040</x>
+       <y>560</y>
+       <width>68</width>
+       <height>68</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Images/Pictures/bachHoa.png);
+background-image: url(:/Images/Pictures/HocPhi.png);
+border-color: rgb(170, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_KhacPic">
+     <property name="geometry">
+      <rect>
+       <x>560</x>
+       <y>840</y>
+       <width>68</width>
+       <height>69</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Images/Pictures/Khac.png);
+border-color: rgb(170, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_QuaTangPic">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>710</y>
+       <width>68</width>
+       <height>69</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Images/Pictures/QuaTang.png);
+border-color: rgb(170, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_DiChuyenPic">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>560</y>
+       <width>68</width>
+       <height>69</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Images/Pictures/DiChuyen.png);
+border-color: rgb(170, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_GiaiTriPic">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>360</y>
+       <width>68</width>
+       <height>69</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Images/Pictures/GiaiTri.png);
+border-color: rgb(170, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_GiaDinh">
+     <property name="geometry">
+      <rect>
+       <x>670</x>
+       <y>120</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Gia đình&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_KinhDoanh">
+     <property name="geometry">
+      <rect>
+       <x>750</x>
+       <y>810</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Kinh doanh&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_SucKhoe">
+     <property name="geometry">
+      <rect>
+       <x>930</x>
+       <y>180</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Sức khoẻ&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_MuaSam">
+     <property name="geometry">
+      <rect>
+       <x>1030</x>
+       <y>330</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Mua Sắm&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_HocPhi">
+     <property name="geometry">
+      <rect>
+       <x>1030</x>
+       <y>520</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Học phí&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_HoaDon">
+     <property name="geometry">
+      <rect>
+       <x>960</x>
+       <y>680</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Hoá đơn&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_GiaiTri">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>330</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Giải trí&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_DiChuyen">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>530</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Di chuyển&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_QuaTang">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>680</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Quà tặng&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_Khac">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>810</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Khác&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_BachHoa">
+     <property name="geometry">
+      <rect>
+       <x>400</x>
+       <y>180</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Bách hoá&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_GiaDinh_money">
+     <property name="geometry">
+      <rect>
+       <x>680</x>
+       <y>220</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;0đ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_SucKhoe_money">
+     <property name="geometry">
+      <rect>
+       <x>940</x>
+       <y>290</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;0đ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_MuaSam_money">
+     <property name="geometry">
+      <rect>
+       <x>1040</x>
+       <y>430</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;0đ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_HocPhi_money">
+     <property name="geometry">
+      <rect>
+       <x>1040</x>
+       <y>630</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;0đ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_HoaDon_money">
+     <property name="geometry">
+      <rect>
+       <x>970</x>
+       <y>780</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;0đ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_KinhDoanh_money">
+     <property name="geometry">
+      <rect>
+       <x>760</x>
+       <y>920</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;0đ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_Khac_money">
+     <property name="geometry">
+      <rect>
+       <x>560</x>
+       <y>920</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;0đ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_QuaTang_money">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>780</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;0đ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_DiChuyen_money">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>630</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;0đ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_GiaiTri_money">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>430</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;0đ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_BachHoa_money">
+     <property name="geometry">
+      <rect>
+       <x>410</x>
+       <y>290</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;0đ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_MainMoney">
+     <property name="geometry">
+      <rect>
+       <x>630</x>
+       <y>50</y>
+       <width>231</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 16pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;0đ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_ThemTaiKhoan">
+     <property name="geometry">
+      <rect>
+       <x>860</x>
+       <y>0</y>
+       <width>41</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Thêm tài khoản&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius: 8px;
+color: rgb(0, 0, 0);
+background-color: rgb(217, 204, 204, 180);
+font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
+     </property>
+     <property name="text">
+      <string>+</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_Refresh">
+     <property name="geometry">
+      <rect>
+       <x>1300</x>
+       <y>910</y>
+       <width>48</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Làm mới&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius: 8px;
+background-image: url(:/Images/Pictures/reload-icon.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frame">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>270</y>
+       <width>831</width>
+       <height>581</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+    <zorder>frame</zorder>
+    <zorder>label_Avatar</zorder>
+    <zorder>label_HoVaTen_page1</zorder>
+    <zorder>comboBox</zorder>
+    <zorder>btn_BachHoaPic</zorder>
+    <zorder>btn_GiaDinhPic</zorder>
+    <zorder>btn_SucKhoePic</zorder>
+    <zorder>btn_HoaDonPic</zorder>
+    <zorder>btn_MuaSamPic</zorder>
+    <zorder>btn_KinhDoanhPic</zorder>
+    <zorder>btn_HocPhiPic</zorder>
+    <zorder>btn_KhacPic</zorder>
+    <zorder>btn_QuaTangPic</zorder>
+    <zorder>btn_DiChuyenPic</zorder>
+    <zorder>btn_GiaiTriPic</zorder>
+    <zorder>label_GiaDinh</zorder>
+    <zorder>label_KinhDoanh</zorder>
+    <zorder>label_SucKhoe</zorder>
+    <zorder>label_MuaSam</zorder>
+    <zorder>label_HocPhi</zorder>
+    <zorder>label_HoaDon</zorder>
+    <zorder>label_GiaiTri</zorder>
+    <zorder>label_DiChuyen</zorder>
+    <zorder>label_QuaTang</zorder>
+    <zorder>label_Khac</zorder>
+    <zorder>label_BachHoa</zorder>
+    <zorder>label_GiaDinh_money</zorder>
+    <zorder>label_SucKhoe_money</zorder>
+    <zorder>label_MuaSam_money</zorder>
+    <zorder>label_HocPhi_money</zorder>
+    <zorder>label_HoaDon_money</zorder>
+    <zorder>label_KinhDoanh_money</zorder>
+    <zorder>label_Khac_money</zorder>
+    <zorder>label_QuaTang_money</zorder>
+    <zorder>label_DiChuyen_money</zorder>
+    <zorder>label_GiaiTri_money</zorder>
+    <zorder>label_BachHoa_money</zorder>
+    <zorder>label_MainMoney</zorder>
+    <zorder>btn_ThemTaiKhoan</zorder>
+    <zorder>btn_Refresh</zorder>
    </widget>
    <widget class="QWidget" name="page_ChiTieu">
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>530</x>
-       <y>290</y>
+       <x>1100</x>
+       <y>790</y>
        <width>251</width>
        <height>151</height>
       </rect>
@@ -81,18 +794,271 @@
     </widget>
    </widget>
    <widget class="QWidget" name="page_TaiKhoan">
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(226, 222, 212);</string>
+    </property>
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>530</x>
-       <y>380</y>
-       <width>251</width>
-       <height>151</height>
+       <x>1200</x>
+       <y>890</y>
+       <width>141</width>
+       <height>61</height>
       </rect>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt; color:#ffffff;&quot;&gt;Page 4&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;TÀI KHOẢN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
+    </widget>
+    <widget class="QTableView" name="tableView_page4">
+     <property name="geometry">
+      <rect>
+       <x>580</x>
+       <y>110</y>
+       <width>771</width>
+       <height>571</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);
+font: 75 12pt &quot;Segoe UI&quot;;
+border-radius: 8px;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_HoVaTen_page1_2">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>100</y>
+       <width>281</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 20pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;THÊM TÀI KHOẢN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::RichText</enum>
+     </property>
+    </widget>
+    <widget class="QSplitter" name="splitter_3">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>430</y>
+       <width>271</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QRadioButton" name="radioButton_Co">
+      <property name="styleSheet">
+       <string notr="true">font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Có</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_Khong">
+      <property name="styleSheet">
+       <string notr="true">font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Không</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QComboBox" name="comboBox_p4_LoaiTaiKhoan">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>220</y>
+       <width>271</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius: 5px;
+color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);
+font: 75 14pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>Thường xuyên(Thẻ, tiền mặt,...)</string>
+      </property>
+      <property name="icon">
+       <iconset resource="TaiNguyen.qrc">
+        <normaloff>:/Images/Pictures/ID-Card-icon.png</normaloff>:/Images/Pictures/ID-Card-icon.png</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Tiết kiệm</string>
+      </property>
+      <property name="icon">
+       <iconset resource="TaiNguyen.qrc">
+        <normaloff>:/Images/Pictures/savings-icon.png</normaloff>:/Images/Pictures/savings-icon.png</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Nợ</string>
+      </property>
+      <property name="icon">
+       <iconset resource="TaiNguyen.qrc">
+        <normaloff>:/Images/Pictures/No-icon.png</normaloff>:/Images/Pictures/No-icon.png</iconset>
+      </property>
+     </item>
+    </widget>
+    <widget class="QPushButton" name="btn_page4_Them">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>620</y>
+       <width>101</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius: 15px;
+color: rgb(255, 255, 255);
+background-color: rgb(255, 106, 108);
+font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
+     </property>
+     <property name="text">
+      <string>Thêm</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="textEdit_p4_MoTa">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>490</y>
+       <width>271</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);
+font: 15pt &quot;Segoe UI&quot;;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_HoVaTen_page1_3">
+     <property name="geometry">
+      <rect>
+       <x>740</x>
+       <y>50</y>
+       <width>471</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 20pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Thông tin tài khoản hiện có&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::RichText</enum>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_p4_TenTaiKhoan">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>290</y>
+       <width>271</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 16pt &quot;Segoe UI&quot;;
+background-color: rgb(255, 255, 255);</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_p4_SoDu">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>350</y>
+       <width>271</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 16pt &quot;Segoe UI&quot;;
+background-color: rgb(255, 255, 255);</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>210</y>
+       <width>261</width>
+       <height>321</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="label_p4_LoaiTaiKhoan">
+        <property name="styleSheet">
+         <string notr="true">font: 75 15pt &quot;Segoe UI&quot;;</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Loại tài khoản:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_p4_TenTaiKhoan">
+        <property name="styleSheet">
+         <string notr="true">font: 75 15pt &quot;Segoe UI&quot;;</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Tên tài khoản:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_p4_SoDu">
+        <property name="styleSheet">
+         <string notr="true">font: 75 15pt &quot;Segoe UI&quot;;</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Số dư:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_p4_CBGTTSD">
+        <property name="styleSheet">
+         <string notr="true">font: 75 15pt &quot;Segoe UI&quot;;</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Có bao gồm trong tổng số dư:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_p4_MoTa">
+        <property name="styleSheet">
+         <string notr="true">font: 75 15pt &quot;Segoe UI&quot;;</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Mô tả:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="QWidget" name="page_ThongKe">
@@ -127,7 +1093,7 @@
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>380</x>
        <y>120</y>
        <width>71</width>
        <height>71</height>
@@ -143,9 +1109,9 @@
     <widget class="QLabel" name="label_HoVaTen_page6">
      <property name="geometry">
       <rect>
-       <x>420</x>
+       <x>480</x>
        <y>140</y>
-       <width>281</width>
+       <width>341</width>
        <height>41</height>
       </rect>
      </property>
@@ -262,8 +1228,8 @@ color: rgb(255, 255, 255);</string>
     <widget class="QPushButton" name="pushButton_ThayMaPin">
      <property name="geometry">
       <rect>
-       <x>550</x>
-       <y>550</y>
+       <x>520</x>
+       <y>510</y>
        <width>131</width>
        <height>51</height>
       </rect>
@@ -286,11 +1252,11 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
      <x>0</x>
      <y>0</y>
      <width>121</width>
-     <height>951</height>
+     <height>961</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(26, 39, 63);</string>
+    <string notr="true">background-color: rgb(35, 39, 66);</string>
    </property>
    <widget class="QPushButton" name="pushButton_TrangChinh">
     <property name="geometry">
@@ -477,6 +1443,8 @@ font: 75 8pt &quot;MS Shell Dlg 2&quot;;</string>
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="TaiNguyen.qrc"/>
+ </resources>
  <connections/>
 </ui>

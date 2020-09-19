@@ -6,15 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>424</width>
-    <height>322</height>
+    <width>456</width>
+    <height>368</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(187, 255, 192);</string>
+   <string notr="true">QPushButton:hover:!pressed
+{
+  	border: 4px solid red;
+	background-color: red;
+}</string>
   </property>
   <widget class="QLabel" name="label_MaPinCu">
    <property name="geometry">
@@ -53,7 +57,7 @@
     <rect>
      <x>30</x>
      <y>190</y>
-     <width>181</width>
+     <width>161</width>
      <height>21</height>
     </rect>
    </property>
@@ -64,49 +68,58 @@
     <string>Nhập lại mã pin mới:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="lineEdit_MaPinCu">
    <property name="geometry">
     <rect>
      <x>200</x>
      <y>110</y>
-     <width>113</width>
+     <width>141</width>
      <height>21</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="lineEdit_MaPinMoi">
    <property name="geometry">
     <rect>
      <x>200</x>
      <y>150</y>
-     <width>113</width>
+     <width>141</width>
      <height>21</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_3">
+  <widget class="QLineEdit" name="lineEdit_NhapLaiMaPinMoi">
    <property name="geometry">
     <rect>
      <x>200</x>
      <y>190</y>
-     <width>113</width>
+     <width>141</width>
      <height>21</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="pushButton_XacNhan">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>90</x>
      <y>250</y>
      <width>101</width>
      <height>41</height>
@@ -120,6 +133,25 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <property name="text">
     <string>Xác nhận</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_Huy">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>250</y>
+     <width>101</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+color: rgb(255, 255, 255);
+background-color: rgb(48, 165, 255);
+font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Huỷ</string>
    </property>
   </widget>
  </widget>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>803</width>
+    <height>620</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QPushButton:hover:!pressed
 {
-  	border: 4px solid white;
+  	border: 3px solid white;
 	background-color: red;
 }</string>
   </property>
@@ -32,7 +32,7 @@
     </property>
     <property name="styleSheet">
      <string notr="true">font: 75 14pt &quot;MS Shell Dlg 2&quot;;
-background-color: rgb(194, 202, 221, 200);
+background-color: rgb(255, 255, 255, 180);
 border-radius: 25px;</string>
     </property>
     <property name="title">
@@ -89,7 +89,7 @@ background-color: rgb(228, 236, 255,10);</string>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(246, 244, 255);
-border-color: rgb(147, 236, 255);
+background-color: rgb(255, 255, 255);
 border: 2px solid gray;
 border-radius: 10px;</string>
      </property>
@@ -105,7 +105,7 @@ border-radius: 10px;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(246, 244, 255);
-border-color: rgb(147, 236, 255);
+background-color: rgb(255, 255, 255);
 border: 2px solid gray;
 border-radius: 10px;</string>
      </property>
@@ -125,7 +125,6 @@ border-radius: 10px;</string>
      <property name="styleSheet">
       <string notr="true">border-radius: 15px;
 color: rgb(255, 255, 255);
-border: 2px solid gray;
 background-color: rgb(48, 165, 255);</string>
      </property>
      <property name="text">
@@ -144,7 +143,6 @@ background-color: rgb(48, 165, 255);</string>
      <property name="styleSheet">
       <string notr="true">border-radius: 15px;
 color: rgb(255, 255, 255);
-border: 2px solid gray;
 background-color: rgb(48, 165, 255);</string>
      </property>
      <property name="text">
@@ -188,9 +186,9 @@ color: rgb(254, 88, 91);</string>
      <property name="geometry">
       <rect>
        <x>240</x>
-       <y>460</y>
+       <y>470</y>
        <width>331</width>
-       <height>41</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="font">
@@ -205,7 +203,8 @@ color: rgb(254, 88, 91);</string>
      <property name="styleSheet">
       <string notr="true">font: 75 italic 18pt &quot;Bahnschrift&quot;;
 background-color: rgb(222, 227, 255,0);
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+border-radius: 10px;</string>
      </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Trạng thái: &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -220,7 +219,7 @@ color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>803</width>
      <height>21</height>
     </rect>
    </property>

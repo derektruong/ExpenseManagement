@@ -33,6 +33,23 @@ LoginAPP::~LoginAPP()
 }
 
 
+QString LoginAPP::Decrypt(QString str){
+    int s=0;
+    QString res="";
+    for(int i = 0; i<str.size(); ++i){
+        if( str[i].unicode() < 48 || str[i].unicode() > 57 ){
+            s = (s - 1998)/23;
+            res += QString::number(s);
+            s=0;
+            continue;
+        }
+
+        s = s*10 + (str[i].unicode() - 48);
+    }
+    return res;
+}
+
+
 void LoginAPP::on_pushButton_DangNhap_clicked()
 {
     QString TenDangNhap = ui->lineEdit_TenDangNhap->text();
@@ -49,24 +66,34 @@ void LoginAPP::on_pushButton_DangNhap_clicked()
             return;
         }
     }
+
     myDB.open();
+
     QSqlQuery qry;
 
-    if( qry.exec("select * from NguoiDung Where TenDangNhap = '"+TenDangNhap+"' and MaPin = '"+MaPin+"' ") ){
+    QString DecryptMaPin;
+
+    if( qry.exec("select * from NguoiDung Where TenDangNhap = '"+TenDangNhap+"'") ){
 
         int count = 0;
         while( qry.next() ){
             count++;
-        }
-        if( count == 1 ){
-            QMessageBox::information(this,QString::fromUtf8("Thông báo"),QString::fromUtf8("Tên đăng nhập và mật khẩu đã chính xác!"));
-            this->close();
-            ExpenseTracker addNewTracker;
-            //Tham chiếu Tên đăng nhập để sử dụng trong lớp ExpenseTracker
-            addNewTracker.TenDangNhap = TenDangNhap;
-            //Hiển thị
-            addNewTracker.setModal(true);
-            addNewTracker.exec();
+            DecryptMaPin = Decrypt(qry.value("MaPin").toString());
+            if( MaPin == DecryptMaPin){
+                //QMessageBox::information(this,QString::fromUtf8("Thông báo"),QString::fromUtf8("Tên đăng nhập và mật khẩu đã chính xác!"));
+                this->close();
+                ExpenseTracker addNewTracker;
+                //Tham chiếu Tên đăng nhập để sử dụng trong lớp ExpenseTracker
+                addNewTracker.TenDangNhap = TenDangNhap;
+
+                //Hiển thị
+                addNewTracker.setModal(true);
+                addNewTracker.exec();
+            }
+            else{
+                QMessageBox::warning(this,QString::fromUtf8("Chú ý"),QString::fromUtf8("Tên đăng nhập hoặc mật khẩu không chính xác!\n Nếu chưa có tài khoản hãy thêm mới!!"));
+            }
+
         }
 
         if( count < 1 ){

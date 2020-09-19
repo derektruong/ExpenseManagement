@@ -22,6 +22,8 @@ public:
     LoginAPP(QWidget *parent = nullptr);
     ~LoginAPP();
 
+    QString Decrypt(QString str);
+
     friend class ExpenseTracker;// Lớp bạn là lớp ExpenseManagement
 
 protected:

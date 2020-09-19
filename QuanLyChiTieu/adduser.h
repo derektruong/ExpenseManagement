@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <loginapp.h>
+#include <quanlychitieu.h>
+#include <QString>
 
 namespace Ui {
 class AddUser;
@@ -15,6 +17,7 @@ class AddUser : public QDialog
 public:
     explicit AddUser(QWidget *parent = nullptr);
     ~AddUser();
+    QString Encrypt(QString str);
 
 private slots:
     void on_pushButton_DangKy_AddUser_clicked();
@@ -22,6 +25,7 @@ private slots:
 private:
     Ui::AddUser *ui;
     LoginAPP *login;
+    QuanLyChiTieu ChiTieu;
 };
 
 #endif // ADDUSER_H

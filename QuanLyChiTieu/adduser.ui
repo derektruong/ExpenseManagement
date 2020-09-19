@@ -102,7 +102,8 @@ background-color: rgb(255, 119, 137,0);</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;</string>
+border-radius: 10px;
+font: 12pt &quot;Segoe UI&quot;;</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_MaPin_AddUser">
@@ -117,7 +118,8 @@ border-radius: 10px;</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;</string>
+border-radius: 10px;
+font: 12pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="echoMode">
      <enum>QLineEdit::Password</enum>
@@ -135,7 +137,8 @@ border-radius: 10px;</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;</string>
+border-radius: 10px;
+font: 12pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="echoMode">
      <enum>QLineEdit::Password</enum>
@@ -153,7 +156,8 @@ border-radius: 10px;</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;</string>
+border-radius: 10px;
+font: 12pt &quot;Segoe UI&quot;;</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_Email_AddUser">
@@ -168,7 +172,8 @@ border-radius: 10px;</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;</string>
+border-radius: 10px;
+font: 12pt &quot;Segoe UI&quot;;</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_CongViec_AddUser">
@@ -183,7 +188,8 @@ border-radius: 10px;</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;</string>
+border-radius: 10px;
+font: 12pt &quot;Segoe UI&quot;;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_DangKy_AddUser">

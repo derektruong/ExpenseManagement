@@ -3,6 +3,14 @@
 
 #include <QDialog>
 
+#include <expensetracker.h>
+
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QMessageBox>
+#include <QDebug>
+#include <QString>
+
 namespace Ui {
 class ChangePin;
 }
@@ -15,8 +23,23 @@ public:
     explicit ChangePin(QWidget *parent = nullptr);
     ~ChangePin();
 
+    QString Encrypt(QString str);
+    QString Decrypt(QString str);
+
+    friend class ExpenseTracker;
+
+protected:
+    QString TenDangNhap;
+
+private slots:
+    void on_pushButton_XacNhan_clicked();
+
+    void on_pushButton_Huy_clicked();
+
 private:
     Ui::ChangePin *ui;
+    QSqlDatabase myDB;
+
 };
 
 #endif // CHANGEPIN_H

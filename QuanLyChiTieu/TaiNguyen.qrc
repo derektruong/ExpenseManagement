@@ -1,8 +1,26 @@
 <RCC>
     <qresource prefix="/">
-        <file>Images/BackGr/bkgr_Login.jpg</file>
         <file>Images/BackGr/bkgr_SignUp.jpg</file>
         <file>Images/BackGr/budget.jpg</file>
         <file>Images/Pictures/User_Avatar_.png</file>
+        <file>Images/BackGr/bkgr_Login.jpg</file>
+        <file>Images/Pictures/Arrows-Down.png</file>
+        <file>Images/Pictures/bachHoa.png</file>
+        <file>Images/Pictures/DiChuyen.png</file>
+        <file>Images/Pictures/GiaiTri.png</file>
+        <file>Images/Pictures/HoaDon.png</file>
+        <file>Images/Pictures/HocPhi.png</file>
+        <file>Images/Pictures/Khac.png</file>
+        <file>Images/Pictures/KinhDoanh.png</file>
+        <file>Images/Pictures/MuaSam.png</file>
+        <file>Images/Pictures/QuaTang.png</file>
+        <file>Images/Pictures/SucKhoe.png</file>
+        <file>Images/Pictures/GiaDinh.png</file>
+        <file>Images/Pictures/ID-Card-icon.png</file>
+        <file>Images/Pictures/savings-icon.png</file>
+        <file>Images/Pictures/No-icon.png</file>
+        <file>Images/BackGr/nkgr_p4.jpg</file>
+        <file>Images/Pictures/user-icon.png</file>
+        <file>Images/Pictures/reload-icon.png</file>
     </qresource>
 </RCC>
