@@ -1,10 +1,6 @@
 #include "adduser.h"
 #include "ui_adduser.h"
 
-#include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlQuery>
-#include <QMessageBox>
-#include <QDebug>
 
 AddUser::AddUser(QWidget *parent) :
     QDialog(parent),

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1147</width>
-    <height>749</height>
+    <width>1150</width>
+    <height>671</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,8 +29,8 @@ QLineEdit :hover:!pressed
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>180</y>
+     <x>440</x>
+     <y>110</y>
      <width>561</width>
      <height>471</height>
     </rect>
@@ -218,7 +218,7 @@ font: 75 18pt &quot;MS Shell Dlg 2&quot;;</string>
      <x>0</x>
      <y>0</y>
      <width>1151</width>
-     <height>751</height>
+     <height>671</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -231,7 +231,7 @@ font: 75 18pt &quot;MS Shell Dlg 2&quot;;</string>
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>310</y>
+      <y>250</y>
       <width>241</width>
       <height>181</height>
      </rect>
@@ -252,14 +252,14 @@ border-radius: 50px;</string>
   <widget class="QLabel" name="label_AddUser">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>50</y>
+     <x>120</x>
+     <y>20</y>
      <width>911</width>
      <height>61</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 75 30pt &quot;MS Shell Dlg 2&quot;;
+    <string notr="true">font: 75 26pt &quot;MS Shell Dlg 2&quot;;
 background-color: rgb(183, 255, 245,0);
 </string>
    </property>

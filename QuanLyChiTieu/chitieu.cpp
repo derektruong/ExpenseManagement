@@ -6,14 +6,6 @@ ChiTieu::ChiTieu(QString DanhMuc, QString username,QWidget *parent ) :
     ui(new Ui::ChiTieu)
 {
     ui->setupUi(this);
-    //DataBase
-    QSqlDatabase myDB = QSqlDatabase::addDatabase("QODBC");
-
-    myDB.setDatabaseName("DRIVER={SQL Server Native Client 11.0};SERVER=DEREKPC;DATABASE=DO_AN_CHI_TIEU;UID=sa;PWD=derek123;WSID=.;Trusted_connection=yes");
-
-    bool connected = myDB.open();
-
-    if(!connected) qDebug()<<"Lỗi không kết nối được CSDL!";
     //
 
     this->Username = username;
@@ -21,11 +13,19 @@ ChiTieu::ChiTieu(QString DanhMuc, QString username,QWidget *parent ) :
 
     QVector<QString> DSTenTK = TaiKhoanQL.LayTenTaiKhoan(username);
 
+    if( !DSTenTK.size() ){
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Bạn chưa có tài khoản nào!!"));
+        this->close();
+        ui->btn_Huy->animateClick(5);
+    }
+
     for ( int i = 0; i < DSTenTK.size(); ++i) {
         ui->comboBox_TuTaiKhoan->addItem(DSTenTK[i]);
     }
 
     ui->label_DenDanhMucHienTai->setText(DanhMuc);
+
+    //
 
 }
 
@@ -68,7 +68,6 @@ void ChiTieu::on_btn_OK_clicked()
 
     NgayChiTieu = ui->dateEdit->text();
 
-    qDebug()<<NgayChiTieu;
 
     //Định dạng lại format date cho phù hợp với DBase
     QStack<QString> st;
@@ -94,7 +93,7 @@ void ChiTieu::on_btn_OK_clicked()
         NgayChiTieu+=st.top();
         st.pop();
     }
-    qDebug()<<NgayChiTieu;
+    //done
 
     // Truy vấn DB
 
@@ -127,13 +126,14 @@ void ChiTieu::on_btn_OK_clicked()
 
     //// Thêm vào bảng KhoanChi
 
-    qry.prepare("INSERT KhoanChi ( SoTien, NgayChiTieu, GhiChu, MaDanhMuc, TenChu )" "VALUES ( :SoTien, :NgayChiTieu, :GhiChu, :MaDanhMuc, :TenChu )");
+    qry.prepare("INSERT KhoanChi ( SoTien, NgayChiTieu, GhiChu, MaDanhMuc, TenChu, TenTaiKhoan )" "VALUES ( :SoTien, :NgayChiTieu, :GhiChu, :MaDanhMuc, :TenChu, :TenTaiKhoan )");
 
     qry.bindValue(":SoTien", SoTien);
     qry.bindValue(":NgayChiTieu", NgayChiTieu);
     qry.bindValue(":GhiChu", MoTa);
     qry.bindValue(":MaDanhMuc", MaDanhMuc);
     qry.bindValue(":TenChu", Username);
+    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
 
     qry.exec();
 
@@ -152,6 +152,9 @@ void ChiTieu::on_btn_OK_clicked()
     qry.exec();
 
     ////
+    buttonPressed();
+
+    this->hide();
 
 
 }

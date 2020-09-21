@@ -15,15 +15,6 @@ ChangePin::ChangePin(QWidget *parent) :
     ui->setupUi(this);
 
     this->setWindowTitle(QString::fromUtf8("Thay mã pin"));
-
-    //DataBase
-    QSqlDatabase myDB = QSqlDatabase::addDatabase("QODBC");
-
-    myDB.setDatabaseName("DRIVER={SQL Server Native Client 11.0};SERVER=DEREKPC;DATABASE=DO_AN_CHI_TIEU;UID=sa;PWD=derek123;WSID=.;Trusted_connection=yes");
-
-    bool connected = myDB.open();
-
-    if(!connected) QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Lỗi! Không kết nối được CSDL!!"));
 }
 
 ChangePin::~ChangePin()

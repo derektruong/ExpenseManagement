@@ -26,7 +26,7 @@ class ChiTieu : public QDialog
     Q_OBJECT
 
 public:
-    explicit ChiTieu(QString DanhMuc="", QString username="",QWidget *parent = nullptr);
+    explicit ChiTieu(QString DanhMuc="", QString username="", QWidget *parent = nullptr);
     ~ChiTieu();
 
     friend class ExpenseTracker;
@@ -34,6 +34,8 @@ public:
 protected:
     QString Username;
     QString DanhMuc;
+signals:
+    void buttonPressed();
 
 private slots:
     void on_btn_OK_clicked();

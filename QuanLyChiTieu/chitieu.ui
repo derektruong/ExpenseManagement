@@ -97,8 +97,11 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
      <x>240</x>
      <y>350</y>
      <width>261</width>
-     <height>91</height>
+     <height>101</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 16pt &quot;Segoe UI&quot;;</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_ThemChiTieu">

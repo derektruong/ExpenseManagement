@@ -10,7 +10,7 @@ LoginAPP::LoginAPP(QWidget *parent)
 {
     ui->setupUi(this);
 
-    this->setFixedSize(801,581);
+    this->setFixedSize(661,451);
 
     this->setWindowTitle(QString::fromUtf8("Đăng nhập"));
 
@@ -89,6 +89,7 @@ void LoginAPP::on_pushButton_DangNhap_clicked()
                 //Hiển thị
                 addNewTracker.setModal(true);
                 addNewTracker.exec();
+                this->close();
             }
             else{
                 QMessageBox::warning(this,QString::fromUtf8("Chú ý"),QString::fromUtf8("Tên đăng nhập hoặc mật khẩu không chính xác!\n Nếu chưa có tài khoản hãy thêm mới!!"));

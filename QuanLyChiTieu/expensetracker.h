@@ -48,6 +48,11 @@ protected:
 private slots:
     QString FormatMoney(lli Tien);
 
+    void RefreshP1();
+    void RefreshP4();
+
+    void UpdateTableP4();
+
     void on_pushButton_TrangChinh_clicked();
 
     void on_pushButton_ChiTieu_clicked();
@@ -62,13 +67,9 @@ private slots:
 
     void on_pushButton_minimize_clicked();
 
-    void on_pushButton_fullscreen_clicked();
-
-    void on_pushButton_restoredown_clicked();
-
     void on_pushButton_ThayMaPin_clicked();
 
-    void on_btn_page4_Them_clicked();
+    void on_btn_page4_ThemTK_clicked();
 
     void on_btn_GiaDinhPic_clicked();
 
@@ -96,6 +97,10 @@ private slots:
 
     void on_btn_ThemTaiKhoan_clicked();
 
+    void on_btn_page4_ThemSoDu_clicked();
+
+    void on_btn_page4_XoaTaiKhoan_clicked();
+
 private:
     Ui::ExpenseTracker *ui;
 
@@ -104,7 +109,6 @@ private:
     QString HoTen = "Username";
     QuanLyTaiKhoan TaiKhoanQL;
     QuanLyChiTieu DanhMucQL;
-    int countMain = 0;
 };
 
 #endif // EXPENSETRACKER_H

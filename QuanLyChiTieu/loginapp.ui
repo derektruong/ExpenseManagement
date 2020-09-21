@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>803</width>
-    <height>620</height>
+    <width>659</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,8 +24,8 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>120</y>
+      <x>80</x>
+      <y>60</y>
       <width>481</width>
       <height>281</height>
      </rect>
@@ -41,9 +41,9 @@ border-radius: 25px;</string>
     <widget class="QLabel" name="label_TenDangNhap">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>40</x>
        <y>70</y>
-       <width>161</width>
+       <width>171</width>
        <height>41</height>
       </rect>
      </property>
@@ -52,15 +52,15 @@ border-radius: 25px;</string>
 background-color: rgb(228, 236, 255,10);</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; color:#000000;&quot;&gt;Tên đăng nhập&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#000000;&quot;&gt;Tên đăng nhập:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_MaPin">
      <property name="geometry">
       <rect>
-       <x>140</x>
+       <x>130</x>
        <y>120</y>
-       <width>81</width>
+       <width>91</width>
        <height>31</height>
       </rect>
      </property>
@@ -69,7 +69,7 @@ background-color: rgb(228, 236, 255,10);</string>
 background-color: rgb(228, 236, 255,10);</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; color:#000000;&quot;&gt;Mã pin &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#000000;&quot;&gt;Mã pin: &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_TenDangNhap">
@@ -89,6 +89,7 @@ background-color: rgb(228, 236, 255,10);</string>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(246, 244, 255);
+font: 75 13pt &quot;Segoe UI&quot;;
 background-color: rgb(255, 255, 255);
 border: 2px solid gray;
 border-radius: 10px;</string>
@@ -107,7 +108,8 @@ border-radius: 10px;</string>
       <string notr="true">background-color: rgb(246, 244, 255);
 background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;</string>
+border-radius: 10px;
+font: 75 11pt &quot;Segoe UI&quot;;</string>
      </property>
      <property name="echoMode">
       <enum>QLineEdit::Password</enum>
@@ -116,7 +118,7 @@ border-radius: 10px;</string>
     <widget class="QPushButton" name="pushButton_DangNhap">
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>90</x>
        <y>200</y>
        <width>121</width>
        <height>41</height>
@@ -171,9 +173,9 @@ color: rgb(254, 88, 91);</string>
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
-      <width>801</width>
-      <height>581</height>
+      <y>-10</y>
+      <width>661</width>
+      <height>451</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -182,44 +184,45 @@ color: rgb(254, 88, 91);</string>
     <property name="title">
      <string/>
     </property>
-    <widget class="QLabel" name="label_TrangThai">
-     <property name="geometry">
-      <rect>
-       <x>240</x>
-       <y>470</y>
-       <width>331</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Bahnschrift</family>
-       <pointsize>18</pointsize>
-       <weight>9</weight>
-       <italic>true</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">font: 75 italic 18pt &quot;Bahnschrift&quot;;
+   </widget>
+   <widget class="QLabel" name="label_TrangThai">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>390</y>
+      <width>311</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Bahnschrift</family>
+      <pointsize>18</pointsize>
+      <weight>9</weight>
+      <italic>true</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 italic 18pt &quot;Bahnschrift&quot;;
 background-color: rgb(222, 227, 255,0);
 color: rgb(255, 255, 255);
 border-radius: 10px;</string>
-     </property>
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Trạng thái: &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-    </widget>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Trạng thái: &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
    </widget>
    <zorder>groupBox_2</zorder>
    <zorder>groupBox</zorder>
+   <zorder>label_TrangThai</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>803</width>
+     <width>659</width>
      <height>21</height>
     </rect>
    </property>

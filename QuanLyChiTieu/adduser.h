@@ -4,7 +4,14 @@
 #include <QDialog>
 #include <loginapp.h>
 #include <quanlychitieu.h>
+
+
 #include <QString>
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QMessageBox>
+#include <QDebug>
+
 
 namespace Ui {
 class AddUser;
