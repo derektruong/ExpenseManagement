@@ -7,6 +7,7 @@
 #include <changepin.h>
 #include <quanlytaikhoan.h>
 #include <quanlychitieu.h>
+#include <quanlythunhap.h>
 #include <chitieu.h>
 
 
@@ -21,6 +22,7 @@
 #include <QtCharts/QChart>
 #include <QtCharts/QChartView>
 #include <QtCharts/QPieSeries>
+#include <QSortFilterProxyModel>
 
 typedef long long int lli;
 
@@ -49,7 +51,10 @@ private slots:
     QString FormatMoney(lli Tien);
 
     void RefreshP1();
+    void RefreshP2();
+    void RefreshP3();
     void RefreshP4();
+
 
     void UpdateTableP4();
 
@@ -101,6 +106,18 @@ private slots:
 
     void on_btn_page4_XoaTaiKhoan_clicked();
 
+    void on_btn_p2_TimTheoNgay_clicked();
+
+    void on_btn_p2_TimTheoThang_clicked();
+
+    void on_btn_p2_TimTheoNam_clicked();
+
+    void on_btn_p2_TimKiemChung_clicked();
+
+    void on_btn_p3_XacNhan_clicked();
+
+    void on_btn_p3_XacNhan_tab2_clicked();
+
 private:
     Ui::ExpenseTracker *ui;
 
@@ -109,6 +126,7 @@ private:
     QString HoTen = "Username";
     QuanLyTaiKhoan TaiKhoanQL;
     QuanLyChiTieu DanhMucQL;
+    QuanLyThuNhap ThuNhapQL;
 };
 
 #endif // EXPENSETRACKER_H

@@ -6,7 +6,6 @@
 #include <expensetracker.h>
 #include <quanlychitieu.h>
 
-
 #include <QString>
 #include <QStack>
 #include <QVector>

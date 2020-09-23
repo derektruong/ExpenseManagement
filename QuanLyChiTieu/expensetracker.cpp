@@ -23,6 +23,11 @@ ExpenseTracker::ExpenseTracker(QWidget *parent) :
     // Đặt title
     this->setWindowTitle(QString::fromUtf8("Quản lý chi tiêu"));
 
+    // Đặt ngày dateEdit về ngày hiện tại
+
+    QDate crrDate = QDate::currentDate();
+
+    ui->dateEdit_p3_NgayThuNhap->setDate(crrDate);
 
 }
 
@@ -62,13 +67,23 @@ void ExpenseTracker::RefreshP1(){
     ui->pushButton_TrangChinh->animateClick(5);
 }
 
+void ExpenseTracker::RefreshP2(){
+    ui->pushButton_ChiTieu->animateClick(5);
+
+}
+
+void ExpenseTracker::RefreshP3(){
+    ui->pushButton_ThuNhap->animateClick(5);
+
+}
+
 void ExpenseTracker::RefreshP4(){
     ui->pushButton_TaiKhoan->animateClick(5);
 }
 
 void ExpenseTracker::UpdateTableP4(){
     qryModel = new QSqlQueryModel();
-    qryModel->setQuery("SELECT Loai,Ten,SoDu,MoTa FROM dbo.TaiKhoan tk WHERE tk.TenChu = '"+TenDangNhap+"'");
+    qryModel->setQuery("SELECT Loai,Ten,SoDu,MoTa FROM TaiKhoan WHERE TenChu = '"+TenDangNhap+"'");
     //Chỉnh độ rộng
     ui->tableView_page4->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView_page4->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -107,62 +122,95 @@ void ExpenseTracker::on_pushButton_TrangChinh_clicked()
 
     QPieSeries *series = new QPieSeries();
     QPieSlice *slice;
+    int cnt = 0;
 
+    if( TienGD > 0 ){
+        series->append("GD", TienGD);
+        slice = series->slices().takeAt(cnt);
+        slice->setColor(Qt::blue);
+        slice->setLabelColor(Qt::white);
+        cnt++;
+    }
 
-    series->append("GD", TienGD);
-    slice = series->slices().takeAt(0);
-    slice->setColor(Qt::blue);
-    slice->setLabelColor(Qt::white);
+    if( TienSK > 0 ){
+        series->append("SK", TienSK);
+        slice = series->slices().takeAt(cnt);
+        slice->setBrush(QColor::fromRgb(218, 44, 56));
+        slice->setLabelColor(Qt::white);
+        cnt++;
+    }
 
-    series->append("SK", TienSK);
-    slice = series->slices().takeAt(1);
-    slice->setBrush(QColor::fromRgb(218, 44, 56));
-    slice->setLabelColor(Qt::white);
+    if( TienMS > 0 ){
+        series->append("MS", TienMS);
+        slice = series->slices().takeAt(cnt);
+        slice->setBrush(QColor::fromRgb(33, 209, 159));
+        slice->setLabelColor(Qt::white);
+        cnt++;
+    }
+    if( TienHP > 0 ){
+        series->append("HP", TienHP);
+        slice = series->slices().takeAt(cnt);
+        slice->setBrush(QColor::fromRgb(255, 188, 66));
+        slice->setLabelColor(Qt::white);
+        cnt++;
+    }
 
-    series->append("MS", TienMS);
-    slice = series->slices().takeAt(2);
-    slice->setBrush(QColor::fromRgb(33, 209, 159));
-    slice->setLabelColor(Qt::white);
+    if( TienHD > 0 ){
+        series->append("HD", TienHD);
+        slice = series->slices().takeAt(cnt);
+        slice->setBrush(QColor::fromRgb(250, 163, 129));
+        slice->setLabelColor(Qt::white);
+        cnt++;
+    }
 
-    series->append("HP", TienHP);
-    slice = series->slices().takeAt(3);
-    slice->setBrush(QColor::fromRgb(255, 188, 66));
-    slice->setLabelColor(Qt::white);
+    if( TienKD > 0 ){
+        series->append("KD", TienKD);
+        slice = series->slices().takeAt(cnt);
+        slice->setBrush(QColor::fromRgb(255, 184, 209));
+        slice->setLabelColor(Qt::white);
+        cnt++;
+    }
 
-    series->append("HD", TienHD);
-    slice = series->slices().takeAt(4);
-    slice->setBrush(QColor::fromRgb(250, 163, 129));
-    slice->setLabelColor(Qt::white);
+    if( TienOT > 0 ){
+        series->append("OT", TienOT);
+        slice = series->slices().takeAt(cnt);
+        slice->setBrush(QColor::fromRgb(128, 35, 146));
+        slice->setLabelColor(Qt::white);
+        cnt++;
+    }
 
-    series->append("KD", TienKD);
-    slice = series->slices().takeAt(5);
-    slice->setBrush(QColor::fromRgb(255, 184, 209));
-    slice->setLabelColor(Qt::white);
+    if( TienQT > 0 ){
+        series->append("QT", TienQT);
+        slice = series->slices().takeAt(cnt);
+        slice->setBrush(QColor::fromRgb(235, 245, 238));
+        slice->setLabelColor(Qt::white);
+        cnt++;
+    }
 
-    series->append("OT", TienOT);
-    slice = series->slices().takeAt(6);
-    slice->setBrush(QColor::fromRgb(128, 35, 146));
-    slice->setLabelColor(Qt::white);
+    if( TienDC > 0 ){
+        series->append("DC", TienDC);
+        slice = series->slices().takeAt(cnt);
+        slice->setBrush(QColor::fromRgb(144, 252, 249));
+        slice->setLabelColor(Qt::white);
+        cnt++;
+    }
 
-    series->append("QT", TienQT);
-    slice = series->slices().takeAt(7);
-    slice->setBrush(QColor::fromRgb(235, 245, 238));
-    slice->setLabelColor(Qt::white);
+    if( TienGT > 0 ){
+        series->append("GT", TienGT);
+        slice = series->slices().takeAt(cnt);
+        slice->setBrush(QColor::fromRgb(35, 46, 33));
+        slice->setLabelColor(Qt::white);
+        cnt++;
+    }
 
-    series->append("DC", TienDC);
-    slice = series->slices().takeAt(8);
-    slice->setBrush(QColor::fromRgb(144, 252, 249));
-    slice->setLabelColor(Qt::white);
+    if( TienBH > 0 ){
+        series->append("BH", TienBH);
+        slice = series->slices().takeAt(cnt);
+        slice->setBrush(QColor::fromRgb(55, 62, 64));
+        slice->setLabelColor(Qt::white);
+        cnt++;
+    }
 
-    series->append("GT", TienGT);
-    slice = series->slices().takeAt(9);
-    slice->setBrush(QColor::fromRgb(35, 46, 33));
-    slice->setLabelColor(Qt::white);
-
-    series->append("BH", TienBH);
-    slice = series->slices().takeAt(10);
-    slice->setBrush(QColor::fromRgb(55, 62, 64));
-    slice->setLabelColor(Qt::white);
 
     //
 
@@ -236,11 +284,69 @@ void ExpenseTracker::on_pushButton_TrangChinh_clicked()
 void ExpenseTracker::on_pushButton_ChiTieu_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
+    //
+    ui->comboBox_p2_TenTaiKhoan->clear();
+
+    ui->comboBox_p2_TenTaiKhoan->addItem("Tất Cả");
+
+    QVector<QString> DSTenTK = TaiKhoanQL.LayTenTaiKhoan(TenDangNhap);
+
+    if( ui->tab1_P2->isActiveWindow() ){
+
+        if( !DSTenTK.size() ){
+            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Bạn chưa có tài khoản nào!!"));
+        }
+
+        for ( int i = 0; i < DSTenTK.size(); ++i) {
+            ui->comboBox_p2_TenTaiKhoan->addItem(DSTenTK[i]);
+        }
+    }
+
 }
 
 void ExpenseTracker::on_pushButton_ThuNhap_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+
+    ui->comboBox_p3_DenTaiKhoan_tab1->clear();
+    ui->comboBox_p3_LoaiThuNhap_tab1->clear();
+
+    QVector<QString> DSTenTK = TaiKhoanQL.LayTenTaiKhoan(TenDangNhap);
+    QVector<QString> DSLoaiThuNhap = ThuNhapQL.LayTenThuNhap(TenDangNhap);
+
+    if( ui->tab1_P3->isActiveWindow() ){
+        //Thêm vào combobox TK
+        if( !DSTenTK.size() ){
+            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Bạn chưa có tài khoản nào!!"));
+        }
+
+        for ( int i = 0; i < DSTenTK.size(); ++i) {
+            ui->comboBox_p3_DenTaiKhoan_tab1->addItem(DSTenTK[i]);
+        }
+
+        //Thêm vào combobox Thu Nhập
+        if( !DSLoaiThuNhap.size() ){
+            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Bạn chưa có loại thu nhập nào, vui lòng thêm thu nhập"));
+        }
+
+        for ( int i = 0; i < DSLoaiThuNhap.size(); ++i) {
+            ui->comboBox_p3_LoaiThuNhap_tab1->addItem(DSLoaiThuNhap[i]);
+        }
+
+    }
+
+
+    qryModel = new QSqlQueryModel();
+    qryModel->setQuery("SELECT TOP 10 LoaiThuNhap AS N'Loại thu nhập', SoTien AS N'Số tiền', TenTaiKhoan AS N'Đến tài khoản', NgayThuNhap AS N'Thời gian', GhiChu AS N'Ghi chú'  FROM ThuNhap WHERE TenChu = '"+TenDangNhap+"' ");
+    //Chỉnh độ rộng
+    ui->tableView_page3->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView_page3->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    //
+
+    ui->tableView_page3->setModel(qryModel);
+    ui->tableView_page3->update();
+
+
 }
 
 void ExpenseTracker::on_pushButton_TaiKhoan_clicked()
@@ -538,7 +644,7 @@ void ExpenseTracker::on_btn_page4_ThemSoDu_clicked()
         RefreshP4();
     }
     else{
-        QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công !!"));
+        QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công!!"));
     }
 
     //done
@@ -574,5 +680,337 @@ void ExpenseTracker::on_btn_page4_XoaTaiKhoan_clicked()
 
     else return;
 
+
+}
+
+void ExpenseTracker::on_btn_p2_TimTheoNgay_clicked()
+{
+    QString Ngay;
+
+    Ngay = ui->calendarWidget_p2->selectedDate().toString("yyyy-MM-dd");
+
+    if( Ngay == ""){
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Lỗi không xác nhận được ngày !!"));
+        return;
+    }
+
+    //qDebug()<<Ngay;
+
+    //Truy vấn DB
+
+    QSqlQuery qry;
+
+    qry.prepare("SELECT TOP 10  SoTien AS N'Số tiền(VNĐ)', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản' FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND NgayChiTieu = '"+Ngay+"' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
+    if( qry.exec() ){
+
+        int count = 0;
+        while( qry.next() ){
+            count++;
+        }
+
+        if( count < 1 ){
+            QMessageBox::warning(this,"Thông báo",QString::fromUtf8("Không có ngày nào được tìm thấy!!"));
+            return;
+        }
+
+    }
+
+    qryModel = new QSqlQueryModel();
+    qryModel->setQuery(qry);
+    //Chỉnh độ rộng
+    ui->tableView_page2->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView_page2->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView_page2->horizontalHeader()->setDefaultAlignment(Qt::AlignHCenter);
+    //
+
+    ui->tableView_page2->setModel(qryModel);
+    ui->tableView_page2->update();
+
+
+}
+
+
+void ExpenseTracker::on_btn_p2_TimTheoThang_clicked()
+{
+    QString Thang;
+
+    Thang = ui->calendarWidget_p2->selectedDate().toString("MM");
+
+    if( Thang == ""){
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Lỗi không xác nhận được tháng !!"));
+        return;
+    }
+
+    //qDebug()<<Ngay;
+
+    //Truy vấn DB
+
+    QSqlQuery qry;
+
+    qry.prepare("SELECT TOP 10  SoTien AS N'Số tiền(VNĐ)', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản' FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND Month(NgayChiTieu) = '"+Thang+"' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
+    if( qry.exec() ){
+
+        int count = 0;
+        while( qry.next() ){
+            count++;
+        }
+
+        if( count < 1 ){
+           QMessageBox::warning(this,"Thông báo",QString::fromUtf8("Không có tháng nào được tìm thấy!!"));
+           return;
+        }
+
+    }
+
+    qryModel = new QSqlQueryModel();
+    qryModel->setQuery(qry);
+    //Chỉnh độ rộng
+    ui->tableView_page2->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView_page2->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    //
+
+    ui->tableView_page2->setModel(qryModel);
+    ui->tableView_page2->update();
+}
+
+void ExpenseTracker::on_btn_p2_TimTheoNam_clicked()
+{
+    QString Nam;
+
+    Nam = ui->calendarWidget_p2->selectedDate().toString("yyyy");
+
+    if( Nam == ""){
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Lỗi không xác nhận được năm !!"));
+        return;
+    }
+
+    //qDebug()<<Ngay;
+
+    //Truy vấn DB
+
+    QSqlQuery qry;
+
+    qry.prepare("SELECT TOP 10  SoTien AS N'Số tiền(VNĐ)', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản' FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND Year(NgayChiTieu) = '"+Nam+"' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
+    if( qry.exec() ){
+
+        int count = 0;
+        while( qry.next() ){
+            count++;
+        }
+
+        if( count < 1 ){
+           QMessageBox::warning(this,"Thông báo",QString::fromUtf8("Không có năm nào được tìm thấy!!"));
+           return;
+        }
+
+    }
+
+    qryModel = new QSqlQueryModel();
+    qryModel->setQuery(qry);
+    //Chỉnh độ rộng
+    ui->tableView_page2->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView_page2->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    //
+
+    ui->tableView_page2->setModel(qryModel);
+    ui->tableView_page2->update();
+}
+
+void ExpenseTracker::on_btn_p2_TimKiemChung_clicked()
+{
+    QString TenDanhMuc, MaDanhMuc, TenTaiKhoan, Key;
+
+    TenDanhMuc = ui->comboBox_p2_TenDanhMuc->currentText();
+    TenTaiKhoan = ui->comboBox_p2_TenTaiKhoan->currentText();
+    Key = ui->lineEdit_p2_MoTa->text();
+
+    if( TenDanhMuc == "Gia Đình" ) MaDanhMuc = "GD";
+    if( TenDanhMuc == "Sức Khoẻ" ) MaDanhMuc = "SK";
+    if( TenDanhMuc == "Mua Sắm" ) MaDanhMuc = "MS";
+    if( TenDanhMuc == "Học Phí" ) MaDanhMuc = "HP";
+    if( TenDanhMuc == "Hoá Đơn" ) MaDanhMuc = "HD";
+    if( TenDanhMuc == "Kinh Doanh" ) MaDanhMuc = "KD";
+    if( TenDanhMuc == "Khác" ) MaDanhMuc = "OT";
+    if( TenDanhMuc == "Quà Tặng" ) MaDanhMuc = "QT";
+    if( TenDanhMuc == "Di Chuyển" ) MaDanhMuc = "DC";
+    if( TenDanhMuc == "Giải Trí" ) MaDanhMuc = "GT";
+    if( TenDanhMuc == "Bách Hoá" ) MaDanhMuc = "BH";
+
+
+    QSqlQuery qry;
+
+    if( TenDanhMuc == "Tất Cả" && TenTaiKhoan == "Tất Cả" ){
+        qry.prepare("SELECT TOP 10 SoTien AS N'Số tiền', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản'  FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND GhiChu LIKE N'%"+Key+"%' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
+    }
+
+    if( TenDanhMuc != "Tất Cả" && TenTaiKhoan == "Tất Cả" ){
+        qry.prepare("SELECT TOP 10 SoTien AS N'Số tiền', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản'  FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND MaDanhMuc = '"+MaDanhMuc+"'  AND GhiChu LIKE N'%"+Key+"%' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
+    }
+
+    if( TenDanhMuc == "Tất Cả" && TenTaiKhoan != "Tất Cả" ){
+        qry.prepare("SELECT TOP 10 SoTien AS N'Số tiền', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản'  FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND TenTaiKhoan = N'"+TenTaiKhoan+"' AND GhiChu LIKE N'%"+Key+"%' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
+    }
+
+    if( TenDanhMuc != "Tất Cả" && TenTaiKhoan != "Tất Cả" ){
+        qry.prepare("SELECT TOP 10 SoTien AS N'Số tiền', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản'  FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND MaDanhMuc = '"+MaDanhMuc+"' AND TenTaiKhoan = N'"+TenTaiKhoan+"' AND GhiChu LIKE N'%"+Key+"%' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
+    }
+
+    if( qry.exec() ){
+
+        int count = 0;
+        while( qry.next() ){
+            count++;
+        }
+
+        if( count < 1 ){
+           QMessageBox::warning(this,"Thông báo",QString::fromUtf8("Không có thông tin nào khớp với kết quả được tìm thấy hoặc bạn nhập không đủ dấu!!"));
+           return;
+        }
+
+    }
+
+    qryModel = new QSqlQueryModel();
+    qryModel->setQuery(qry);
+
+    //Chỉnh độ rộng
+    ui->tableView_page2->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView_page2->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    //
+
+    ui->tableView_page2->setModel(qryModel);
+    ui->tableView_page2->sortByColumn(0,Qt::DescendingOrder);
+    ui->tableView_page2->update();
+
+}
+
+//Xác nhận thêm tiền vào loại thu nhập đã có
+void ExpenseTracker::on_btn_p3_XacNhan_clicked()
+{
+    QString LoaiThuNhap, TenTaiKhoan, NgayThuNhap, GhiChu;
+    lli SoTien;
+
+    LoaiThuNhap = ui->comboBox_p3_LoaiThuNhap_tab1->currentText();
+    TenTaiKhoan = ui->comboBox_p3_DenTaiKhoan_tab1->currentText();
+    GhiChu = ui->textEdit_p3_GhiChu->toPlainText();
+
+    //Kiểm tra hợp lệ số tiền
+    for ( int i = 0; i < ui->lineEdit_p3_SoTien->text().size(); ++i) {
+        if(ui->lineEdit_p3_SoTien->text()[0] =='0') {
+            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Số tiền nhập không hợp lệ chỉ gồm các chữ số"));
+            return;
+        }
+        if( ui->lineEdit_p3_SoTien->text()[i] < 48 || ui->lineEdit_p3_SoTien->text()[i] > 57 ){
+            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Số tiền nhập không hợp lệ chỉ gồm các chữ số"));
+            return;
+        }
+    }
+
+    //
+
+    SoTien = ui->lineEdit_p3_SoTien->text().toLongLong();
+
+    if( LoaiThuNhap == "" || TenTaiKhoan == "" || SoTien < 0){
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Nhập không hợp lệ !!"));
+        return;
+    }
+
+    NgayThuNhap = ui->dateEdit_p3_NgayThuNhap->text();
+
+    //Định dạng lại format date cho phù hợp với DBase
+    QStack<QString> st;
+
+    int s = 0;
+
+    for ( int i = 0; i < NgayThuNhap.size(); ++i) {
+        if( NgayThuNhap[i] == '/' ){
+            st.push(QString::number(s));
+            st.push("/");
+            s = 0;
+            continue;
+        }
+        s = s*10 + (NgayThuNhap[i].unicode() - 48);
+
+    }
+
+    st.push(QString::number(s));
+
+    NgayThuNhap = "";
+
+    while ( !st.empty() ) {
+        NgayThuNhap+=st.top();
+        st.pop();
+    }
+    //done
+
+    // Truy vấn DB
+
+    QSqlQuery qry;
+
+    /// Cộng tiền vào tài khoản
+
+    lli SoDuTK = TaiKhoanQL.LaySoDu(TenDangNhap,TenTaiKhoan);
+
+    SoDuTK += SoTien;
+
+    qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK  WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
+
+    qry.bindValue(":SoDuTK", SoDuTK);
+    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+    qry.bindValue(":Username", TenDangNhap);
+
+    if( qry.exec() ){
+        qDebug()<<"Đã thêm thành công!";
+    }
+    else QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công !!"));
+
+    /// done
+
+    /// Thêm vào thu nhập
+
+    qry.prepare("INSERT ThuNhap ( LoaiThuNhap, SoTien, GhiChu, TenChu, TenTaiKhoan, NgayThuNhap )" "VALUES ( :LoaiThuNhap, :SoTien, :GhiChu, :TenChu, :TenTaiKhoan, :NgayThuNhap )");
+
+    qry.bindValue(":LoaiThuNhap", LoaiThuNhap);
+    qry.bindValue(":SoTien", SoTien);
+    qry.bindValue(":GhiChu", GhiChu);
+    qry.bindValue(":TenChu", TenDangNhap);
+    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+    qry.bindValue(":NgayThuNhap", NgayThuNhap);
+
+    if( qry.exec() ){
+        RefreshP3();
+    }
+    else QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công !!"));
+
+    /// done
+
+}
+
+//Xác nhận thêm loại thu nhập
+void ExpenseTracker::on_btn_p3_XacNhan_tab2_clicked()
+{
+    QString LoaiThuNhap, GhiChu;
+
+    LoaiThuNhap = ui->lineEdit_p3_LoaiThuNhap_tab2->text();
+    GhiChu = ui->textEdit_p3_GhiChu_tab2->toPlainText();
+
+    if( LoaiThuNhap == "" ){
+        QMessageBox::information(this,"Chú ý","Bạn phải nhập loại thu nhập");
+        return;
+    }
+
+    // Truy vấn DB
+
+    QSqlQuery qry;
+
+    qry.prepare("INSERT LoaiThuNhap ( LoaiThuNhap, GhiChu, TenChu )" "VALUES (  :LoaiThuNhap,  :GhiChu,  :TenChu  ) ");
+
+    qry.bindValue(":LoaiThuNhap", LoaiThuNhap);;
+    qry.bindValue(":GhiChu", GhiChu);
+    qry.bindValue(":TenChu", TenDangNhap);
+
+    if( qry.exec() ){
+        RefreshP3();
+    }
+    else QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công !!"));
 
 }

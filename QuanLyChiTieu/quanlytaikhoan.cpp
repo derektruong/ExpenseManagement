@@ -18,7 +18,7 @@ lli QuanLyTaiKhoan::LaySoDu(QString Username, QString TenTK){
 
     QSqlQuery qry;
 
-    if( qry.exec("SELECT tk.* FROM dbo.TaiKhoan tk WHERE tk.TenChu = '"+TenChu+"' AND tk.Ten = N'"+TenTaiKhoan+"'") ){
+    if( qry.exec("SELECT * FROM TaiKhoan WHERE TenChu = '"+TenChu+"' AND Ten = N'"+TenTaiKhoan+"'") ){
         while ( qry.next() ) {
             res += qry.value("SoDu").toLongLong();
         }
@@ -50,7 +50,7 @@ QString QuanLyTaiKhoan::TinhTongSoDu(QString Username){
 
     QSqlQuery qry;
 
-    if( qry.exec("SELECT tk.* FROM dbo.TaiKhoan tk WHERE tk.TenChu = '"+TenChu+"' AND tk.BaoGomTrongTongSoDu = 1") ){
+    if( qry.exec("SELECT * FROM dbo.TaiKhoan WHERE TenChu = '"+TenChu+"' AND BaoGomTrongTongSoDu = 1") ){
         while ( qry.next() ) {
             num += qry.value("SoDu").toLongLong();
         }
@@ -91,7 +91,7 @@ QVector<QString> QuanLyTaiKhoan::LayTenTaiKhoan(QString Username){
 
     QSqlQuery qry;
 
-    if( qry.exec("SELECT tk.* FROM dbo.TaiKhoan tk WHERE tk.TenChu = '"+TenChu+"'") ){
+    if( qry.exec("SELECT * FROM TaiKhoan WHERE TenChu = '"+TenChu+"'") ){
         while ( qry.next() ) {
             res.push_back(qry.value("Ten").toString());
         }

@@ -2,6 +2,7 @@
 #define QUANLYCHITIEU_H
 
 #include <QString>
+#include <QVector>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 #include <QMessageBox>

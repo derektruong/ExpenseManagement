@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>659</width>
+    <width>641</width>
     <height>480</height>
    </rect>
   </property>
@@ -174,7 +174,7 @@ color: rgb(254, 88, 91);</string>
      <rect>
       <x>0</x>
       <y>-10</y>
-      <width>661</width>
+      <width>641</width>
       <height>451</height>
      </rect>
     </property>
@@ -222,7 +222,7 @@ border-radius: 10px;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>659</width>
+     <width>641</width>
      <height>21</height>
     </rect>
    </property>

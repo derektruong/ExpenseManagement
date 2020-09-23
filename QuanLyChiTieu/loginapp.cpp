@@ -10,7 +10,7 @@ LoginAPP::LoginAPP(QWidget *parent)
 {
     ui->setupUi(this);
 
-    this->setFixedSize(661,451);
+    this->setFixedSize(641,451);
 
     this->setWindowTitle(QString::fromUtf8("Đăng nhập"));
 

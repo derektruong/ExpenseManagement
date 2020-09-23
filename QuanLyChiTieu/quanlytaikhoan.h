@@ -4,7 +4,6 @@
 #include <QString>
 #include <QStack>
 #include <QVector>
-#include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 #include <QMessageBox>
 #include <QDebug>

@@ -77,16 +77,22 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
    <property name="styleSheet">
     <string notr="true">font: 75 18pt &quot;Segoe UI&quot;;</string>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
    <property name="currentSection">
     <enum>QDateTimeEdit::DaySection</enum>
    </property>
    <property name="calendarPopup">
     <bool>true</bool>
    </property>
+   <property name="timeSpec">
+    <enum>Qt::LocalTime</enum>
+   </property>
    <property name="date">
     <date>
      <year>2020</year>
-     <month>1</month>
+     <month>9</month>
      <day>1</day>
     </date>
    </property>
@@ -95,13 +101,16 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>350</y>
+     <y>340</y>
      <width>261</width>
-     <height>101</height>
+     <height>111</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 16pt &quot;Segoe UI&quot;;</string>
+    <string notr="true">font: 14pt &quot;Segoe UI&quot;;</string>
+   </property>
+   <property name="placeholderText">
+    <string>Tên mặt hàng, thông tin,..</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_ThemChiTieu">

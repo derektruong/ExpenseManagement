@@ -3,11 +3,6 @@
 
 #include <expensetracker.h>
 
-#include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlQuery>
-#include <QMessageBox>
-#include <QDebug>
-
 ChangePin::ChangePin(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ChangePin)

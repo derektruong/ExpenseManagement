@@ -23,7 +23,8 @@ SOURCES += \
     main.cpp \
     loginapp.cpp \
     quanlychitieu.cpp \
-    quanlytaikhoan.cpp
+    quanlytaikhoan.cpp \
+    quanlythunhap.cpp
 
 HEADERS += \
     adduser.h \
@@ -32,7 +33,8 @@ HEADERS += \
     expensetracker.h \
     loginapp.h \
     quanlychitieu.h \
-    quanlytaikhoan.h
+    quanlytaikhoan.h \
+    quanlythunhap.h
 
 FORMS += \
     adduser.ui \

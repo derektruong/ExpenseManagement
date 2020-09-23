@@ -25,7 +25,12 @@ ChiTieu::ChiTieu(QString DanhMuc, QString username,QWidget *parent ) :
 
     ui->label_DenDanhMucHienTai->setText(DanhMuc);
 
-    //
+    // Đặt ngày dateEdit về ngày hiện tại
+
+    QDate crrDate = QDate::currentDate();
+
+    ui->dateEdit->setDate(crrDate);
+
 
 }
 

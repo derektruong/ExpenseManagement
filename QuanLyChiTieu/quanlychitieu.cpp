@@ -1,8 +1,6 @@
 #include "quanlychitieu.h"
 
 
-
-
 QuanLyChiTieu::QuanLyChiTieu()
 {
 
@@ -65,3 +63,4 @@ lli QuanLyChiTieu::LaySoTienTong(QString MaDanhMuc, QString Username){
     }
     return res;
 }
+
