@@ -47,12 +47,6 @@ public:
     void FormatDate(QString& date);
     bool CheckMoneyInput(QString money);
 
-    void RefreshP1();
-    void RefreshP2();
-    void RefreshP3();
-    void RefreshP4();
-
-
     void UpdateTableP4();
 
     //void GetUserName(LoginAPP login);
@@ -61,6 +55,10 @@ protected:
     QString TenDangNhap;
 
 private slots:
+    void RefreshP1();
+    void RefreshP2();
+    void RefreshP3();
+    void RefreshP4();
 
     void indexChanged(int index);
 
@@ -89,6 +87,8 @@ private slots:
     void on_btn_page4_ThemSoDu_clicked();
 
     void on_btn_page4_XoaTaiKhoan_clicked();
+
+    void on_btn_page4_CapNhat_XemBang_clicked();
 
     void on_btn_GiaDinhPic_clicked();
 

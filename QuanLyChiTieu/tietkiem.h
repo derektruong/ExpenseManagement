@@ -21,6 +21,10 @@ public:
     void CapNhatSoDu(QString Username, int MaTaiKhoan, lli SoDuTK);
 
     void XoaTietKiem(QString Username, int MaTaiKhoan);
+
+    void ThemTietKiem(QString Username, QString TenTietKiem, lli SoDu, lli MucTieu, int MaTaiKhoan);
+
+    lli KiemTraMucTieu(QString Username, int MaTaiKhoan);
 };
 
 #endif // TIETKIEM_H

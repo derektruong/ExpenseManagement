@@ -58,3 +58,39 @@ void TietKiem::XoaTietKiem(QString Username, int MaTaiKhoan){
     }
 
 }
+
+void TietKiem::ThemTietKiem(QString Username, QString TenTietKiem, lli SoDu, lli MucTieu, int MaTaiKhoan){
+    QSqlQuery qry;
+
+    qry.prepare("INSERT INTO TietKiem ( TenTietKiem, SoDu, MucTieu, MaTaiKhoan, TenChu )" "VALUES (  :TenTietKiem, :SoDu, :MucTieu, :MaTaiKhoan, :TenChu )");
+
+    qry.bindValue(":TenTietKiem", TenTietKiem);
+    qry.bindValue(":SoDu", SoDu);
+    qry.bindValue(":MucTieu", MucTieu);
+    qry.bindValue(":MaTaiKhoan", MaTaiKhoan);
+    qry.bindValue(":TenChu", Username);
+
+    if( !qry.exec() ){
+        qDebug()<<"Lỗi không kết nối được CSDL!";
+    }
+
+}
+
+lli TietKiem::KiemTraMucTieu(QString Username, int MaTaiKhoan){
+    QSqlQuery qry;
+    lli res = 0;
+
+    qry.prepare("SELECT SoDu, MucTieu FROM TietKiem WHERE TenChu = :Username AND MaTaiKhoan = :MaTaiKhoan");
+
+    qry.bindValue(":Username", Username);
+    qry.bindValue(":MaTaiKhoan", MaTaiKhoan);
+
+    if( qry.exec() ){
+        while ( qry.next() ) {
+            res = qry.value("SoDu").toLongLong() - qry.value("MucTieu").toLongLong();
+        }
+    }
+
+    return res;
+
+}

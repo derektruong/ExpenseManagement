@@ -6,6 +6,8 @@ ChiTieu::ChiTieu(QString DanhMuc, QString username,QWidget *parent ) :
     ui(new Ui::ChiTieu)
 {
     ui->setupUi(this);
+
+    this->setWindowTitle(QString::fromUtf8("Chi tiêu"));
     //
 
     this->Username = username;
