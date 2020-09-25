@@ -24,7 +24,8 @@ SOURCES += \
     loginapp.cpp \
     quanlychitieu.cpp \
     quanlytaikhoan.cpp \
-    quanlythunhap.cpp
+    quanlythunhap.cpp \
+    tietkiem.cpp
 
 HEADERS += \
     adduser.h \
@@ -34,7 +35,8 @@ HEADERS += \
     loginapp.h \
     quanlychitieu.h \
     quanlytaikhoan.h \
-    quanlythunhap.h
+    quanlythunhap.h \
+    tietkiem.h
 
 FORMS += \
     adduser.ui \

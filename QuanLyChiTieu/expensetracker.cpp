@@ -29,6 +29,8 @@ ExpenseTracker::ExpenseTracker(QWidget *parent) :
 
     ui->dateEdit_p3_NgayThuNhap->setDate(crrDate);
 
+    ui->dateEdit_p3_KyHan_NO->setDate(crrDate);
+
 }
 
 ExpenseTracker::~ExpenseTracker()
@@ -61,6 +63,47 @@ QString ExpenseTracker::FormatMoney(lli Tien){
     //qDebug()<<res;
 
     return  res;
+}
+
+void ExpenseTracker::FormatDate(QString& date){
+
+    QStack<QString> st;
+
+    int s = 0;
+
+    for ( int i = 0; i < date.size(); ++i) {
+        if( date[i] == '/' ){
+            st.push(QString::number(s));
+            st.push("/");
+            s = 0;
+            continue;
+         }
+         s = s*10 + (date[i].unicode() - 48);
+
+    }
+
+    st.push(QString::number(s));
+
+    date = "";
+
+    while ( !st.empty() ) {
+        date+=st.top();
+        st.pop();
+    }
+}
+
+bool ExpenseTracker::CheckMoneyInput(QString money){
+    for ( int i = 0; i < money.size(); ++i) {
+        if(money[0].unicode() - 48 < 0) {
+            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Số liệu nhập không hợp lệ!"));
+            return false;
+        }
+        if( money[i] < 48 || money[i] > 57 ){
+            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Số liệu nhập không hợp lệ chỉ gồm các chữ số"));
+            return false;
+        }
+    }
+    return true;
 }
 
 void ExpenseTracker::RefreshP1(){
@@ -97,6 +140,17 @@ void ExpenseTracker::UpdateTableP4(){
     ui->tableView_page4->update();
 
     //delete qryModel;
+}
+
+void ExpenseTracker::indexChanged(int index){
+    for (int i = 0; i < 3; ++i) {
+        if( i == index ){
+            ui->tabWidget_3->setTabEnabled(i, true);
+            ui->tabWidget_3->setCurrentIndex(index);
+            continue;
+        }
+        ui->tabWidget_3->setTabEnabled(i, false);
+    }
 }
 
 
@@ -352,16 +406,24 @@ void ExpenseTracker::on_pushButton_ThuNhap_clicked()
 void ExpenseTracker::on_pushButton_TaiKhoan_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
-    ///
+    ///Cap nhat bang page 4
 
     UpdateTableP4();
 
+    //Xoá comboBox
     ui->comboBox_p4_TenTaiKhoan->clear();
     ui->comboBox_p4_TenTaiKhoan_Xoa->clear();
+
+    //Vô hiệu hoá tabWidget
+    ui->comboBox_p4_LoaiTaiKhoan->setCurrentIndex(0);
+    ui->tabWidget_3->setTabEnabled(0, true);
+    ui->tabWidget_3->setTabEnabled(1, false);
+    ui->tabWidget_3->setTabEnabled(2, false);
 
     ///
 
     QVector<QString> DSTenTK = TaiKhoanQL.LayTenTaiKhoan(TenDangNhap);
+    QVector<QString> DSTenTatCaTK = TaiKhoanQL.LayTenTatCaTaiKhoan(TenDangNhap);
     // Tiền xử lý tab thêm số dư
     if( ui->tab_2->isActiveWindow() ){
 
@@ -380,14 +442,16 @@ void ExpenseTracker::on_pushButton_TaiKhoan_clicked()
     // Tiền xử lý tab xoá tài khoản
     if( ui->tab_3->isActiveWindow() ){
 
-        if( !DSTenTK.size() ){
+        if( !DSTenTatCaTK.size() ){
             QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Bạn chưa có tài khoản nào!!"));
         }
 
-        for ( int i = 0; i < DSTenTK.size(); ++i) {
-            ui->comboBox_p4_TenTaiKhoan_Xoa->addItem(DSTenTK[i]);
+        for ( int i = 0; i < DSTenTatCaTK.size(); ++i) {
+            ui->comboBox_p4_TenTaiKhoan_Xoa->addItem(DSTenTatCaTK[i]);
         }
     }
+
+    connect(ui->comboBox_p4_LoaiTaiKhoan, SIGNAL(currentIndexChanged(int)),this, SLOT(indexChanged(int)));
 
 
     //
@@ -435,45 +499,32 @@ void ExpenseTracker::on_pushButton_ThayMaPin_clicked()
 }
 // Page Tài Khoản
 
-void ExpenseTracker::on_btn_page4_ThemTK_clicked()
+void ExpenseTracker::on_btn_page4_ThemTK_TX_clicked()
 {
     //Pre Processing
 
     QString LoaiTaiKhoan, TenTaiKhoan, MoTa;
-    int inTotal = -1;
     lli SoDu;
+    int inTotal = 1;
 
 
     LoaiTaiKhoan = ui->comboBox_p4_LoaiTaiKhoan->currentText();
-    TenTaiKhoan = ui->lineEdit_p4_TenTaiKhoan->text();
-    MoTa = ui->textEdit_p4_MoTa->toPlainText();
-    if( ui->radioButton_Co->isChecked() ) inTotal = 1;
-    else inTotal = 0;
+    TenTaiKhoan = ui->lineEdit_p4_TenTaiKhoan_TX->text();
+    MoTa = ui->textEdit_p4_MoTa_TX->toPlainText();
 
     //Kiểm tra hợp lệ số dư
-    for ( int i = 0; i < ui->lineEdit_p4_SoDu->text().size(); ++i) {
-        if(ui->lineEdit_p4_SoDu->text()[0].unicode() - 48 < 0) {
-            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Số tiền nhập không hợp lệ!"));
-            return;
-        }
-        if( ui->lineEdit_p4_SoDu->text()[i] < 48 || ui->lineEdit_p4_SoDu->text()[i] > 57 ){
-            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Số tiền nhập không hợp lệ chỉ gồm các chữ số"));
-            return;
-        }
-    }
+    if( !CheckMoneyInput(ui->lineEdit_p4_SoDu_TX->text()) ) return;
 
     //Kiểm tra hợp lệ nhập
 
-    if(TenTaiKhoan == "" || inTotal == -1 || !ui->lineEdit_p4_SoDu->text().size() ){
+    if(TenTaiKhoan == "" || !ui->lineEdit_p4_SoDu_TX->text().size() ){
         QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Phải nhập đủ!"));
         return;
     }
 
     //
 
-    SoDu = (ui->lineEdit_p4_SoDu->text()).toLongLong();
-
-    //qDebug()<<LoaiTaiKhoan<<" "<<TenTaiKhoan<<" "<<MoTa<<" "<<inTotal<<" "<<SoDu;
+    SoDu = (ui->lineEdit_p4_SoDu_TX->text()).toLongLong();
 
     QSqlQuery qry;
 
@@ -485,18 +536,267 @@ void ExpenseTracker::on_btn_page4_ThemTK_clicked()
     qry.bindValue(":BaoGomTrongTongSoDu", inTotal);
     qry.bindValue(":TenChu", TenDangNhap);
     qry.bindValue(":MoTa", MoTa);
-    if( qry.exec() ){
+    if( !qry.exec() ){
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không thể thêm tài khoản hoặc tên tài khoản bị trùng!!"));
+        return;
+    }
+    QMessageBox::information(this, QString::fromUtf8("Thông báo"), QString::fromUtf8("Bạn đã thêm tài khoản thành công!!"));
 
-        QMessageBox::information(this, QString::fromUtf8("Thông báo"), QString::fromUtf8("Bạn đã thêm tài khoản thành công!!"));
+    RefreshP4();
+}
 
-        RefreshP4();
+void ExpenseTracker::on_btn_page4_ThemTK_TK_clicked()
+{
+    QString LoaiTaiKhoan, TenTaiKhoan, MoTa;
+    lli SoDu = 0, MucTieu = 0;
+    int inTotal = 1;
 
+    LoaiTaiKhoan = ui->comboBox_p4_LoaiTaiKhoan->currentText();
+    TenTaiKhoan = ui->lineEdit_p4_TenTaiKhoan_TK->text();
+    MoTa = ui->textEdit_p4_MoTa_TK->toPlainText();
+
+    if( !CheckMoneyInput(ui->lineEdit_p4_SoDu_TK->text()) ) return;
+    if( !CheckMoneyInput(ui->lineEdit_p4_MucTieu_TK->text()) ) return;
+
+    SoDu = ui->lineEdit_p4_SoDu_TK->text().toLongLong();
+    MucTieu = ui->lineEdit_p4_MucTieu_TK->text().toLongLong();
+
+    if(TenTaiKhoan == "" || !ui->lineEdit_p4_MucTieu_TK->text().size() ){
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Phải nhập đủ!"));
+        return;
     }
 
-    else{
+    //Truy vấn DB
+
+    /// Insert bảng TaiKhoan
+
+    QSqlQuery qry;
+
+    qry.prepare("INSERT INTO TaiKhoan( Loai,Ten,SoDu,BaoGomTrongTongSoDu,TenChu,MoTa )" "VALUES( :Loai, :Ten, :SoDu, :BaoGomTrongTongSoDu, :TenChu, :MoTa)");
+
+    qry.bindValue(":Loai", LoaiTaiKhoan);
+    qry.bindValue(":Ten", TenTaiKhoan);
+    qry.bindValue(":SoDu", SoDu);
+    qry.bindValue(":BaoGomTrongTongSoDu", inTotal);
+    qry.bindValue(":TenChu", TenDangNhap);
+    qry.bindValue(":MoTa", MoTa);
+
+    if( !qry.exec() ){
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không thể thêm tài khoản hoặc tên tài khoản bị trùng!!"));
+        return;
+    }
+
+    /// done
+    ///
+    /// Insert bảng TietKiem
+    int MTK = TaiKhoanQL.LayMaTaiKhoan(TenDangNhap, TenTaiKhoan);
+
+    qry.prepare("INSERT INTO TietKiem ( TenTietKiem, SoDu, MucTieu, MaTaiKhoan, TenChu )" "VALUES (  :TenTietKiem, :SoDu, :MucTieu, :MaTaiKhoan, :TenChu )");
+
+    qry.bindValue(":TenTietKiem", TenTaiKhoan);
+    qry.bindValue(":SoDu", SoDu);
+    qry.bindValue(":MucTieu", MucTieu);
+    qry.bindValue(":MaTaiKhoan", MTK);
+    qry.bindValue(":TenChu", TenDangNhap);
+
+    if( !qry.exec() ){
         QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không thể thêm tài khoản!!"));
         return;
     }
+
+    QMessageBox::information(this, QString::fromUtf8("Thông báo"), QString::fromUtf8("Bạn đã thêm tài khoản thành công!!"));
+
+    RefreshP4();
+
+    ///done
+
+}
+
+void ExpenseTracker::on_btn_page4_ThemTK_NO_clicked()
+{
+    QString LoaiTaiKhoan, TenTaiKhoan, KyHan, MoTa;
+    lli TienNo;
+    int LaiSuat;
+    int inTotal = 0;
+
+    LoaiTaiKhoan = ui->comboBox_p4_LoaiTaiKhoan->currentText();
+    TenTaiKhoan = ui->lineEdit_p4_TenTaiKhoan_NO->text();
+    MoTa = ui->textEdit_p4_MoTa_NO->toPlainText();
+
+    if( !CheckMoneyInput(ui->lineEdit_p4_TienNo_NO->text()) ) return;
+    if( !CheckMoneyInput(ui->lineEdit_p4_LaiSuat_NO->text()) ) return;
+
+    TienNo = ui->lineEdit_p4_TienNo_NO->text().toLongLong();
+    LaiSuat = ui->lineEdit_p4_LaiSuat_NO->text().toInt();
+
+    if( LaiSuat < 0 || LaiSuat > 100 ){
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Lãi suất không hợp lệ!!"));
+        return;
+    }
+
+    KyHan = ui->dateEdit_p3_KyHan_NO->text();
+
+    FormatDate(KyHan);
+
+    if(TenTaiKhoan == "" || !ui->lineEdit_p4_TienNo_NO->text().size() ){
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Phải nhập đủ!"));
+        return;
+    }
+
+    //Truy vấn DB
+
+    /// Insert bảng TaiKhoan
+
+    QSqlQuery qry;
+
+    qry.prepare("INSERT INTO TaiKhoan( Loai,Ten,SoDu,BaoGomTrongTongSoDu,TenChu,MoTa )" "VALUES( :Loai, :Ten, :SoDu, :BaoGomTrongTongSoDu, :TenChu, :MoTa)");
+
+    qry.bindValue(":Loai", LoaiTaiKhoan);
+    qry.bindValue(":Ten", TenTaiKhoan);
+    qry.bindValue(":SoDu", TienNo);
+    qry.bindValue(":BaoGomTrongTongSoDu", inTotal);
+    qry.bindValue(":TenChu", TenDangNhap);
+    qry.bindValue(":MoTa", MoTa);
+
+    if( !qry.exec() ){
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không thể thêm tài khoản hoặc tên tài khoản bị trùng!!"));
+        return;
+    }
+
+    /// done
+    ///
+    /// Insert bảng Loan
+    int MTK = TaiKhoanQL.LayMaTaiKhoan(TenDangNhap, TenTaiKhoan);
+
+    qry.prepare("INSERT INTO Loan ( TenNo, TienNo, LaiSuat, KyHan, MaTaiKhoan, TenChu )" "VALUES ( :TenNo, :TienNo, :LaiSuat, :KyHan, :MaTaiKhoan, :TenChu )");
+
+    qry.bindValue(":TenNo", TenTaiKhoan);
+    qry.bindValue(":TienNo", TienNo);
+    qry.bindValue(":LaiSuat", LaiSuat/100.0);
+    qry.bindValue(":KyHan", KyHan);
+    qry.bindValue(":MaTaiKhoan", MTK);
+    qry.bindValue(":TenChu", TenDangNhap);
+
+    if( !qry.exec() ){
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không thể thêm tài khoản!!"));
+        return;
+    }
+
+    QMessageBox::information(this, QString::fromUtf8("Thông báo"), QString::fromUtf8("Bạn đã thêm tài khoản thành công!!"));
+
+    RefreshP4();
+
+    ///done
+
+
+}
+
+//page4_ThemSoDu
+void ExpenseTracker::on_btn_page4_ThemSoDu_clicked()
+{
+    QString TenTaiKhoan, MoTa;
+    lli SoTien;
+
+    TenTaiKhoan = ui->comboBox_p4_TenTaiKhoan->currentText();
+
+    MoTa = ui->textEdit_p4_MoTa_2->toPlainText();
+
+    //Kiểm tra hợp lệ số tiền
+    if( !CheckMoneyInput(ui->lineEdit_p4_SoTien->text()) ) return;
+
+    SoTien = ui->lineEdit_p4_SoTien->text().toLongLong();
+
+    if( SoTien < 0 ){
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Nhập không hợp lệ !!"));
+        return;
+    }
+
+    //Lấy mã tài khoản
+    int MTK = TaiKhoanQL.LayMaTaiKhoan(TenDangNhap, TenTaiKhoan);
+
+    // Truy vấn DB
+    QSqlQuery qry;
+
+    lli SoDuTK = TaiKhoanQL.LaySoDu(TenDangNhap,TenTaiKhoan);
+
+    SoDuTK += SoTien;
+
+    //Thêm trong bảng TietKiem nếu có
+    if( TaiKhoanQL.LayLoaiTaiKhoan(TenDangNhap, TenTaiKhoan) == "Tiết kiệm" ){
+        TietKiemQL.CapNhatSoDu(TenDangNhap, MTK, SoDuTK);
+    }
+    //done
+
+    if( MoTa != "" ) qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK, MoTa = :MoTa  WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
+    else qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
+    qry.bindValue(":SoDuTK", SoDuTK);
+    if( MoTa != "" ) qry.bindValue(":MoTa", MoTa);
+    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+    qry.bindValue(":Username", TenDangNhap);
+
+    if( qry.exec() ){
+        RefreshP4();
+    }
+    else{
+        QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công!!"));
+    }
+
+    //done
+
+}
+//page4_XoaTaiKhoan
+void ExpenseTracker::on_btn_page4_XoaTaiKhoan_clicked()
+{
+    QString TenTaiKhoan;
+    TenTaiKhoan = ui->comboBox_p4_TenTaiKhoan_Xoa->currentText();
+
+    int MTK = TaiKhoanQL.LayMaTaiKhoan(TenDangNhap, TenTaiKhoan);
+
+    if( TenTaiKhoan == ""){
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không có thẻ nào được chọn !!"));
+        return;
+    }
+
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Cảnh báo", "Bạn có chắc muốn xoá tài khoản "+TenTaiKhoan+" không", QMessageBox::Yes|QMessageBox::No);
+
+    if( reply == QMessageBox::Yes ){
+        QSqlQuery qry;
+
+        //Xoá trong bảng TietKiem nếu có
+        if( TaiKhoanQL.LayLoaiTaiKhoan(TenDangNhap, TenTaiKhoan) == "Tiết kiệm" ){
+            TietKiemQL.XoaTietKiem(TenDangNhap, MTK);
+        }
+        //done
+        //Xoá trong bảng Loan nếu có
+        if( TaiKhoanQL.LayLoaiTaiKhoan(TenDangNhap, TenTaiKhoan) == "Nợ" ){
+            qry.prepare("DELETE FROM Loan WHERE TenChu = :Username AND MaTaiKhoan = :MaTaiKhoan ");
+
+            qry.bindValue(":MaTaiKhoan", MTK);
+            qry.bindValue(":Username", TenDangNhap);
+
+            if( !qry.exec() ){
+                QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không thể thêm tài khoản!!"));
+                return;
+            }
+        }
+        //done
+
+        // Xoá trong bảng TaiKhoan
+        qry.prepare("DELETE FROM TaiKhoan WHERE TenChu = :Username AND TaiKhoan.Ten = :TenTaiKhoan ");
+
+        qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+        qry.bindValue(":Username", TenDangNhap);
+
+        if( qry.exec() ){
+            RefreshP4();
+        }
+        else QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Xoá không thành công !!"));
+    }
+
+    else return;
+
+
 }
 
 void ExpenseTracker::on_btn_GiaDinhPic_clicked()
@@ -597,91 +897,7 @@ void ExpenseTracker::on_btn_ThemTaiKhoan_clicked()
     ui->pushButton_TaiKhoan->animateClick(2);
 }
 
-//page4_ThemSoDu
-void ExpenseTracker::on_btn_page4_ThemSoDu_clicked()
-{
-    QString TenTaiKhoan, MoTa;
-    lli SoTien;
 
-    TenTaiKhoan = ui->comboBox_p4_TenTaiKhoan->currentText();
-
-    MoTa = ui->textEdit_p4_MoTa_2->toPlainText();
-
-    //Kiểm tra hợp lệ số tiền
-    for ( int i = 0; i < ui->lineEdit_p4_SoTien->text().size(); ++i) {
-        if(ui->lineEdit_p4_SoTien->text()[0] =='0') {
-            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Số tiền nhập không hợp lệ chỉ gồm các chữ số"));
-            return;
-        }
-        if( ui->lineEdit_p4_SoTien->text()[i] < 48 || ui->lineEdit_p4_SoTien->text()[i] > 57 ){
-            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Số tiền nhập không hợp lệ chỉ gồm các chữ số"));
-            return;
-        }
-    }
-
-    SoTien = ui->lineEdit_p4_SoTien->text().toLongLong();
-
-    if( SoTien < 0 ){
-        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Nhập không hợp lệ !!"));
-        return;
-    }
-
-    // Truy vấn DB
-    QSqlQuery qry;
-
-    lli SoDuTK = TaiKhoanQL.LaySoDu(TenDangNhap,TenTaiKhoan);
-
-    SoDuTK += SoTien;
-
-    if( MoTa != "" ) qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK, MoTa = :MoTa  WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
-    else qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
-    qry.bindValue(":SoDuTK", SoDuTK);
-    if( MoTa != "" ) qry.bindValue(":MoTa", MoTa);
-    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
-    qry.bindValue(":Username", TenDangNhap);
-
-    if( qry.exec() ){
-        RefreshP4();
-    }
-    else{
-        QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công!!"));
-    }
-
-    //done
-
-}
-//page4_XoaTaiKhoan
-void ExpenseTracker::on_btn_page4_XoaTaiKhoan_clicked()
-{
-    QString TenTaiKhoan;
-    TenTaiKhoan = ui->comboBox_p4_TenTaiKhoan_Xoa->currentText();
-
-    if( TenTaiKhoan == ""){
-        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không có thẻ nào được chọn !!"));
-        return;
-    }
-
-    QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, "Cảnh báo", "Bạn có chắc muốn xoá tài khoản "+TenTaiKhoan+" không", QMessageBox::Yes|QMessageBox::No);
-
-    if( reply == QMessageBox::Yes ){
-        QSqlQuery qry;
-
-        qry.prepare("DELETE FROM TaiKhoan WHERE TenChu = :Username AND TaiKhoan.Ten = :TenTaiKhoan ");
-
-        qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
-        qry.bindValue(":Username", TenDangNhap);
-
-        if( qry.exec() ){
-            RefreshP4();
-        }
-        else QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Xoá không thành công !!"));
-    }
-
-    else return;
-
-
-}
 
 void ExpenseTracker::on_btn_p2_TimTheoNgay_clicked()
 {
@@ -946,12 +1162,21 @@ void ExpenseTracker::on_btn_p3_XacNhan_clicked()
 
     QSqlQuery qry;
 
-    /// Cộng tiền vào tài khoản
+    //Lấy mã tài khoản
+    int MTK = TaiKhoanQL.LayMaTaiKhoan(TenDangNhap, TenTaiKhoan);
+
 
     lli SoDuTK = TaiKhoanQL.LaySoDu(TenDangNhap,TenTaiKhoan);
 
     SoDuTK += SoTien;
 
+    //Thêm trong bảng TietKiem nếu có
+    if( TaiKhoanQL.LayLoaiTaiKhoan(TenDangNhap, TenTaiKhoan) == "Tiết kiệm" ){
+        TietKiemQL.CapNhatSoDu(TenDangNhap, MTK, SoDuTK);
+    }
+    //done
+
+    /// Cộng tiền vào tài khoản
     qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK  WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
 
     qry.bindValue(":SoDuTK", SoDuTK);
@@ -1014,3 +1239,4 @@ void ExpenseTracker::on_btn_p3_XacNhan_tab2_clicked()
     else QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công !!"));
 
 }
+

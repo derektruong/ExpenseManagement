@@ -82,7 +82,7 @@ QString QuanLyTaiKhoan::TinhTongSoDu(QString Username){
 }
 
 
-//Lấy tên tài khoản của tài khoản nhất định
+//Lấy tên tài khoản của tài khoản có trong tổng số dư
 QVector<QString> QuanLyTaiKhoan::LayTenTaiKhoan(QString Username){
 
     QVector<QString> res;
@@ -91,9 +91,69 @@ QVector<QString> QuanLyTaiKhoan::LayTenTaiKhoan(QString Username){
 
     QSqlQuery qry;
 
-    if( qry.exec("SELECT * FROM TaiKhoan WHERE TenChu = '"+TenChu+"'") ){
+    if( qry.exec("SELECT * FROM TaiKhoan WHERE TenChu = '"+TenChu+"' AND BaoGomTrongTongSoDu = 1") ){
         while ( qry.next() ) {
             res.push_back(qry.value("Ten").toString());
+        }
+    }
+
+    else qDebug()<<"Lỗi không kết nối được CSDL!";
+
+    return  res;
+}
+//Lấy tên tài khoản của tài khoản có trong tổng số dư
+
+QVector<QString> QuanLyTaiKhoan::LayTenTatCaTaiKhoan(QString Username){
+
+    QVector<QString> res;
+
+    this->TenChu = Username;
+
+    QSqlQuery qry;
+
+    if( qry.exec("SELECT Ten FROM TaiKhoan WHERE TenChu = '"+TenChu+"'") ){
+        while ( qry.next() ) {
+            res.push_back(qry.value("Ten").toString());
+        }
+    }
+
+    else qDebug()<<"Lỗi không kết nối được CSDL!";
+
+    return  res;
+}
+
+int QuanLyTaiKhoan::LayMaTaiKhoan(QString Username, QString TenTaiKhoan){
+    int res = -1;
+
+    this->TenChu = Username;
+    this->TenTaiKhoan = TenTaiKhoan;
+
+    QSqlQuery qry;
+
+    if( qry.exec("SELECT MaTaiKhoan FROM TaiKhoan WHERE TenChu = '"+TenChu+"' AND Ten = N'"+TenTaiKhoan+"'  ") ){
+        while ( qry.next() ) {
+            res = qry.value("MaTaiKhoan").toInt();
+        }
+    }
+
+    else qDebug()<<"Lỗi không kết nối được CSDL!";
+
+    return  res;
+
+}
+
+
+QString QuanLyTaiKhoan::LayLoaiTaiKhoan(QString Username, QString TenTaiKhoan){
+    QString res = "";
+
+    this->TenChu = Username;
+    this->TenTaiKhoan = TenTaiKhoan;
+
+    QSqlQuery qry;
+
+    if( qry.exec("SELECT Loai FROM TaiKhoan WHERE TenChu = '"+TenChu+"' AND Ten = N'"+TenTaiKhoan+"'  ") ){
+        while ( qry.next() ) {
+            res = qry.value("Loai").toString();
         }
     }
 

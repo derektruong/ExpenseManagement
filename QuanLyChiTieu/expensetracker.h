@@ -9,6 +9,7 @@
 #include <quanlychitieu.h>
 #include <quanlythunhap.h>
 #include <chitieu.h>
+#include <tietkiem.h>
 
 
 #include <QString>
@@ -24,7 +25,7 @@
 #include <QtCharts/QPieSeries>
 #include <QSortFilterProxyModel>
 
-typedef long long int lli;
+typedef qint64 lli;
 
 namespace Ui {
 class ExpenseTracker;
@@ -42,13 +43,9 @@ public:
 
     friend class ChiTieu;
 
-    //void GetUserName(LoginAPP login);
-
-protected:
-    QString TenDangNhap;
-
-private slots:
     QString FormatMoney(lli Tien);
+    void FormatDate(QString& date);
+    bool CheckMoneyInput(QString money);
 
     void RefreshP1();
     void RefreshP2();
@@ -57,6 +54,15 @@ private slots:
 
 
     void UpdateTableP4();
+
+    //void GetUserName(LoginAPP login);
+
+protected:
+    QString TenDangNhap;
+
+private slots:
+
+    void indexChanged(int index);
 
     void on_pushButton_TrangChinh_clicked();
 
@@ -74,7 +80,15 @@ private slots:
 
     void on_pushButton_ThayMaPin_clicked();
 
-    void on_btn_page4_ThemTK_clicked();
+    void on_btn_page4_ThemTK_TX_clicked();
+
+    void on_btn_page4_ThemTK_TK_clicked();
+
+    void on_btn_page4_ThemTK_NO_clicked();
+
+    void on_btn_page4_ThemSoDu_clicked();
+
+    void on_btn_page4_XoaTaiKhoan_clicked();
 
     void on_btn_GiaDinhPic_clicked();
 
@@ -102,10 +116,6 @@ private slots:
 
     void on_btn_ThemTaiKhoan_clicked();
 
-    void on_btn_page4_ThemSoDu_clicked();
-
-    void on_btn_page4_XoaTaiKhoan_clicked();
-
     void on_btn_p2_TimTheoNgay_clicked();
 
     void on_btn_p2_TimTheoThang_clicked();
@@ -118,6 +128,7 @@ private slots:
 
     void on_btn_p3_XacNhan_tab2_clicked();
 
+
 private:
     Ui::ExpenseTracker *ui;
 
@@ -127,6 +138,7 @@ private:
     QuanLyTaiKhoan TaiKhoanQL;
     QuanLyChiTieu DanhMucQL;
     QuanLyThuNhap ThuNhapQL;
+    TietKiem TietKiemQL;
 };
 
 #endif // EXPENSETRACKER_H

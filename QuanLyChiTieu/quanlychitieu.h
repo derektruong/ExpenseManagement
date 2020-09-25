@@ -8,7 +8,7 @@
 #include <QMessageBox>
 #include <QDebug>
 
-typedef long long int lli;
+typedef qint64 lli;
 
 class QuanLyChiTieu
 {

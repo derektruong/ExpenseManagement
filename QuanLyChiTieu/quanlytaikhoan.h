@@ -8,7 +8,7 @@
 #include <QMessageBox>
 #include <QDebug>
 
-typedef long long int lli;
+typedef qint64 lli;
 
 
 class QuanLyTaiKhoan
@@ -27,12 +27,16 @@ public:
     QString TinhTongSoDu(QString Username);
 
     QVector<QString> LayTenTaiKhoan(QString Username);
+    QVector<QString> LayTenTatCaTaiKhoan(QString Username);
+    virtual int LayMaTaiKhoan(QString Username, QString TenTaiKhoan);
+    QString LayLoaiTaiKhoan(QString Username, QString TenTaiKhoan);
 
 
 protected:
     QString LoaiTaiKhoan;
     QString TenTaiKhoan;
     lli SoDu;
+    int MaTaiKhoan;
     QString TenChu;
 
 private:

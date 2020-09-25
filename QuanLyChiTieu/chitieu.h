@@ -14,7 +14,7 @@
 #include <QMessageBox>
 #include <QDebug>
 
-typedef long long int lli;
+typedef qint64 lli;
 
 namespace Ui {
 class ChiTieu;
