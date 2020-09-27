@@ -1,6 +1,7 @@
 #ifndef QUANLYCHITIEU_H
 #define QUANLYCHITIEU_H
 
+
 #include <QString>
 #include <QVector>
 #include <QtSql/QSqlDatabase>
@@ -20,6 +21,8 @@ public:
     QString LayMaDanhMuc(QString TenDanhMuc, QString Username);
 
     lli LaySoTienTong(QString MaDanhMuc, QString Username);
+
+    void XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan );
 
 
 private:

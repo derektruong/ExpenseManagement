@@ -25,6 +25,42 @@ int TietKiem::LayMaTaiKhoan(QString Username, QString TenTaiKhoan){
     return  res;
 }
 
+lli TietKiem::LayMucTieu(QString Username, QString TenTaiKhoan){
+    lli res = -1;
+
+    this->TenChu = Username;
+    this->TenTaiKhoan = TenTaiKhoan;
+
+    QSqlQuery qry;
+
+    if( qry.exec("SELECT MucTieu FROM TietKiem WHERE TenChu = '"+TenChu+"' AND Ten = N'"+TenTaiKhoan+"'  ") ){
+        while ( qry.next() ) {
+            res = qry.value("MucTieu").toLongLong();
+        }
+    }
+
+    else qDebug()<<"Lỗi không kết nối được CSDL!";
+
+    return  res;
+}
+
+void TietKiem::CapNhatMucTieu(QString Username, int MaTaiKhoan, lli MucTieu){
+    this->TenChu = Username;
+    this->MaTaiKhoan = MaTaiKhoan;
+
+    QSqlQuery qry;
+
+    qry.prepare("UPDATE TietKiem SET MucTieu = :MucTieu WHERE MaTaiKhoan = :MaTaiKhoan AND TenChu = :Username; ");
+
+    qry.bindValue(":MucTieu", MucTieu);
+    qry.bindValue(":MaTaiKhoan", MaTaiKhoan);
+    qry.bindValue(":Username", Username);
+
+    if( !qry.exec() ){
+       qDebug()<<"Lỗi không kết nối được CSDL!";
+    }
+}
+
 void TietKiem::CapNhatSoDu(QString Username, int MaTaiKhoan, lli SoDuTK){
     this->TenChu = Username;
     this->MaTaiKhoan = MaTaiKhoan;

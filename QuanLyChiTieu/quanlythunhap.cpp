@@ -46,3 +46,48 @@ QVector<QString> QuanLyThuNhap::LayTenThuNhap(QString Username){
 
     return  res;
 }
+
+void QuanLyThuNhap::XoaLoaiThuNhap(QString Username, QString LoaiThuNhap){
+    this->TenChu = Username;
+    this->LoaiThuNhap = LoaiThuNhap;
+
+    QSqlQuery qry;
+
+    //Xoá trong bảng LoaiThuNhap
+
+    qry.prepare("DELETE FROM LoaiThuNhap WHERE TenChu = :Username AND LoaiThuNhap = :LoaiThuNhap");
+
+    qry.bindValue(":Username", Username);
+    qry.bindValue(":LoaiThuNhap", LoaiThuNhap);
+
+    if( !qry.exec() ){
+       qDebug()<<"Lỗi không kết nối được CSDL!";
+    }
+
+    //Xoá trong bảng ThuNhap
+
+    qry.prepare("DELETE FROM ThuNhap WHERE TenChu = :Username AND LoaiThuNhap = :LoaiThuNhap");
+
+    qry.bindValue(":Username", Username);
+    qry.bindValue(":LoaiThuNhap", LoaiThuNhap);
+
+    if( !qry.exec() ){
+       qDebug()<<"Lỗi không kết nối được CSDL!";
+    }
+
+}
+
+void QuanLyThuNhap::XoaTaiKhoanInThuNhap(QString Username, QString TenTaiKhoan ){
+    QSqlQuery qry;
+
+    //Xoá trong bảng ThuNhap
+
+    qry.prepare("DELETE FROM ThuNhap WHERE TenChu = :Username AND TenTaiKhoan = :TenTaiKhoan");
+
+    qry.bindValue(":Username", Username);
+    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+
+    if( !qry.exec() ){
+       qDebug()<<"Lỗi không kết nối được CSDL!";
+    }
+}

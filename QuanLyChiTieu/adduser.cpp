@@ -10,6 +10,8 @@ AddUser::AddUser(QWidget *parent) :
 
     this->setFixedSize(1147,749);
 
+    this->setWindowIcon(QIcon(":/Images\\Icon\\cash-icon.png"));
+
     this->setWindowTitle(QString::fromUtf8("Đăng ký"));
 
 }

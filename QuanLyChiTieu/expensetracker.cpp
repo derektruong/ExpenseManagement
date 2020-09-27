@@ -13,6 +13,7 @@ ExpenseTracker::ExpenseTracker(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setFixedSize(1320,701);
+    this->setWindowIcon(QIcon(":/Images\\Icon\\cash-icon.png"));
 
     // Hiển thị trang chủ đầu tiên khi truy cập phần mềm
 
@@ -65,32 +66,6 @@ QString ExpenseTracker::FormatMoney(lli Tien){
     return  res;
 }
 
-void ExpenseTracker::FormatDate(QString& date){
-
-    QStack<QString> st;
-
-    int s = 0;
-
-    for ( int i = 0; i < date.size(); ++i) {
-        if( date[i] == '/' ){
-            st.push(QString::number(s));
-            st.push("/");
-            s = 0;
-            continue;
-         }
-         s = s*10 + (date[i].unicode() - 48);
-
-    }
-
-    st.push(QString::number(s));
-
-    date = "";
-
-    while ( !st.empty() ) {
-        date+=st.top();
-        st.pop();
-    }
-}
 
 bool ExpenseTracker::CheckMoneyInput(QString money){
     for ( int i = 0; i < money.size(); ++i) {
@@ -126,7 +101,7 @@ void ExpenseTracker::RefreshP4(){
 
 void ExpenseTracker::UpdateTableP4(){
     qryModel = new QSqlQueryModel();
-    qryModel->setQuery("SELECT Loai,Ten,SoDu,MoTa FROM TaiKhoan WHERE TenChu = '"+TenDangNhap+"'");
+    qryModel->setQuery("SELECT Loai, Ten, format(SoDu, 'N0' ) ,MoTa FROM TaiKhoan WHERE TenChu = '"+TenDangNhap+"'");
     //Chỉnh độ rộng
     ui->tableView_page4->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView_page4->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -137,6 +112,7 @@ void ExpenseTracker::UpdateTableP4(){
     qryModel->setHeaderData(3, Qt::Horizontal, QObject::tr("Mô tả"));
 
     ui->tableView_page4->setModel(qryModel);
+    ui->tableView_page4->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->tableView_page4->update();
 
     //delete qryModel;
@@ -364,18 +340,21 @@ void ExpenseTracker::on_pushButton_ThuNhap_clicked()
 
     ui->comboBox_p3_DenTaiKhoan_tab1->clear();
     ui->comboBox_p3_LoaiThuNhap_tab1->clear();
+    ui->comboBox_p3_LoaiThuNhap_tab3->clear();
 
-    QVector<QString> DSTenTK = TaiKhoanQL.LayTenTaiKhoan(TenDangNhap);
+    //ui->tabWidget_P3->setCurrentIndex(0);
+
+    QVector<QString> DSTenTatCaTK = TaiKhoanQL.LayTenTatCaTaiKhoan(TenDangNhap);
     QVector<QString> DSLoaiThuNhap = ThuNhapQL.LayTenThuNhap(TenDangNhap);
 
     if( ui->tab1_P3->isActiveWindow() ){
         //Thêm vào combobox TK
-        if( !DSTenTK.size() ){
+        if( !DSTenTatCaTK.size() ){
             QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Bạn chưa có tài khoản nào!!"));
         }
 
-        for ( int i = 0; i < DSTenTK.size(); ++i) {
-            ui->comboBox_p3_DenTaiKhoan_tab1->addItem(DSTenTK[i]);
+        for ( int i = 0; i < DSTenTatCaTK.size(); ++i) {
+            ui->comboBox_p3_DenTaiKhoan_tab1->addItem(DSTenTatCaTK[i]);
         }
 
         //Thêm vào combobox Thu Nhập
@@ -389,15 +368,27 @@ void ExpenseTracker::on_pushButton_ThuNhap_clicked()
 
     }
 
+    if( ui->tab3_P3->isActiveWindow() ){
+        //Thêm vào combobox Thu Nhập
+        if( !DSLoaiThuNhap.size() ){
+            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Bạn chưa có loại thu nhập nào, vui lòng thêm thu nhập"));
+        }
+
+        for ( int i = 0; i < DSLoaiThuNhap.size(); ++i) {
+            ui->comboBox_p3_LoaiThuNhap_tab3->addItem(DSLoaiThuNhap[i]);
+        }
+    }
+
 
     qryModel = new QSqlQueryModel();
-    qryModel->setQuery("SELECT TOP 10 LoaiThuNhap AS N'Loại thu nhập', SoTien AS N'Số tiền', TenTaiKhoan AS N'Đến tài khoản', NgayThuNhap AS N'Thời gian', GhiChu AS N'Ghi chú'  FROM ThuNhap WHERE TenChu = '"+TenDangNhap+"' ");
+    qryModel->setQuery("SELECT TOP 50 LoaiThuNhap AS N'Loại thu nhập', format(SoTien, 'N0' ) AS N'Số tiền(VNĐ)', TenTaiKhoan AS N'Đến tài khoản', NgayThuNhap AS N'Thời gian', GhiChu AS N'Ghi chú'  FROM ThuNhap WHERE TenChu = '"+TenDangNhap+"' ");
     //Chỉnh độ rộng
     ui->tableView_page3->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView_page3->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     //
 
     ui->tableView_page3->setModel(qryModel);
+    ui->tableView_page3->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->tableView_page3->update();
 
 
@@ -426,11 +417,6 @@ void ExpenseTracker::on_pushButton_TaiKhoan_clicked()
     QVector<QString> DSTenTatCaTK = TaiKhoanQL.LayTenTatCaTaiKhoan(TenDangNhap);
     // Tiền xử lý tab thêm số dư
     if( ui->tab_2->isActiveWindow() ){
-
-        if( !DSTenTK.size() ){
-            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Bạn chưa có tài khoản nào!!"));
-        }
-
         for ( int i = 0; i < DSTenTK.size(); ++i) {
             ui->comboBox_p4_TenTaiKhoan->addItem(DSTenTK[i]);
         }
@@ -605,7 +591,6 @@ void ExpenseTracker::on_btn_page4_ThemTK_NO_clicked()
 {
     QString LoaiTaiKhoan, TenTaiKhoan, KyHan, MoTa;
     lli TienNo;
-    int LaiSuat;
     int inTotal = 0;
 
     LoaiTaiKhoan = ui->comboBox_p4_LoaiTaiKhoan->currentText();
@@ -613,19 +598,10 @@ void ExpenseTracker::on_btn_page4_ThemTK_NO_clicked()
     MoTa = ui->textEdit_p4_MoTa_NO->toPlainText();
 
     if( !CheckMoneyInput(ui->lineEdit_p4_TienNo_NO->text()) ) return;
-    if( !CheckMoneyInput(ui->lineEdit_p4_LaiSuat_NO->text()) ) return;
 
     TienNo = ui->lineEdit_p4_TienNo_NO->text().toLongLong();
-    LaiSuat = ui->lineEdit_p4_LaiSuat_NO->text().toInt();
 
-    if( LaiSuat < 0 || LaiSuat > 100 ){
-        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Lãi suất không hợp lệ!!"));
-        return;
-    }
-
-    KyHan = ui->dateEdit_p3_KyHan_NO->text();
-
-    FormatDate(KyHan);
+    KyHan = ui->dateEdit_p3_KyHan_NO->date().toString("yyyy/MM/dd");
 
     if(TenTaiKhoan == "" || !ui->lineEdit_p4_TienNo_NO->text().size() ){
         QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Phải nhập đủ!"));
@@ -653,23 +629,13 @@ void ExpenseTracker::on_btn_page4_ThemTK_NO_clicked()
     }
 
     /// done
-    ///
+
     /// Insert bảng Loan
     int MTK = TaiKhoanQL.LayMaTaiKhoan(TenDangNhap, TenTaiKhoan);
 
-    qry.prepare("INSERT INTO Loan ( TenNo, TienNo, LaiSuat, KyHan, MaTaiKhoan, TenChu )" "VALUES ( :TenNo, :TienNo, :LaiSuat, :KyHan, :MaTaiKhoan, :TenChu )");
+    NoQL.ThemNo(TenDangNhap, TenTaiKhoan, TienNo, KyHan, MTK);
 
-    qry.bindValue(":TenNo", TenTaiKhoan);
-    qry.bindValue(":TienNo", TienNo);
-    qry.bindValue(":LaiSuat", LaiSuat/100.0);
-    qry.bindValue(":KyHan", KyHan);
-    qry.bindValue(":MaTaiKhoan", MTK);
-    qry.bindValue(":TenChu", TenDangNhap);
-
-    if( !qry.exec() ){
-        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không thể thêm tài khoản!!"));
-        return;
-    }
+    ///done
 
     QMessageBox::information(this, QString::fromUtf8("Thông báo"), QString::fromUtf8("Bạn đã thêm tài khoản thành công!!"));
 
@@ -747,7 +713,7 @@ void ExpenseTracker::on_btn_page4_XoaTaiKhoan_clicked()
     }
 
     QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, "Cảnh báo", "Bạn có chắc muốn xoá tài khoản "+TenTaiKhoan+"? Mọi chi tiêu, thu nhập liên quan đến tài khoản này sẽ vẫn còn được giữ lại!", QMessageBox::Yes|QMessageBox::No);
+    reply = QMessageBox::question(this, "Cảnh báo", "Bạn có chắc muốn xoá tài khoản "+TenTaiKhoan+"? Mọi chi tiêu, thu nhập liên quan đến tài khoản này sẽ bị xoá vĩnh viễn!!", QMessageBox::Yes|QMessageBox::No);
 
     if( reply == QMessageBox::Yes ){
         QSqlQuery qry;
@@ -759,16 +725,19 @@ void ExpenseTracker::on_btn_page4_XoaTaiKhoan_clicked()
         //done
         //Xoá trong bảng Loan nếu có
         if( TaiKhoanQL.LayLoaiTaiKhoan(TenDangNhap, TenTaiKhoan) == "Nợ" ){
-            qry.prepare("DELETE FROM Loan WHERE TenChu = :Username AND MaTaiKhoan = :MaTaiKhoan ");
-
-            qry.bindValue(":MaTaiKhoan", MTK);
-            qry.bindValue(":Username", TenDangNhap);
-
-            if( !qry.exec() ){
-                QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không thể thêm tài khoản!!"));
-                return;
-            }
+            NoQL.XoaNo(TenDangNhap, MTK);
         }
+        //done
+
+        //Xoá mọi thứ trong việc chi tiêu liên quan đến tài khoản này
+
+        DanhMucQL.XoaTaiKhoanInChiTieu(TenDangNhap, TenTaiKhoan);
+
+        //done
+
+        //Xoá mọi thứ trong việc thu nhập liên quan đến tài khoản này
+            ThuNhapQL.XoaTaiKhoanInThuNhap(TenDangNhap, TenTaiKhoan);
+
         //done
 
         // Xoá trong bảng TaiKhoan
@@ -796,7 +765,7 @@ void ExpenseTracker::on_btn_page4_CapNhat_XemBang_clicked()
 
     if( LoaiTaiKhoan == "Thường xuyên(Thẻ, tiền mặt,...)" ){
         qryModel = new QSqlQueryModel();
-        qryModel->setQuery("SELECT Ten AS N'Tên thẻ', SoDu AS N'Số dư' , MoTa AS N'Mô tả' FROM TaiKhoan WHERE TenChu = '"+TenDangNhap+"' AND Loai = N'Thường xuyên(Thẻ, tiền mặt,...)'");
+        qryModel->setQuery("SELECT Ten AS N'Tên thẻ', format(SoDu, 'N0' ) AS N'Số dư(VNĐ)' , MoTa AS N'Mô tả' FROM TaiKhoan WHERE TenChu = '"+TenDangNhap+"' AND Loai = N'Thường xuyên(Thẻ, tiền mặt,...)'");
         //Chỉnh độ rộng
         ui->tableView_page4->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
         ui->tableView_page4->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -807,7 +776,7 @@ void ExpenseTracker::on_btn_page4_CapNhat_XemBang_clicked()
 
     if( LoaiTaiKhoan == "Tiết kiệm" ){
         qryModel = new QSqlQueryModel();
-        qryModel->setQuery("SELECT tk1.TenTietKiem AS N'Tên tiết kiệm', tk1.SoDu AS N'Số Dư', tk1.MucTieu AS N'Mục tiêu', tk2.MoTa AS N'Mô Tả' FROM TietKiem tk1 INNER JOIN dbo.TaiKhoan tk2 ON tk1.MaTaiKhoan = tk2.MaTaiKhoan AND tk1.TenChu = '"+TenDangNhap+"' AND tk2.TenChu = '"+TenDangNhap+"' ");
+        qryModel->setQuery("SELECT tk1.TenTietKiem AS N'Tên tiết kiệm', format(tk1.SoDu, 'N0' ) AS N'Số dư tiết kiệm(VNĐ)', format(tk1.MucTieu, 'N0' ) AS N'Mục tiêu', tk2.MoTa AS N'Mô Tả' FROM TietKiem tk1 INNER JOIN dbo.TaiKhoan tk2 ON tk1.MaTaiKhoan = tk2.MaTaiKhoan AND tk1.TenChu = '"+TenDangNhap+"' AND tk2.TenChu = '"+TenDangNhap+"' ");
         //Chỉnh độ rộng
         ui->tableView_page4->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
         ui->tableView_page4->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -818,7 +787,7 @@ void ExpenseTracker::on_btn_page4_CapNhat_XemBang_clicked()
 
     if( LoaiTaiKhoan == "Nợ" ){
         qryModel = new QSqlQueryModel();
-        qryModel->setQuery("SELECT tk1.TenNo AS N'Tên khoản nợ', tk1.TienNo AS N'Tiền nợ', tk1.LaiSuat AS N'Lãi suất', format(tk1.KyHan,'dd/MM/yyyy') AS N'Kỳ hạn', tk2.MoTa AS N'Mô tả' FROM Loan tk1 INNER JOIN dbo.TaiKhoan tk2 ON tk1.MaTaiKhoan = tk2.MaTaiKhoan AND tk1.TenChu = '"+TenDangNhap+"' AND tk2.TenChu = '"+TenDangNhap+"' ");
+        qryModel->setQuery("SELECT tk1.TenNo AS N'Tên khoản nợ', format(tk1.TienNo, 'N0' ) AS N'Tiền nợ(VNĐ)', format(tk1.KyHan,'dd/MM/yyyy') AS N'Kỳ hạn', tk2.MoTa AS N'Mô tả' FROM Loan tk1 INNER JOIN dbo.TaiKhoan tk2 ON tk1.MaTaiKhoan = tk2.MaTaiKhoan AND tk1.TenChu = '"+TenDangNhap+"' AND tk2.TenChu = '"+TenDangNhap+"' ");
         //Chỉnh độ rộng
         ui->tableView_page4->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
         ui->tableView_page4->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -826,7 +795,6 @@ void ExpenseTracker::on_btn_page4_CapNhat_XemBang_clicked()
         ui->tableView_page4->setModel(qryModel);
         ui->tableView_page4->show();
     }
-
 
 
 }
@@ -926,7 +894,8 @@ void ExpenseTracker::on_btn_Refresh_clicked()
 
 void ExpenseTracker::on_btn_ThemTaiKhoan_clicked()
 {
-    ui->pushButton_TaiKhoan->animateClick(2);
+    ui->pushButton_ThuNhap->animateClick(2);
+    ui->tabWidget_P3->setCurrentIndex(0);
 }
 
 
@@ -948,7 +917,7 @@ void ExpenseTracker::on_btn_p2_TimTheoNgay_clicked()
 
     QSqlQuery qry;
 
-    qry.prepare("SELECT TOP 10  SoTien AS N'Số tiền(VNĐ)', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản' FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND NgayChiTieu = '"+Ngay+"' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
+    qry.prepare("SELECT TOP 10  format(SoTien, 'N0' ) AS N'Số tiền(VNĐ)', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản' FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND NgayChiTieu = '"+Ngay+"' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
     if( qry.exec() ){
 
         int count = 0;
@@ -972,6 +941,7 @@ void ExpenseTracker::on_btn_p2_TimTheoNgay_clicked()
     //
 
     ui->tableView_page2->setModel(qryModel);
+    ui->tableView_page2->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->tableView_page2->update();
 
 
@@ -995,7 +965,7 @@ void ExpenseTracker::on_btn_p2_TimTheoThang_clicked()
 
     QSqlQuery qry;
 
-    qry.prepare("SELECT TOP 10  SoTien AS N'Số tiền(VNĐ)', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản' FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND Month(NgayChiTieu) = '"+Thang+"' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
+    qry.prepare("SELECT format(SoTien, 'N0' ) AS N'Số tiền(VNĐ)', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản' FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND Month(NgayChiTieu) = '"+Thang+"' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
     if( qry.exec() ){
 
         int count = 0;
@@ -1018,6 +988,7 @@ void ExpenseTracker::on_btn_p2_TimTheoThang_clicked()
     //
 
     ui->tableView_page2->setModel(qryModel);
+    ui->tableView_page2->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->tableView_page2->update();
 }
 
@@ -1038,7 +1009,7 @@ void ExpenseTracker::on_btn_p2_TimTheoNam_clicked()
 
     QSqlQuery qry;
 
-    qry.prepare("SELECT TOP 10  SoTien AS N'Số tiền(VNĐ)', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản' FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND Year(NgayChiTieu) = '"+Nam+"' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
+    qry.prepare("SELECT TOP 10  format(SoTien, 'N0' ) AS N'Số tiền(VNĐ)', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản' FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND Year(NgayChiTieu) = '"+Nam+"' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
     if( qry.exec() ){
 
         int count = 0;
@@ -1061,6 +1032,7 @@ void ExpenseTracker::on_btn_p2_TimTheoNam_clicked()
     //
 
     ui->tableView_page2->setModel(qryModel);
+    ui->tableView_page2->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->tableView_page2->update();
 }
 
@@ -1088,19 +1060,19 @@ void ExpenseTracker::on_btn_p2_TimKiemChung_clicked()
     QSqlQuery qry;
 
     if( TenDanhMuc == "Tất Cả" && TenTaiKhoan == "Tất Cả" ){
-        qry.prepare("SELECT TOP 15 SoTien AS N'Số tiền', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản'  FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND GhiChu LIKE N'%"+Key+"%' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
+        qry.prepare("SELECT format(SoTien, 'N0' ) AS N'Số tiền(VNĐ)', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản'  FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND GhiChu LIKE N'%"+Key+"%' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
     }
 
     if( TenDanhMuc != "Tất Cả" && TenTaiKhoan == "Tất Cả" ){
-        qry.prepare("SELECT TOP 15 SoTien AS N'Số tiền', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản'  FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND MaDanhMuc = '"+MaDanhMuc+"'  AND GhiChu LIKE N'%"+Key+"%' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
+        qry.prepare("SELECT TOP 15 format(SoTien, 'N0' ) AS N'Số tiền(VNĐ)', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản'  FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND MaDanhMuc = '"+MaDanhMuc+"'  AND GhiChu LIKE N'%"+Key+"%' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
     }
 
     if( TenDanhMuc == "Tất Cả" && TenTaiKhoan != "Tất Cả" ){
-        qry.prepare("SELECT TOP 15 SoTien AS N'Số tiền', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản'  FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND TenTaiKhoan = N'"+TenTaiKhoan+"' AND GhiChu LIKE N'%"+Key+"%' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
+        qry.prepare("SELECT TOP 15 format(SoTien, 'N0' ) AS N'Số tiền(VNĐ)', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản'  FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND TenTaiKhoan = N'"+TenTaiKhoan+"' AND GhiChu LIKE N'%"+Key+"%' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
     }
 
     if( TenDanhMuc != "Tất Cả" && TenTaiKhoan != "Tất Cả" ){
-        qry.prepare("SELECT TOP 15 SoTien AS N'Số tiền', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản'  FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND MaDanhMuc = '"+MaDanhMuc+"' AND TenTaiKhoan = N'"+TenTaiKhoan+"' AND GhiChu LIKE N'%"+Key+"%' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
+        qry.prepare("SELECT TOP 15 format(SoTien, 'N0' ) AS N'Số tiền(VNĐ)', GhiChu AS N'Mô tả', format(NgayChiTieu,'dd/MM/yyyy') AS N'Thời gian', TenTaiKhoan AS N'Tên tài khoản'  FROM KhoanChi WHERE TenChu = '"+TenDangNhap+"' AND MaDanhMuc = '"+MaDanhMuc+"' AND TenTaiKhoan = N'"+TenTaiKhoan+"' AND GhiChu LIKE N'%"+Key+"%' ORDER BY Year(NgayChiTieu) DESC, Month(NgayChiTieu) DESC, Day(NgayChiTieu) DESC ");
     }
 
     if( qry.exec() ){
@@ -1125,8 +1097,10 @@ void ExpenseTracker::on_btn_p2_TimKiemChung_clicked()
     ui->tableView_page2->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     //
 
+
+
     ui->tableView_page2->setModel(qryModel);
-    ui->tableView_page2->sortByColumn(0,Qt::DescendingOrder);
+    ui->tableView_page2->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->tableView_page2->update();
 
 }
@@ -1134,7 +1108,7 @@ void ExpenseTracker::on_btn_p2_TimKiemChung_clicked()
 //Xác nhận thêm tiền vào loại thu nhập đã có
 void ExpenseTracker::on_btn_p3_XacNhan_clicked()
 {
-    QString LoaiThuNhap, TenTaiKhoan, NgayThuNhap, GhiChu;
+    QString LoaiThuNhap, TenTaiKhoan, NgayThuNhap, GhiChu, ThoiGianThongKe;
     lli SoTien;
 
     LoaiThuNhap = ui->comboBox_p3_LoaiThuNhap_tab1->currentText();
@@ -1157,38 +1131,21 @@ void ExpenseTracker::on_btn_p3_XacNhan_clicked()
 
     SoTien = ui->lineEdit_p3_SoTien->text().toLongLong();
 
+    //Cập nhật thông tin thu nhập cho bảng ThongKe
+    ThoiGianThongKe = ui->dateEdit_p3_NgayThuNhap->date().toString("yyyy-MM-dd");
+    ThongKeQL.CapNhatTongThu(TenDangNhap, ThoiGianThongKe, SoTien);
+
+    //done
+
+    //Continue..
+
     if( LoaiThuNhap == "" || TenTaiKhoan == "" || SoTien < 0){
         QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Nhập không hợp lệ !!"));
         return;
     }
 
-    NgayThuNhap = ui->dateEdit_p3_NgayThuNhap->text();
+    NgayThuNhap = ui->dateEdit_p3_NgayThuNhap->date().toString("yyyy/MM/dd");
 
-    //Định dạng lại format date cho phù hợp với DBase
-    QStack<QString> st;
-
-    int s = 0;
-
-    for ( int i = 0; i < NgayThuNhap.size(); ++i) {
-        if( NgayThuNhap[i] == '/' ){
-            st.push(QString::number(s));
-            st.push("/");
-            s = 0;
-            continue;
-        }
-        s = s*10 + (NgayThuNhap[i].unicode() - 48);
-
-    }
-
-    st.push(QString::number(s));
-
-    NgayThuNhap = "";
-
-    while ( !st.empty() ) {
-        NgayThuNhap+=st.top();
-        st.pop();
-    }
-    //done
 
     // Truy vấn DB
 
@@ -1207,11 +1164,65 @@ void ExpenseTracker::on_btn_p3_XacNhan_clicked()
         TietKiemQL.CapNhatSoDu(TenDangNhap, MTK, SoDuTK);
 
         if( TietKiemQL.KiemTraMucTieu(TenDangNhap, MTK) >= 0 ){
-            QMessageBox::information(this,"Chúc mừng",QString::fromUtf8("Bạn đã đạt mục tiêu tiết kiệm !!"));
+            bool check = false; //Kiểm tra nếu mục tiêu mới hợp lệ
+
+            QMessageBox::StandardButton reply;
+            reply = QMessageBox::question(this, "Chúc mừng", "Bạn đã đạt mục tiêu tiết kiệm, bạn có muốn nối dài mục tiêu không?", QMessageBox::Yes|QMessageBox::No);
+
+            lli MucTieuMoi;
+            if( reply == QMessageBox::Yes ){
+                QString MucTieuMoiText = QInputDialog::getText(this,"Nhập vào đây", "Mục tiêu mới: ");
+
+                if( !CheckMoneyInput(MucTieuMoiText) ) check = true;
+
+                MucTieuMoi = MucTieuMoiText.toLongLong();
+
+                if( !check &&  MucTieuMoi <= SoDuTK ) check = true;
+
+
+            }
+
+            if( check ) QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Bạn nhập không hợp lệ hoặc mục tiêu mới không lớn hơn số dư tiết kiệm!\n Mục tiêu sẽ không đổi!"));
+            else TietKiemQL.CapNhatMucTieu(TenDangNhap, MTK, MucTieuMoi);
+
         }
     }
 
     //done
+
+    //Trừ trong bảng Loan nếu có
+    if( TaiKhoanQL.LayLoaiTaiKhoan(TenDangNhap, TenTaiKhoan) == "Nợ" ){
+        SoDuTK -= SoTien*2;
+        NoQL.CapNhatDuNo(TenDangNhap, MTK, SoDuTK);
+
+        if( NoQL.KiemTraDuNo(TenDangNhap, MTK) <= 0 ){
+            QMessageBox::StandardButton reply;
+            reply = QMessageBox::question(this, "Thông báo", "Bạn đã hết nợ trong "+TenTaiKhoan+", Bạn có muốn xoá khoản nợ này không?", QMessageBox::Yes|QMessageBox::No);
+
+            if( reply == QMessageBox::Yes ){
+                //Xoá trong bảng Loan nếu có
+                if( TaiKhoanQL.LayLoaiTaiKhoan(TenDangNhap, TenTaiKhoan) == "Nợ" ){
+                    NoQL.XoaNo(TenDangNhap, MTK);
+                }
+                //done
+
+                // Xoá trong bảng TaiKhoan
+                qry.prepare("DELETE FROM TaiKhoan WHERE TenChu = :Username AND TaiKhoan.Ten = :TenTaiKhoan ");
+
+                qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+                qry.bindValue(":Username", TenDangNhap);
+
+                if( ! qry.exec() ){
+                    QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Xoá không thành công !!"));
+                }
+                //done
+                return;
+
+            }
+        }
+    }
+
+    //
 
     /// Cộng tiền vào tài khoản
     qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK  WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
@@ -1277,5 +1288,87 @@ void ExpenseTracker::on_btn_p3_XacNhan_tab2_clicked()
 
 }
 
+void ExpenseTracker::on_btn_p3_XacNhan_tab3_clicked()
+{
+    QString LoaiThuNhap;
+
+    LoaiThuNhap = ui->comboBox_p3_LoaiThuNhap_tab3->currentText();
+
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Cảnh báo", "Bạn có chắc muốn xoá loại thu nhập "+LoaiThuNhap+"? Mọi đợt thu nhập liên quan cũng sẽ bị xoá vĩnh viễn!!", QMessageBox::Yes|QMessageBox::No);
+
+    if( reply == QMessageBox::Yes ){
+        ThuNhapQL.XoaLoaiThuNhap(TenDangNhap, LoaiThuNhap);
+    }
+
+    RefreshP3();
+}
+
+void ExpenseTracker::on_btn_P5_CapNhat_tab1_clicked()
+{
+    QString Thang, Nam;
 
 
+    Thang = ui->dateEdit_p5_ThangThuChi_tab1->date().toString("MM");
+    Nam = ui->dateEdit_p5_ThangThuChi_tab1->date().toString("yyyy");
+
+    QVector<lli> Thu = ThongKeQL.LayDuLieuTongThuTheoTuan(TenDangNhap, Thang, Nam );
+    QVector<lli> Chi = ThongKeQL.LayDuLieuTongChiTheoTuan(TenDangNhap, Thang, Nam );
+    lli Max = Thu[1] , Min = Chi[1];
+
+    for (int i = 1; i < 6; ++i) {
+        if( Thu[i] > Max ) Max = Thu[i];;
+        if( Chi[i] < Min ) Min = Chi[i];
+    }
+
+    QBarSet *set0 = new QBarSet("Thu Nhập");
+    QBarSet *set1 = new QBarSet("Chi Tiêu");
+
+    *set0 << Thu[1] << Thu[2] << Thu[3] << Thu[4] << Thu[5];
+    *set1 << Chi[1] << Chi[2] << Chi[3] << Chi[4] << Chi[5];
+
+    QStackedBarSeries *series = new QStackedBarSeries();
+
+    series->append(set0);
+    series->append(set1);
+
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->setTitle("Biểu đồ cân đối chi tiêu vào tháng "+Thang+" năm "+Nam+"");
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+
+    QStringList categ;
+
+    categ << "Tuần 1" << "Tuần 2" << "Tuần 3" << "Tuần 4" <<"Tuần 5";
+
+    QBarCategoryAxis *axisX = new QBarCategoryAxis();
+
+    axisX->append(categ);
+    axisX->setTitleText("Tuần trong tháng "+Thang+"");
+    chart->addAxis(axisX, Qt::AlignBottom);
+
+
+    QValueAxis *axisY = new QValueAxis();
+
+    axisY->setRange(Min + Min/4, Max + Max/4);
+    axisY->setTitleText("Tiền thu/ chi (VNĐ)");
+
+    chart->addAxis(axisY, Qt::AlignLeft);
+
+    series->attachAxis(axisX);
+    series->attachAxis(axisY);
+
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+
+
+    QChartView *chartView = new QChartView(chart);
+    chartView->setParent(ui->frame_P5_tab1);
+    chartView->setRenderHint(QPainter::Antialiasing);
+
+    chartView->resize(1031, 641);
+
+    chartView->show();
+
+
+}

@@ -9,6 +9,8 @@ ChangePin::ChangePin(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->setWindowIcon(QIcon(":/Images\\Icon\\cash-icon.png"));
+
     this->setWindowTitle(QString::fromUtf8("Thay mã pin"));
 }
 

@@ -10,19 +10,29 @@
 #include <quanlythunhap.h>
 #include <chitieu.h>
 #include <tietkiem.h>
+#include <loan.h>
+#include <thongke.h>
 
 
 #include <QString>
+#include <QStringList>
 #include <QVector>
 #include <QStack>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlQueryModel>
 #include <QMessageBox>
+#include <QInputDialog>
+#include <QScrollBar>
 #include <QDebug>
 #include <QtCharts/QChart>
 #include <QtCharts/QChartView>
 #include <QtCharts/QPieSeries>
+#include <QtCharts/QBarSet>
+#include <QtCharts/QBarSeries>
+#include <QtCharts/QStackedBarSeries>
+#include <QtCharts/QBarCategoryAxis>
+#include <QValueAxis>
 #include <QSortFilterProxyModel>
 
 typedef qint64 lli;
@@ -44,7 +54,6 @@ public:
     friend class ChiTieu;
 
     QString FormatMoney(lli Tien);
-    void FormatDate(QString& date);
     bool CheckMoneyInput(QString money);
 
     void UpdateTableP4();
@@ -128,6 +137,9 @@ private slots:
 
     void on_btn_p3_XacNhan_tab2_clicked();
 
+    void on_btn_p3_XacNhan_tab3_clicked();
+
+    void on_btn_P5_CapNhat_tab1_clicked();
 
 private:
     Ui::ExpenseTracker *ui;
@@ -139,6 +151,8 @@ private:
     QuanLyChiTieu DanhMucQL;
     QuanLyThuNhap ThuNhapQL;
     TietKiem TietKiemQL;
+    Loan NoQL;
+    ThongKe ThongKeQL;
 };
 
 #endif // EXPENSETRACKER_H

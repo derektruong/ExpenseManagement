@@ -64,3 +64,82 @@ lli QuanLyChiTieu::LaySoTienTong(QString MaDanhMuc, QString Username){
     return res;
 }
 
+void QuanLyChiTieu::XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan ){
+
+    QSqlQuery qry;
+
+    //Tính số tiền phải xoá cho mỗi danh mục
+    lli TienGD = 0, TienSK = 0, TienMS = 0, TienHP = 0, TienHD = 0, TienKD = 0, TienOT = 0, TienQT = 0, TienDC = 0, TienGT = 0, TienBH = 0;
+
+
+    qry.prepare("SELECT MaDanhMuc, SoTien FROM KhoanChi WHERE TenChu = :Username AND TenTaiKhoan = :TenTaiKhoan");
+
+    qry.bindValue(":Username", Username);
+    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+
+    if( qry.exec() ){
+
+        while( qry.next() ){
+            if( qry.value("MaDanhMuc").toString() == "GD" ) TienGD += qry.value("SoTien").toLongLong();
+            if( qry.value("MaDanhMuc").toString() == "SK" ) TienSK += qry.value("SoTien").toLongLong();
+            if( qry.value("MaDanhMuc").toString() == "MS" ) TienMS += qry.value("SoTien").toLongLong();
+            if( qry.value("MaDanhMuc").toString() == "HP" ) TienHP += qry.value("SoTien").toLongLong();
+            if( qry.value("MaDanhMuc").toString() == "HD" ) TienHD += qry.value("SoTien").toLongLong();
+            if( qry.value("MaDanhMuc").toString() == "KD" ) TienKD += qry.value("SoTien").toLongLong();
+            if( qry.value("MaDanhMuc").toString() == "OT" ) TienOT += qry.value("SoTien").toLongLong();
+            if( qry.value("MaDanhMuc").toString() == "QT" ) TienQT += qry.value("SoTien").toLongLong();
+            if( qry.value("MaDanhMuc").toString() == "DC" ) TienDC += qry.value("SoTien").toLongLong();
+            if( qry.value("MaDanhMuc").toString() == "GT" ) TienGT += qry.value("SoTien").toLongLong();
+            if( qry.value("MaDanhMuc").toString() == "BH" ) TienBH += qry.value("SoTien").toLongLong();
+
+
+        }
+    }
+    else{
+        qDebug()<<"Loi CSDL";
+        return;
+    }
+
+    //Xoá trong bảng KhoanChi
+
+    qry.prepare("DELETE FROM KhoanChi WHERE TenChu = :Username AND TenTaiKhoan = :TenTaiKhoan");
+
+    qry.bindValue(":Username", Username);
+    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+
+    if( !qry.exec() ){
+        qDebug()<<"Loi CSDL";
+        return;
+    }
+
+    // Cập nhật TongTien trong bảng DanhMucChiTieu
+
+    TienGD = this->LaySoTienTong("GD", Username) - TienGD;
+    TienSK = this->LaySoTienTong("SK", Username) - TienSK;
+    TienMS = this->LaySoTienTong("MS", Username) - TienMS;
+    TienHP = this->LaySoTienTong("HP", Username) - TienHP;
+    TienHD = this->LaySoTienTong("HD", Username) - TienHD;
+    TienKD = this->LaySoTienTong("KD", Username) - TienKD;
+    TienOT = this->LaySoTienTong("OT", Username) - TienOT;
+    TienQT = this->LaySoTienTong("QT", Username) - TienQT;
+    TienDC = this->LaySoTienTong("DC", Username) - TienDC;
+    TienGT = this->LaySoTienTong("GT", Username) - TienGT;
+    TienBH = this->LaySoTienTong("BH", Username) - TienBH;
+
+    QVector<QString> DanhMuc = {"GD", "SK", "MS", "HP", "HD", "KD", "OT", "QT", "DC", "GT", "BH"};
+
+    QVector<lli> SoTien = {TienGD, TienSK, TienMS, TienHP, TienHD, TienKD, TienOT, TienQT, TienDC, TienGT, TienBH};
+
+    for( int i = 0; i < 11; ++i ){
+        qry.prepare("UPDATE DanhMucChiTieu SET TongTien = :TongTien  WHERE MaDanhMuc = :DanhMuc AND TenChu = :Username ");
+
+        qry.bindValue(":TongTien", SoTien[i]);
+        qry.bindValue(":DanhMuc", DanhMuc[i]);
+        qry.bindValue(":Username", Username);
+
+        qry.exec();
+
+    }
+
+}
+

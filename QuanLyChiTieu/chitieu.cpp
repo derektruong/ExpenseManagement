@@ -7,6 +7,12 @@ ChiTieu::ChiTieu(QString DanhMuc, QString username,QWidget *parent ) :
 {
     ui->setupUi(this);
 
+    this->setStyleSheet("background-color: red");
+
+    this->setFixedSize(671, 551);
+
+    this->setWindowIcon(QIcon(":/Images\\Icon\\cash-icon.png"));
+
     this->setWindowTitle(QString::fromUtf8("Chi tiêu"));
     //
 
@@ -44,7 +50,7 @@ ChiTieu::~ChiTieu()
 void ChiTieu::on_btn_OK_clicked()
 {
     //Tiền xử lý dữ liệu
-    QString MaDanhMuc, TenTaiKhoan, MoTa, NgayChiTieu;
+    QString MaDanhMuc, TenTaiKhoan, MoTa, NgayChiTieu, ThoiGianThongKe;
     lli SoTien;
 
     MaDanhMuc = DanhMucQL.LayMaDanhMuc(DanhMuc, Username);
@@ -68,39 +74,20 @@ void ChiTieu::on_btn_OK_clicked()
 
     SoTien = ui->lineEdit_SoTien->text().toLongLong();
 
+    //Cập nhật thông tin thu nhập cho bảng ThongKe
+    ThoiGianThongKe = ui->dateEdit->date().toString("yyyy-MM-dd");
+    ThongKeQL.CapNhatTongChi(this->Username, ThoiGianThongKe, SoTien);
+
+    //done
+
+    //Continue..
     if( MoTa == "" ||  SoTien < 0){
         QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Nhập không hợp lệ !!"));
         return;
     }
 
-    NgayChiTieu = ui->dateEdit->text();
+    NgayChiTieu = ui->dateEdit->date().toString("yyyy/MM/dd");
 
-
-    //Định dạng lại format date cho phù hợp với DBase
-    QStack<QString> st;
-
-    int s = 0;
-
-    for ( int i = 0; i < NgayChiTieu.size(); ++i) {
-        if( NgayChiTieu[i] == '/' ){
-            st.push(QString::number(s));
-            st.push("/");
-            s = 0;
-            continue;
-        }
-        s = s*10 + (NgayChiTieu[i].unicode() - 48);
-
-    }
-
-    st.push(QString::number(s));
-
-    NgayChiTieu = "";
-
-    while ( !st.empty() ) {
-        NgayChiTieu+=st.top();
-        st.pop();
-    }
-    //done
 
     // Truy vấn DB
 

@@ -20,11 +20,13 @@ SOURCES += \
     changepin.cpp \
     chitieu.cpp \
     expensetracker.cpp \
+    loan.cpp \
     main.cpp \
     loginapp.cpp \
     quanlychitieu.cpp \
     quanlytaikhoan.cpp \
     quanlythunhap.cpp \
+    thongke.cpp \
     tietkiem.cpp
 
 HEADERS += \
@@ -32,10 +34,12 @@ HEADERS += \
     changepin.h \
     chitieu.h \
     expensetracker.h \
+    loan.h \
     loginapp.h \
     quanlychitieu.h \
     quanlytaikhoan.h \
     quanlythunhap.h \
+    thongke.h \
     tietkiem.h
 
 FORMS += \

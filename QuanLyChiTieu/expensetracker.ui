@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1321</width>
-    <height>1104</height>
+    <height>702</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,6 +18,11 @@
 {
 	border: none;
   	border: 4px solid white;
+}
+QPushButton:selected
+{
+	
+	color: rgb(0, 85, 127);
 }
 QPushButton#pushButton_minimize:hover:!pressed
 {
@@ -32,9 +37,22 @@ QTableView::item:focus
 QTableView::indicator:unchecked {
     background-color: #d7d6d5
 }
+QTableView {
+    gridline-color: #6ccff6;
+    font-size: 13pt;
+	border-right: 0px;
+}
+QHeaderView::section {
+    background-color: #caffd0;
+    padding: 2px;
+    border: 1px solid #fffff8;
+    font-size: 14pt;
+}
+
+
 QToolTip {
     border: 1px solid gray;
-	background-color: rgb(255, 255, 255);
+	background-color: rgb(255, 255, 255,0);
 }
 QTabWidget::pane { 
     border-top: 2px solid #C2C7CB;
@@ -53,6 +71,10 @@ QTabWidget#tabWidget_P2::tab-bar {
 QTabWidget#tabWidget_3::tab-bar {
     left: 135px; /* move to the right by 150px */
 }
+
+QTabWidget#tabWidget_P3::tab-bar {
+    left: 100px; /* move to the right by 150px */
+}
 /* Style the tab using the tab sub-control. Note that
     it reads QTabBar _not_ QTabWidget */
 QTabBar::tab {
@@ -60,7 +82,7 @@ QTabBar::tab {
 }
 
 QTabBar::tab:selected, QTabBar::tab:hover {
-    background: #fac748;
+    background: #60e1e0;
 }
 
 QTabBar#tab_6,#tab_7,tab_8::tab {
@@ -125,6 +147,37 @@ QComboBox::down-arrow {
 QComboBox::down-arrow:on { /* shift the arrow when popup is open */
     top: 1px;
     left: 1px;
+}
+
+
+QScrollBar:vertical {            
+        border: 1px solid #999999;
+      	background:white;
+      	width:10px;    	
+        margin: 0px 0px 0px 0px;
+    }
+    QScrollBar::handle:vertical {
+       	background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+       	stop: 0 rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130), stop:1 rgb(32, 47, 130));
+        min-height: 0px;
+    }
+    QScrollBar::add-line:vertical {
+        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop: 0 rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));
+        height: 0px;
+        subcontrol-position: bottom;
+       	subcontrol-origin: margin;
+    }
+    QScrollBar::sub-line:vertical {
+        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));
+        height: 0 px;
+        subcontrol-position: top;
+        subcontrol-origin: margin;
+    }
+
+QDateEdit{
+	border-width: 5px;
 }</string>
   </property>
   <widget class="QStackedWidget" name="stackedWidget">
@@ -143,7 +196,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
     <bool>false</bool>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(47, 47, 59);</string>
+    <string notr="true">background-color: #292F36;</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::NoFrame</enum>
@@ -152,7 +205,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
     <number>0</number>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>4</number>
    </property>
    <widget class="QWidget" name="page_TrangChinh">
     <property name="styleSheet">
@@ -178,9 +231,9 @@ background-color: rgb(11, 58, 89);</string>
     <widget class="QLabel" name="label_HoVaTen_page1">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>60</x>
        <y>0</y>
-       <width>191</width>
+       <width>201</width>
        <height>31</height>
       </rect>
      </property>
@@ -228,6 +281,9 @@ font: 75 13pt &quot;Segoe UI&quot;;</string>
      </property>
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">background-image: url(:/Images/Pictures/bachHoa.png);
@@ -890,16 +946,20 @@ background-image: url(:/Images/Pictures/reload-icon.png);</string>
     <widget class="QTableView" name="tableView_page2">
      <property name="geometry">
       <rect>
-       <x>550</x>
-       <y>50</y>
-       <width>631</width>
-       <height>631</height>
+       <x>530</x>
+       <y>40</y>
+       <width>661</width>
+       <height>641</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255,190);
-font: 75 11pt &quot;Segoe UI&quot;;
-border-radius: 8px;</string>
+font: 75 16pt &quot;Segoe UI&quot;;
+border-radius: 10px;
+border: 2px solid #e1eff6;</string>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
      </property>
      <property name="textElideMode">
       <enum>Qt::ElideMiddle</enum>
@@ -925,7 +985,7 @@ border-radius: 8px;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">font: 75 20pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);</string>
+color: #495d63;</string>
      </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Thông tin&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -938,9 +998,9 @@ color: rgb(0, 0, 0);</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>50</y>
-       <width>551</width>
-       <height>571</height>
+       <y>60</y>
+       <width>521</width>
+       <height>581</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1025,7 +1085,8 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-radius: 5px;
+        <string notr="true">border-radius: 10px;
+border: 1px solid #6d6875;
 color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
 font: 75 14pt &quot;Segoe UI&quot;;</string>
@@ -1101,7 +1162,8 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-radius: 5px;
+        <string notr="true">border-radius: 10px;
+border: 1px solid #6d6875;
 color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
 font: 75 14pt &quot;Segoe UI&quot;;</string>
@@ -1118,7 +1180,10 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
+background-color: rgb(255, 255, 255);
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
        </property>
        <property name="placeholderText">
         <string>Nhập đúng, đủ dấu(nếu có)</string>
@@ -1145,7 +1210,9 @@ background-color: rgb(255, 255, 255);</string>
         <string notr="true">border-radius: 15px;
 color: rgb(255, 255, 255);
 background-color: rgb(106, 126, 255);
-font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
+font: 75 12pt &quot;MS Shell Dlg 2&quot;;
+
+QToolTip { color: #000000; background-color: #ffffff; border: 0px; }</string>
        </property>
        <property name="text">
         <string>Tìm Kiếm Theo Ngày</string>
@@ -1154,9 +1221,9 @@ font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
       <widget class="QCalendarWidget" name="calendarWidget_p2">
        <property name="geometry">
         <rect>
-         <x>20</x>
+         <x>10</x>
          <y>20</y>
-         <width>501</width>
+         <width>511</width>
          <height>341</height>
         </rect>
        </property>
@@ -1211,6 +1278,27 @@ font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
       </widget>
      </widget>
     </widget>
+    <widget class="QLabel" name="label_ThemThuNhap_3">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>0</y>
+       <width>281</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 20pt &quot;Segoe UI&quot;;
+color: rgb(85, 85, 255);</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;TRA CỨU CHI TIÊU&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::RichText</enum>
+     </property>
+    </widget>
+    <zorder>label_ThemThuNhap_3</zorder>
     <zorder>label_2</zorder>
     <zorder>label_ThongTin_page2</zorder>
     <zorder>tabWidget_P2</zorder>
@@ -1223,15 +1311,16 @@ font: 75 12pt &quot;MS Shell Dlg 2&quot;;</string>
     <widget class="QTableView" name="tableView_page3">
      <property name="geometry">
       <rect>
-       <x>550</x>
-       <y>70</y>
-       <width>641</width>
-       <height>561</height>
+       <x>510</x>
+       <y>50</y>
+       <width>681</width>
+       <height>621</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255,190);
-font: 75 11pt &quot;Segoe UI&quot;;
+alternate-background-color: rgb(202, 191, 190);
+font: 75 16pt &quot;Segoe UI&quot;;
 border-radius: 8px;</string>
      </property>
      <property name="textElideMode">
@@ -1250,10 +1339,10 @@ border-radius: 8px;</string>
     <widget class="QLabel" name="label_ThemThuNhap">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>10</y>
+       <x>110</x>
+       <y>0</y>
        <width>281</width>
-       <height>51</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1270,15 +1359,15 @@ color: rgb(85, 85, 255);</string>
     <widget class="QLabel" name="label_ThemThuNhap_2">
      <property name="geometry">
       <rect>
-       <x>720</x>
-       <y>20</y>
-       <width>281</width>
-       <height>51</height>
+       <x>750</x>
+       <y>0</y>
+       <width>191</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">font: 75 20pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);</string>
+color: #495d63;</string>
      </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Thông tin&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1292,7 +1381,7 @@ color: rgb(0, 0, 0);</string>
       <rect>
        <x>0</x>
        <y>60</y>
-       <width>551</width>
+       <width>511</width>
        <height>571</height>
       </rect>
      </property>
@@ -1301,16 +1390,16 @@ color: rgb(0, 0, 0);</string>
 background-color: #f4faff;</string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab1_P3">
       <attribute name="title">
-       <string>Cộng tiền vào thu nhập hiện có</string>
+       <string>Thu nhập</string>
       </attribute>
       <widget class="QPushButton" name="btn_p3_XacNhan">
        <property name="geometry">
         <rect>
-         <x>280</x>
+         <x>210</x>
          <y>460</y>
          <width>121</width>
          <height>41</height>
@@ -1329,7 +1418,7 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
       <widget class="QDateEdit" name="dateEdit_p3_NgayThuNhap">
        <property name="geometry">
         <rect>
-         <x>280</x>
+         <x>210</x>
          <y>230</y>
          <width>171</width>
          <height>31</height>
@@ -1337,7 +1426,8 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">font: 75 18pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
+background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1362,7 +1452,7 @@ background-color: rgb(255, 255, 255);</string>
       <widget class="QLineEdit" name="lineEdit_p3_SoTien">
        <property name="geometry">
         <rect>
-         <x>280</x>
+         <x>210</x>
          <y>160</y>
          <width>261</width>
          <height>41</height>
@@ -1370,7 +1460,10 @@ background-color: rgb(255, 255, 255);</string>
        </property>
        <property name="styleSheet">
         <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
+background-color: rgb(255, 255, 255);
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1382,14 +1475,15 @@ background-color: rgb(255, 255, 255);</string>
       <widget class="QComboBox" name="comboBox_p3_DenTaiKhoan_tab1">
        <property name="geometry">
         <rect>
-         <x>280</x>
+         <x>210</x>
          <y>90</y>
          <width>261</width>
          <height>41</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-radius: 5px;
+        <string notr="true">border-radius: 10px;
+border: 1px solid #6d6875;
 color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
 font: 75 14pt &quot;Segoe UI&quot;;</string>
@@ -1398,9 +1492,9 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
       <widget class="QWidget" name="layoutWidget_4">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>0</x>
          <y>10</y>
-         <width>261</width>
+         <width>201</width>
          <height>331</height>
         </rect>
        </property>
@@ -1460,7 +1554,7 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
       <widget class="QTextEdit" name="textEdit_p3_GhiChu">
        <property name="geometry">
         <rect>
-         <x>280</x>
+         <x>210</x>
          <y>300</y>
          <width>261</width>
          <height>141</height>
@@ -1468,7 +1562,10 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(255, 255, 255);
-font: 13pt &quot;Segoe UI&quot;;</string>
+font: 13pt &quot;Segoe UI&quot;;
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
        </property>
        <property name="placeholderText">
         <string>Mô tả, thông tin,...</string>
@@ -1477,14 +1574,15 @@ font: 13pt &quot;Segoe UI&quot;;</string>
       <widget class="QComboBox" name="comboBox_p3_LoaiThuNhap_tab1">
        <property name="geometry">
         <rect>
-         <x>280</x>
+         <x>210</x>
          <y>20</y>
          <width>261</width>
          <height>41</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-radius: 5px;
+        <string notr="true">border-radius: 10px;
+border: 1px solid #6d6875;
 color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
 font: 75 14pt &quot;Segoe UI&quot;;</string>
@@ -1498,10 +1596,10 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
       <widget class="QTextEdit" name="textEdit_p3_GhiChu_tab2">
        <property name="geometry">
         <rect>
-         <x>220</x>
+         <x>190</x>
          <y>130</y>
          <width>261</width>
-         <height>151</height>
+         <height>141</height>
         </rect>
        </property>
        <property name="toolTip">
@@ -1509,7 +1607,10 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(255, 255, 255);
-font: 13pt &quot;Segoe UI&quot;;</string>
+font: 13pt &quot;Segoe UI&quot;;
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
        </property>
        <property name="placeholderText">
         <string>Mô tả, thông tin,...</string>
@@ -1518,8 +1619,8 @@ font: 13pt &quot;Segoe UI&quot;;</string>
       <widget class="QPushButton" name="btn_p3_XacNhan_tab2">
        <property name="geometry">
         <rect>
-         <x>220</x>
-         <y>310</y>
+         <x>190</x>
+         <y>300</y>
          <width>121</width>
          <height>41</height>
         </rect>
@@ -1537,7 +1638,7 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
       <widget class="QLineEdit" name="lineEdit_p3_LoaiThuNhap_tab2">
        <property name="geometry">
         <rect>
-         <x>220</x>
+         <x>190</x>
          <y>50</y>
          <width>261</width>
          <height>41</height>
@@ -1545,7 +1646,10 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
+background-color: rgb(255, 255, 255);
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
        </property>
        <property name="placeholderText">
         <string>Tiền lương, quà tặng,...</string>
@@ -1556,11 +1660,14 @@ background-color: rgb(255, 255, 255);</string>
         <rect>
          <x>10</x>
          <y>30</y>
-         <width>201</width>
+         <width>171</width>
          <height>151</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_6">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinAndMaxSize</enum>
+        </property>
         <item>
          <widget class="QLabel" name="label_p3_LoaiThuNhap_tab2">
           <property name="styleSheet">
@@ -1584,6 +1691,63 @@ background-color: rgb(255, 255, 255);</string>
        </layout>
       </widget>
      </widget>
+     <widget class="QWidget" name="tab3_P3">
+      <attribute name="title">
+       <string>Xoá</string>
+      </attribute>
+      <widget class="QLabel" name="label_p3_LoaiThuNhap_tab3">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>151</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 75 15pt &quot;Segoe UI&quot;;</string>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Loại thu nhập:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="comboBox_p3_LoaiThuNhap_tab3">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>80</y>
+         <width>261</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius: 10px;
+border: 1px solid #6d6875;
+color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);
+font: 75 14pt &quot;Segoe UI&quot;;</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_p3_XacNhan_tab3">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>170</y>
+         <width>121</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius: 15px;
+color: rgb(255, 255, 255);
+background-color: rgb(255, 106, 108);
+font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Xác Nhận</string>
+       </property>
+      </widget>
+     </widget>
     </widget>
     <zorder>label_ThemThuNhap</zorder>
     <zorder>label_ThemThuNhap_2</zorder>
@@ -1592,35 +1756,38 @@ background-color: rgb(255, 255, 255);</string>
    </widget>
    <widget class="QWidget" name="page_TaiKhoan">
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(226, 222, 212);</string>
+     <string notr="true">background-color:#eae6e5;</string>
     </property>
     <widget class="QTableView" name="tableView_page4">
      <property name="geometry">
       <rect>
        <x>550</x>
-       <y>60</y>
+       <y>50</y>
        <width>641</width>
-       <height>611</height>
+       <height>621</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255,190);
-font: 75 11pt &quot;Segoe UI&quot;;
+font: 75 16pt &quot;Segoe UI&quot;;
 border-radius: 8px;</string>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QLabel" name="label_HoVaTen_page1_2">
      <property name="geometry">
       <rect>
        <x>140</x>
-       <y>10</y>
+       <y>0</y>
        <width>281</width>
        <height>51</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">font: 75 20pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);</string>
+color: #495d63;</string>
      </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TÀI KHOẢN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1632,15 +1799,15 @@ color: rgb(0, 0, 0);</string>
     <widget class="QLabel" name="label_HoVaTen_page1_3">
      <property name="geometry">
       <rect>
-       <x>620</x>
-       <y>10</y>
-       <width>471</width>
+       <x>680</x>
+       <y>0</y>
+       <width>411</width>
        <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">font: 75 20pt &quot;Segoe UI&quot;;
-color: rgb(0, 0, 0);</string>
+color: #495d63;</string>
      </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Thông tin tài khoản hiện có&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1653,17 +1820,17 @@ color: rgb(0, 0, 0);</string>
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>60</y>
+       <y>70</y>
        <width>551</width>
-       <height>581</height>
+       <height>571</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">font: 12pt &quot;Segoe UI&quot;;
-background-color: rgb(226, 222, 212);</string>
+background-color:#eae6e5;</string>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -1679,10 +1846,11 @@ background-color: rgb(226, 222, 212);</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 10pt &quot;Segoe UI&quot;;</string>
+        <string notr="true">font: 10pt &quot;Segoe UI&quot;;
+background-color: rgb(234, 230, 229);</string>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_6">
         <attribute name="title">
@@ -1718,7 +1886,10 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(255, 255, 255);
-font: 13pt &quot;Segoe UI&quot;;</string>
+font: 13pt &quot;Segoe UI&quot;;
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
          </property>
          <property name="placeholderText">
           <string>Mục đích sử dụng, thông tin,...</string>
@@ -1735,7 +1906,10 @@ font: 13pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="styleSheet">
           <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
+background-color: rgb(255, 255, 255);
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
          </property>
          <property name="placeholderText">
           <string>Thẻ, tiền mặt,...</string>
@@ -1797,7 +1971,10 @@ background-color: rgb(255, 255, 255);</string>
          </property>
          <property name="styleSheet">
           <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
+background-color: rgb(255, 255, 255);
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
          </property>
          <property name="placeholderText">
           <string>...đ</string>
@@ -1822,7 +1999,10 @@ background-color: rgb(255, 255, 255);</string>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(255, 255, 255);
-font: 13pt &quot;Segoe UI&quot;;</string>
+font: 13pt &quot;Segoe UI&quot;;
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
          </property>
          <property name="placeholderText">
           <string>Mục đích sử dụng, thông tin,...</string>
@@ -1842,7 +2022,10 @@ font: 13pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="styleSheet">
           <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
+background-color: rgb(255, 255, 255);
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
          </property>
          <property name="placeholderText">
           <string>...đ</string>
@@ -1862,7 +2045,10 @@ background-color: rgb(255, 255, 255);</string>
          </property>
          <property name="styleSheet">
           <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
+background-color: rgb(255, 255, 255);
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
          </property>
          <property name="placeholderText">
           <string>Tiết kiệm</string>
@@ -1901,7 +2087,10 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
          </property>
          <property name="styleSheet">
           <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
+background-color: rgb(255, 255, 255);
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
          </property>
          <property name="placeholderText">
           <string>...đ</string>
@@ -1978,7 +2167,10 @@ background-color: rgb(255, 255, 255);</string>
          </property>
          <property name="styleSheet">
           <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
+background-color: rgb(255, 255, 255);
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
          </property>
          <property name="placeholderText">
           <string>Tên khoản nợ,...</string>
@@ -1998,7 +2190,10 @@ background-color: rgb(255, 255, 255);</string>
          </property>
          <property name="styleSheet">
           <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
+background-color: rgb(255, 255, 255);
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
          </property>
          <property name="placeholderText">
           <string>...đ</string>
@@ -2011,7 +2206,7 @@ background-color: rgb(255, 255, 255);</string>
          <property name="geometry">
           <rect>
            <x>170</x>
-           <y>410</y>
+           <y>360</y>
            <width>111</width>
            <height>41</height>
           </rect>
@@ -2030,54 +2225,35 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
          <property name="geometry">
           <rect>
            <x>170</x>
-           <y>260</y>
+           <y>200</y>
            <width>261</width>
            <height>131</height>
           </rect>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(255, 255, 255);
-font: 13pt &quot;Segoe UI&quot;;</string>
+font: 13pt &quot;Segoe UI&quot;;
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
          </property>
          <property name="placeholderText">
           <string>Mục đích sử dụng, thông tin,...</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lineEdit_p4_LaiSuat_NO">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="geometry">
-          <rect>
-           <x>170</x>
-           <y>130</y>
-           <width>261</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
-         </property>
-         <property name="placeholderText">
-          <string>..%</string>
-         </property>
-         <property name="clearButtonEnabled">
-          <bool>false</bool>
          </property>
         </widget>
         <widget class="QDateEdit" name="dateEdit_p3_KyHan_NO">
          <property name="geometry">
           <rect>
            <x>170</x>
-           <y>200</y>
+           <y>140</y>
            <width>171</width>
            <height>31</height>
           </rect>
          </property>
          <property name="styleSheet">
           <string notr="true">font: 75 18pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
+background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -2105,7 +2281,7 @@ background-color: rgb(255, 255, 255);</string>
            <x>50</x>
            <y>1</y>
            <width>116</width>
-           <height>301</height>
+           <height>241</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -2126,16 +2302,6 @@ background-color: rgb(255, 255, 255);</string>
             </property>
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Tiền nợ:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_p4_LaiSuat_NO">
-            <property name="styleSheet">
-             <string notr="true">font: 75 15pt &quot;Segoe UI&quot;;</string>
-            </property>
-            <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Lãi suất:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
@@ -2168,7 +2334,7 @@ background-color: rgb(255, 255, 255);</string>
         <rect>
          <x>30</x>
          <y>10</y>
-         <width>451</width>
+         <width>471</width>
          <height>33</height>
         </rect>
        </property>
@@ -2187,6 +2353,7 @@ background-color: rgb(255, 255, 255);</string>
          <widget class="QComboBox" name="comboBox_p4_LoaiTaiKhoan">
           <property name="styleSheet">
            <string notr="true">border-radius: 5px;
+border: 1px solid #6d6875;
 color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
 font: 75 14pt &quot;Segoe UI&quot;;</string>
@@ -2238,7 +2405,10 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
+background-color: rgb(255, 255, 255);
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
        </property>
       </widget>
       <widget class="QTextEdit" name="textEdit_p4_MoTa_2">
@@ -2252,7 +2422,10 @@ background-color: rgb(255, 255, 255);</string>
        </property>
        <property name="styleSheet">
         <string notr="true">font: 16pt &quot;Segoe UI&quot;;
-background-color: rgb(255, 255, 255);</string>
+background-color: rgb(255, 255, 255);
+
+border-radius: 10px;
+border: 1px solid #6d6875;</string>
        </property>
       </widget>
       <widget class="QWidget" name="layoutWidget_2">
@@ -2307,7 +2480,8 @@ background-color: rgb(255, 255, 255);</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-radius: 5px;
+        <string notr="true">border-radius: 10px;
+border: 1px solid #6d6875;
 color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
 font: 75 14pt &quot;Segoe UI&quot;;</string>
@@ -2341,8 +2515,8 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
        <property name="geometry">
         <rect>
          <x>190</x>
-         <y>200</y>
-         <width>161</width>
+         <y>180</y>
+         <width>151</width>
          <height>41</height>
         </rect>
        </property>
@@ -2366,7 +2540,8 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-radius: 5px;
+        <string notr="true">border-radius: 10px;
+border: 1px solid #6d6875;
 color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
 font: 75 14pt &quot;Segoe UI&quot;;</string>
@@ -2403,7 +2578,8 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-radius: 5px;
+        <string notr="true">border-radius: 10px;
+border: 1px solid #6d6875;
 color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
 font: 75 14pt &quot;Segoe UI&quot;;</string>
@@ -2482,19 +2658,114 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
     <property name="styleSheet">
      <string notr="true">background-color: #EDF2EF;</string>
     </property>
-    <widget class="QTabWidget" name="tabWidget_2">
+    <widget class="QTabWidget" name="tabWidget_P5">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>10</y>
-       <width>1101</width>
-       <height>681</height>
+       <x>0</x>
+       <y>0</y>
+       <width>1201</width>
+       <height>701</height>
       </rect>
      </property>
-     <widget class="QWidget" name="tab_4">
+     <property name="styleSheet">
+      <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab1_P5">
       <attribute name="title">
-       <string>Tab 1</string>
+       <string>Thu Chi</string>
       </attribute>
+      <widget class="QFrame" name="frame_P5_tab1">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>10</y>
+         <width>1031</width>
+         <height>641</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_P5_CapNhat_tab1">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>100</y>
+         <width>111</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius: 15px;
+color: rgb(255, 255, 255);
+background-color: rgb(106, 126, 255);
+font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Cập nhật</string>
+       </property>
+      </widget>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>143</width>
+         <height>82</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <widget class="QLabel" name="label_p4_SoTien_3">
+          <property name="styleSheet">
+           <string notr="true">font: 75 16pt &quot;Segoe UI&quot;;</string>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Lựa chọn tháng:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDateEdit" name="dateEdit_p5_ThangThuChi_tab1">
+          <property name="styleSheet">
+           <string notr="true">font: 75 18pt &quot;Segoe UI&quot;;
+background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);
+</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="currentSection">
+           <enum>QDateTimeEdit::MonthSection</enum>
+          </property>
+          <property name="displayFormat">
+           <string>MM/yyyy</string>
+          </property>
+          <property name="calendarPopup">
+           <bool>false</bool>
+          </property>
+          <property name="timeSpec">
+           <enum>Qt::LocalTime</enum>
+          </property>
+          <property name="date">
+           <date>
+            <year>2020</year>
+            <month>9</month>
+            <day>1</day>
+           </date>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
      <widget class="QWidget" name="tab_5">
       <attribute name="title">
@@ -2677,7 +2948,7 @@ color: rgb(255, 255, 255);</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(35, 39, 66);</string>
+    <string notr="true">background-color: rgb(35, 39, 66,245);</string>
    </property>
    <widget class="QPushButton" name="pushButton_TrangChinh">
     <property name="geometry">
@@ -2690,18 +2961,18 @@ color: rgb(255, 255, 255);</string>
     </property>
     <property name="font">
      <font>
-      <family>Segoe UI</family>
-      <pointsize>15</pointsize>
-      <weight>10</weight>
+      <family>Segoe UI black</family>
+      <pointsize>14</pointsize>
+      <weight>7</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 1px;
-color: rgb(0, 0, 0);
+color:#f2f7f2;
 background-color: rgb(255, 111, 113);
-font: 80 15pt &quot;Segoe UI&quot;;</string>
+font: 60 14pt &quot;Segoe UI black&quot;;</string>
     </property>
     <property name="text">
      <string>TRANG CHỦ</string>

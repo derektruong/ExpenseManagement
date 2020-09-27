@@ -188,10 +188,10 @@ color: rgb(254, 88, 91);</string>
    <widget class="QLabel" name="label_TrangThai">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>390</y>
-      <width>311</width>
-      <height>31</height>
+      <x>320</x>
+      <y>350</y>
+      <width>271</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
@@ -210,7 +210,7 @@ color: rgb(255, 255, 255);
 border-radius: 10px;</string>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Trạng thái: &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Trạng thái: &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <zorder>groupBox_2</zorder>

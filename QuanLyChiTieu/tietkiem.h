@@ -18,6 +18,10 @@ public:
 
     int LayMaTaiKhoan(QString Username, QString TenTaiKhoan);
 
+    lli LayMucTieu(QString Username, QString TenTaiKhoan);
+
+    void CapNhatMucTieu(QString Username, int MaTaiKhoan, lli MucTieu);
+
     void CapNhatSoDu(QString Username, int MaTaiKhoan, lli SoDuTK);
 
     void XoaTietKiem(QString Username, int MaTaiKhoan);
