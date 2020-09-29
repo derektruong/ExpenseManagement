@@ -122,7 +122,7 @@ void ThongKe::CapNhatTongChi(QString Username, QString ThoiGian, lli SoTien ){
 
 QVector<lli> ThongKe::LayDuLieuTongThuTheoTuan(QString Username, QString Thang, QString Nam){
 
-    QVector<lli> res = {0, 0, 0, 0, 0, 0};
+    QVector<lli> res = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 
     QSqlQuery qry;
 
@@ -134,16 +134,22 @@ QVector<lli> ThongKe::LayDuLieuTongThuTheoTuan(QString Username, QString Thang, 
 
     if( qry.exec() ){
         while ( qry.next() ) {
-            if( qry.value("Ngay").toInt() >= 1 && qry.value("Ngay").toInt() < 8 )
+            if( qry.value("Ngay").toInt() >= 1 && qry.value("Ngay").toInt() < 5 )
                 res[1] += qry.value("TongThu").toLongLong();
-            if( qry.value("Ngay").toInt() >= 8 && qry.value("Ngay").toInt() < 15 )
+            if( qry.value("Ngay").toInt() >= 5 && qry.value("Ngay").toInt() < 9 )
                 res[2] += qry.value("TongThu").toLongLong();
-            if( qry.value("Ngay").toInt() >= 15 && qry.value("Ngay").toInt() < 22 )
+            if( qry.value("Ngay").toInt() >= 9 && qry.value("Ngay").toInt() < 13 )
                 res[3] += qry.value("TongThu").toLongLong();
-            if( qry.value("Ngay").toInt() >= 22 && qry.value("Ngay").toInt() < 29 )
+            if( qry.value("Ngay").toInt() >= 13 && qry.value("Ngay").toInt() < 17 )
                 res[4] += qry.value("TongThu").toLongLong();
-            if( qry.value("Ngay").toInt() >= 29 && qry.value("Ngay").toInt() < 32 )
+            if( qry.value("Ngay").toInt() >= 17 && qry.value("Ngay").toInt() < 21 )
                 res[5] += qry.value("TongThu").toLongLong();
+            if( qry.value("Ngay").toInt() >= 21 && qry.value("Ngay").toInt() < 25 )
+                res[6] += qry.value("TongThu").toLongLong();
+            if( qry.value("Ngay").toInt() >= 25 && qry.value("Ngay").toInt() < 29 )
+                res[7] += qry.value("TongThu").toLongLong();
+            if( qry.value("Ngay").toInt() >= 29 && qry.value("Ngay").toInt() < 32 )
+                res[8] += qry.value("TongThu").toLongLong();
         }
 
     }
@@ -154,7 +160,7 @@ QVector<lli> ThongKe::LayDuLieuTongThuTheoTuan(QString Username, QString Thang, 
 }
 
 QVector<lli> ThongKe::LayDuLieuTongChiTheoTuan(QString Username, QString Thang, QString Nam){
-    QVector<lli> res = {0, 0, 0, 0, 0, 0};
+    QVector<lli> res = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 
     QSqlQuery qry;
 
@@ -166,16 +172,188 @@ QVector<lli> ThongKe::LayDuLieuTongChiTheoTuan(QString Username, QString Thang, 
 
     if( qry.exec() ){
         while ( qry.next() ) {
-            if( qry.value("Ngay").toInt() >= 1 && qry.value("Ngay").toInt() < 8 )
+            if( qry.value("Ngay").toInt() >= 1 && qry.value("Ngay").toInt() < 5 )
                 res[1] -= qry.value("TongChi").toLongLong();
-            if( qry.value("Ngay").toInt() >= 8 && qry.value("Ngay").toInt() < 15 )
+            if( qry.value("Ngay").toInt() >= 5 && qry.value("Ngay").toInt() < 9 )
                 res[2] -= qry.value("TongChi").toLongLong();
-            if( qry.value("Ngay").toInt() >= 15 && qry.value("Ngay").toInt() < 22 )
+            if( qry.value("Ngay").toInt() >= 9 && qry.value("Ngay").toInt() < 13 )
                 res[3] -= qry.value("TongChi").toLongLong();
-            if( qry.value("Ngay").toInt() >= 22 && qry.value("Ngay").toInt() < 29 )
+            if( qry.value("Ngay").toInt() >= 13 && qry.value("Ngay").toInt() < 17 )
                 res[4] -= qry.value("TongChi").toLongLong();
-            if( qry.value("Ngay").toInt() >= 29 && qry.value("Ngay").toInt() < 32 )
+            if( qry.value("Ngay").toInt() >= 17 && qry.value("Ngay").toInt() < 21 )
                 res[5] -= qry.value("TongChi").toLongLong();
+            if( qry.value("Ngay").toInt() >= 21 && qry.value("Ngay").toInt() < 25 )
+                res[6] -= qry.value("TongChi").toLongLong();
+            if( qry.value("Ngay").toInt() >= 25 && qry.value("Ngay").toInt() < 29 )
+                res[7] -= qry.value("TongChi").toLongLong();
+            if( qry.value("Ngay").toInt() >= 29 && qry.value("Ngay").toInt() < 32 )
+                res[8] -= qry.value("TongChi").toLongLong();
+        }
+
+    }
+
+    return res;
+}
+
+
+QVector<lli> ThongKe::LayDuLieuTongThuTheoNam(QString Username, QString Nam){
+    QVector<lli> res = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+    QSqlQuery qry;
+
+    qry.prepare("SELECT Month(ThoiGian) AS 'Thang', TongThu FROM ThongKe WHERE TenChu = :Username AND Year(ThoiGian) = :Nam");
+
+    qry.bindValue(":Nam", Nam);
+    qry.bindValue(":Username", Username);
+
+    if( qry.exec() ){
+        while ( qry.next() ) {
+            if( qry.value("Thang").toInt() == 1 )
+                res[1] += qry.value("TongThu").toLongLong();
+            if( qry.value("Thang").toInt() == 2 )
+                res[2] += qry.value("TongThu").toLongLong();
+            if( qry.value("Thang").toInt() == 3 )
+                res[3] += qry.value("TongThu").toLongLong();
+            if( qry.value("Thang").toInt() == 4 )
+                res[4] += qry.value("TongThu").toLongLong();
+            if( qry.value("Thang").toInt() == 5 )
+                res[5] += qry.value("TongThu").toLongLong();
+            if( qry.value("Thang").toInt() == 6 )
+                res[6] += qry.value("TongThu").toLongLong();
+            if( qry.value("Thang").toInt() == 7 )
+                res[7] += qry.value("TongThu").toLongLong();
+            if( qry.value("Thang").toInt() == 8 )
+                res[8] += qry.value("TongThu").toLongLong();
+            if( qry.value("Thang").toInt() == 9 )
+                res[9] += qry.value("TongThu").toLongLong();
+            if( qry.value("Thang").toInt() == 10 )
+                res[10] += qry.value("TongThu").toLongLong();
+            if( qry.value("Thang").toInt() == 11 )
+                res[11] += qry.value("TongThu").toLongLong();
+            if( qry.value("Thang").toInt() == 12 )
+                res[12] += qry.value("TongThu").toLongLong();
+        }
+
+    }
+
+    return res;
+}
+
+QVector<lli> ThongKe::LayDuLieuTongChiTheoNam(QString Username, QString Nam){
+    QVector<lli> res = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+    QSqlQuery qry;
+
+    qry.prepare("SELECT Month(ThoiGian) AS 'Thang', TongChi FROM ThongKe WHERE TenChu = :Username AND Year(ThoiGian) = :Nam");
+
+    qry.bindValue(":Nam", Nam);
+    qry.bindValue(":Username", Username);
+
+    if( qry.exec() ){
+        while ( qry.next() ) {
+            if( qry.value("Thang").toInt() == 1 )
+                res[1] -= qry.value("TongChi").toLongLong();
+            if( qry.value("Thang").toInt() == 2 )
+                res[2] -= qry.value("TongChi").toLongLong();
+            if( qry.value("Thang").toInt() == 3 )
+                res[3] -= qry.value("TongChi").toLongLong();
+            if( qry.value("Thang").toInt() == 4 )
+                res[4] -= qry.value("TongChi").toLongLong();
+            if( qry.value("Thang").toInt() == 5 )
+                res[5] -= qry.value("TongChi").toLongLong();
+            if( qry.value("Thang").toInt() == 6 )
+                res[6] -= qry.value("TongChi").toLongLong();
+            if( qry.value("Thang").toInt() == 7 )
+                res[7] -= qry.value("TongChi").toLongLong();
+            if( qry.value("Thang").toInt() == 8 )
+                res[8] -= qry.value("TongChi").toLongLong();
+            if( qry.value("Thang").toInt() == 9 )
+                res[9] -= qry.value("TongChi").toLongLong();
+            if( qry.value("Thang").toInt() == 10 )
+                res[10] -= qry.value("TongChi").toLongLong();
+            if( qry.value("Thang").toInt() == 11 )
+                res[11] -= qry.value("TongChi").toLongLong();
+            if( qry.value("Thang").toInt() == 12 )
+                res[12] -= qry.value("TongChi").toLongLong();
+        }
+
+    }
+
+    return res;
+}
+
+QVector<lli> ThongKe::LayDuLieuCanDoiTheoTuan(QString Username, QString Thang, QString Nam){
+    QVector<lli> res = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+    QSqlQuery qry;
+
+    qry.prepare("SELECT Day(ThoiGian) AS 'Ngay', CanDoi FROM ThongKe WHERE TenChu = :Username AND Month(ThoiGian) = :Thang AND Year(ThoiGian) = :Nam");
+
+    qry.bindValue(":Thang", Thang);
+    qry.bindValue(":Nam", Nam);
+    qry.bindValue(":Username", Username);
+
+    if( qry.exec() ){
+        while ( qry.next() ) {
+            if( qry.value("Ngay").toInt() >= 1 && qry.value("Ngay").toInt() < 5 )
+                res[1] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Ngay").toInt() >= 5 && qry.value("Ngay").toInt() < 9 )
+                res[2] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Ngay").toInt() >= 9 && qry.value("Ngay").toInt() < 13 )
+                res[3] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Ngay").toInt() >= 13 && qry.value("Ngay").toInt() < 17 )
+                res[4] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Ngay").toInt() >= 17 && qry.value("Ngay").toInt() < 21 )
+                res[5] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Ngay").toInt() >= 21 && qry.value("Ngay").toInt() < 25 )
+                res[6] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Ngay").toInt() >= 25 && qry.value("Ngay").toInt() < 29 )
+                res[7] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Ngay").toInt() >= 29 && qry.value("Ngay").toInt() < 32 )
+                res[8] += qry.value("CanDoi").toLongLong();
+        }
+
+    }
+
+    return res;
+}
+
+QVector<lli> ThongKe::LayDuLieuCanDoiTheoNam(QString Username, QString Nam){
+    QVector<lli> res = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+    QSqlQuery qry;
+
+    qry.prepare("SELECT Month(ThoiGian) AS 'Thang', CanDoi FROM ThongKe WHERE TenChu = :Username AND Year(ThoiGian) = :Nam");
+
+    qry.bindValue(":Nam", Nam);
+    qry.bindValue(":Username", Username);
+
+    if( qry.exec() ){
+        while ( qry.next() ) {
+            if( qry.value("Thang").toInt() == 1 )
+                res[1] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Thang").toInt() == 2 )
+                res[2] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Thang").toInt() == 3 )
+                res[3] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Thang").toInt() == 4 )
+                res[4] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Thang").toInt() == 5 )
+                res[5] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Thang").toInt() == 6 )
+                res[6] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Thang").toInt() == 7 )
+                res[7] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Thang").toInt() == 8 )
+                res[8] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Thang").toInt() == 9 )
+                res[9] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Thang").toInt() == 10 )
+                res[10] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Thang").toInt() == 11 )
+                res[11] += qry.value("CanDoi").toLongLong();
+            if( qry.value("Thang").toInt() == 12 )
+                res[12] += qry.value("CanDoi").toLongLong();
         }
 
     }

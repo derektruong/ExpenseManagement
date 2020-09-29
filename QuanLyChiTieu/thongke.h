@@ -7,7 +7,7 @@
 #include <QMessageBox>
 #include <QDebug>
 
-typedef qint64 lli;
+typedef long long int lli;
 
 class ThongKe
 {
@@ -21,6 +21,14 @@ public:
     QVector<lli> LayDuLieuTongThuTheoTuan(QString Username, QString Thang, QString Nam);
 
     QVector<lli> LayDuLieuTongChiTheoTuan(QString Username, QString Thang, QString Nam);
+
+    QVector<lli> LayDuLieuTongThuTheoNam(QString Username, QString Nam);
+
+    QVector<lli> LayDuLieuTongChiTheoNam(QString Username, QString Nam);
+
+    QVector<lli> LayDuLieuCanDoiTheoTuan(QString Username, QString Thang, QString Nam);
+
+    QVector<lli> LayDuLieuCanDoiTheoNam(QString Username, QString Nam);
 
 
 

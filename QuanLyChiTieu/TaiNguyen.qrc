@@ -23,5 +23,6 @@
         <file>Images/Pictures/Arrows-Down.png</file>
         <file>Images/BackGr/bkgr_Login.jpg</file>
         <file>Images/Icon/cash-icon.png</file>
+        <file>Images/Icon/ChiTieu-icon.png</file>
     </qresource>
 </RCC>

@@ -9,7 +9,7 @@
 #include <QMessageBox>
 #include <QDebug>
 
-typedef qint64 lli;
+typedef long long int lli;
 
 class QuanLyChiTieu
 {
@@ -23,6 +23,14 @@ public:
     lli LaySoTienTong(QString MaDanhMuc, QString Username);
 
     void XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan );
+
+    QVector<QVector<lli>> LayThongKe7NgayTruoc(QString Username, QString TenDanhMuc, QString TenTaiKhoan, QString Ngay, QString Thang,QString Nam);
+
+    QVector<QVector<lli>> LayThongKe30NgayTruoc(QString Username, QString TenDanhMuc, QString TenTaiKhoan, QString Ngay, QString Thang,QString Nam);
+
+    QVector<QVector<lli>> LayThongKe3ThangTruoc(QString Username, QString TenDanhMuc, QString TenTaiKhoan, QString Ngay, QString Thang,QString Nam);
+
+    QVector<lli> LayThongKe1Nam(QString Username, QString TenDanhMuc, QString TenTaiKhoan, QString Nam);
 
 
 private:

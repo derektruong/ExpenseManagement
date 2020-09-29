@@ -31,6 +31,8 @@ ExpenseTracker::ExpenseTracker(QWidget *parent) :
     ui->dateEdit_p3_NgayThuNhap->setDate(crrDate);
 
     ui->dateEdit_p3_KyHan_NO->setDate(crrDate);
+    ui->dateEdit_p5_ThangThuChi_tab1->setDate(crrDate);
+    ui->dateEdit_P5_ThoiGian_tab2->setDate(crrDate);
 
 }
 
@@ -61,6 +63,7 @@ QString ExpenseTracker::FormatMoney(lli Tien){
         res+=st.top();
         st.pop();
     }
+    if( Tien < 0 && res[1] == '.') res.replace(1,1,"");
     //qDebug()<<res;
 
     return  res;
@@ -80,7 +83,29 @@ bool ExpenseTracker::CheckMoneyInput(QString money){
     }
     return true;
 }
+//Slot tab1 P5
+void ExpenseTracker::SetToolTipThuNhap(bool status,int index){
+    if( status )
+        QToolTip::showText(QCursor::pos(), FormatMoney( Thu[index+1]) + "đ",nullptr,QRect(),3000);
+}
 
+void ExpenseTracker::SetToolTipChiTieu(bool status,int index){
+    if( status )
+
+        QToolTip::showText(QCursor::pos(), FormatMoney(Chi[index+1]) + "đ");
+}
+
+void ExpenseTracker::SetToolTipCanDoi(int index){
+    ui->label_P5_CanDoi_tab1->setText("Cân đối: " + FormatMoney(CanDoi[index+1]) + "đ");
+    ui->label_P5_CanDoi_tab1->setStyleSheet("font-weight: bold; font: 75 18pt Segoe UI Black; color: #495d63;");
+    ui->label_P5_CanDoi_tab1->setAlignment(Qt::AlignCenter);
+
+    if( CanDoi[index+1] < 0 ){
+        QMessageBox::information(this,"Thông báo",QString::fromUtf8("Vào thời điểm này thu nhập của bạn thấp hơn chi tiêu. Hãy lập kế hoạch tiết kiệm ngay nhé!!"));
+    }
+}
+
+//done
 void ExpenseTracker::RefreshP1(){
     ui->pushButton_TrangChinh->animateClick(5);
 }
@@ -135,6 +160,12 @@ void ExpenseTracker::on_pushButton_TrangChinh_clicked()
     // Làm mới trang chủ
     ui->stackedWidget->setCurrentIndex(0);
     ui->comboBox->clear();
+
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
     //Đồ thị
     lli TienGD, TienSK, TienMS, TienHP, TienHD, TienKD, TienOT, TienQT, TienDC, TienGT, TienBH;
 
@@ -268,6 +299,7 @@ void ExpenseTracker::on_pushButton_TrangChinh_clicked()
 
     chartView->setParent(ui->frame);
     chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setRubberBand(QChartView::HorizontalRubberBand);
     chartView->resize(761, 441);
     chartView->show();
 
@@ -314,6 +346,15 @@ void ExpenseTracker::on_pushButton_TrangChinh_clicked()
 void ExpenseTracker::on_pushButton_ChiTieu_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
+
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+
+
+
     //
     ui->comboBox_p2_TenTaiKhoan->clear();
 
@@ -337,6 +378,13 @@ void ExpenseTracker::on_pushButton_ChiTieu_clicked()
 void ExpenseTracker::on_pushButton_ThuNhap_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
 
     ui->comboBox_p3_DenTaiKhoan_tab1->clear();
     ui->comboBox_p3_LoaiThuNhap_tab1->clear();
@@ -371,7 +419,7 @@ void ExpenseTracker::on_pushButton_ThuNhap_clicked()
     if( ui->tab3_P3->isActiveWindow() ){
         //Thêm vào combobox Thu Nhập
         if( !DSLoaiThuNhap.size() ){
-            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Bạn chưa có loại thu nhập nào, vui lòng thêm thu nhập"));
+            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Bạn chưa có loại thu nhập nào, vui lòng thêm nguồn thu nhập"));
         }
 
         for ( int i = 0; i < DSLoaiThuNhap.size(); ++i) {
@@ -397,6 +445,15 @@ void ExpenseTracker::on_pushButton_ThuNhap_clicked()
 void ExpenseTracker::on_pushButton_TaiKhoan_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
+
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+
+
     ///Cap nhat bang page 4
 
     UpdateTableP4();
@@ -446,11 +503,61 @@ void ExpenseTracker::on_pushButton_TaiKhoan_clicked()
 void ExpenseTracker::on_pushButton_ThongKe_clicked()
 {
     ui->stackedWidget->setCurrentIndex(4);
+
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+
+    //
+    ui->comboBox_P5_TenTaiKhoan_tab2->clear();
+    ui->comboBox_P5_NguonThuNhap_tab3->clear();
+    ui->comboBox_P5_DenTaiKhoan_tab3->clear();
+
+    QVector<QString> DSTenTK = TaiKhoanQL.LayTenTaiKhoan(TenDangNhap);
+    QVector<QString> DSLoaiThuNhap = ThuNhapQL.LayTenThuNhap(TenDangNhap);
+    ui->comboBox_P5_TenTaiKhoan_tab2->addItem("Tất Cả");
+    ui->comboBox_P5_DenTaiKhoan_tab3->addItem("Tất Cả");
+    ui->comboBox_P5_NguonThuNhap_tab3->addItem("Tất Cả");
+
+    if( ui->tab2_P5->isActiveWindow() ){
+        for ( int i = 0; i < DSTenTK.size(); ++i) {
+            ui->comboBox_P5_TenTaiKhoan_tab2->addItem(DSTenTK[i]);
+        }
+    }
+    if( ui->tab3_P5->isActiveWindow() ){
+        for ( int i = 0; i < DSTenTK.size(); ++i) {
+            ui->comboBox_P5_DenTaiKhoan_tab3->addItem(DSTenTK[i]);
+        }
+        //Thêm vào combobox Thu Nhập
+        if( !DSLoaiThuNhap.size() ){
+            QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Bạn chưa có loại thu nhập nào, vui lòng thêm nguồn thu nhập"));
+        }
+
+        for ( int i = 0; i < DSLoaiThuNhap.size(); ++i) {
+            ui->comboBox_P5_NguonThuNhap_tab3->addItem(DSLoaiThuNhap[i]);
+        }
+    }
+
+
+
+    ui->btn_P5_TheoThang_tab1->animateClick(5);
+    ui->btn_P5_CapNhat_tab2->animateClick(5);
 }
 
 void ExpenseTracker::on_pushButton_NguoiDung_clicked()
 {
     ui->stackedWidget->setCurrentIndex(5);
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+
+
     QString HoVaTen, Email,CongViec;
 
     QSqlQuery qry("SELECT * FROM dbo.NguoiDung nd WHERE nd.TenDangNhap = '"+TenDangNhap+"'");
@@ -1304,7 +1411,7 @@ void ExpenseTracker::on_btn_p3_XacNhan_tab3_clicked()
     RefreshP3();
 }
 
-void ExpenseTracker::on_btn_P5_CapNhat_tab1_clicked()
+void ExpenseTracker::on_btn_P5_TheoThang_tab1_clicked()
 {
     QString Thang, Nam;
 
@@ -1312,20 +1419,22 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab1_clicked()
     Thang = ui->dateEdit_p5_ThangThuChi_tab1->date().toString("MM");
     Nam = ui->dateEdit_p5_ThangThuChi_tab1->date().toString("yyyy");
 
-    QVector<lli> Thu = ThongKeQL.LayDuLieuTongThuTheoTuan(TenDangNhap, Thang, Nam );
-    QVector<lli> Chi = ThongKeQL.LayDuLieuTongChiTheoTuan(TenDangNhap, Thang, Nam );
+    Thu = ThongKeQL.LayDuLieuTongThuTheoTuan(TenDangNhap, Thang, Nam );
+    Chi = ThongKeQL.LayDuLieuTongChiTheoTuan(TenDangNhap, Thang, Nam );
+    CanDoi = ThongKeQL.LayDuLieuCanDoiTheoTuan(TenDangNhap, Thang, Nam);
+
     lli Max = Thu[1] , Min = Chi[1];
 
-    for (int i = 1; i < 6; ++i) {
-        if( Thu[i] > Max ) Max = Thu[i];;
+    for (int i = 1; i < 9; ++i) {
+        if( Thu[i] > Max ) Max = Thu[i];
         if( Chi[i] < Min ) Min = Chi[i];
     }
 
     QBarSet *set0 = new QBarSet("Thu Nhập");
     QBarSet *set1 = new QBarSet("Chi Tiêu");
 
-    *set0 << Thu[1] << Thu[2] << Thu[3] << Thu[4] << Thu[5];
-    *set1 << Chi[1] << Chi[2] << Chi[3] << Chi[4] << Chi[5];
+    *set0 << Thu[1] << Thu[2] << Thu[3] << Thu[4] << Thu[5] << Thu[6] << Thu[7] << Thu[8];
+    *set1 << Chi[1] << Chi[2] << Chi[3] << Chi[4] << Chi[5] << Chi[6] << Chi[7] << Chi[8];
 
     QStackedBarSeries *series = new QStackedBarSeries();
 
@@ -1334,23 +1443,24 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab1_clicked()
 
     QChart *chart = new QChart();
     chart->addSeries(series);
-    chart->setTitle("Biểu đồ cân đối chi tiêu vào tháng "+Thang+" năm "+Nam+"");
+    chart->setTitle("Biểu đồ cân đối thu chi vào tháng "+Thang+" năm "+Nam+"");
     chart->setAnimationOptions(QChart::SeriesAnimations);
 
     QStringList categ;
 
-    categ << "Tuần 1" << "Tuần 2" << "Tuần 3" << "Tuần 4" <<"Tuần 5";
+    categ << "1 - 4" << "5 - 8" << "9 - 12" << "13 - 16" <<"17 - 20" << "21 - 24" << "25 - 28" <<"29 - 31";
 
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
 
     axisX->append(categ);
-    axisX->setTitleText("Tuần trong tháng "+Thang+"");
+    axisX->setTitleText("Các khoảng ngày trong tháng "+Thang+"");
     chart->addAxis(axisX, Qt::AlignBottom);
 
 
     QValueAxis *axisY = new QValueAxis();
 
     axisY->setRange(Min + Min/4, Max + Max/4);
+    axisY->setTickCount(11);
     axisY->setTitleText("Tiền thu/ chi (VNĐ)");
 
     chart->addAxis(axisY, Qt::AlignLeft);
@@ -1360,15 +1470,741 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab1_clicked()
 
     chart->legend()->setVisible(true);
     chart->legend()->setAlignment(Qt::AlignBottom);
+    chart->setBackgroundVisible(false);
 
 
     QChartView *chartView = new QChartView(chart);
     chartView->setParent(ui->frame_P5_tab1);
     chartView->setRenderHint(QPainter::Antialiasing);
 
-    chartView->resize(1031, 641);
+    chartView->resize(1201, 631);
+    chartView->setRubberBand(QChartView::RectangleRubberBand);
+    //chartView->setRubberBand(QChartView::VerticalRubberBand);
 
     chartView->show();
 
+    this->setMouseTracking(true);
 
+    connect(set0, SIGNAL(hovered(bool, int)), this, SLOT(SetToolTipThuNhap(bool, int)));
+    connect(set1, SIGNAL(hovered(bool, int)), this, SLOT(SetToolTipChiTieu(bool, int)));
+    connect(set0, SIGNAL(clicked(int)), this, SLOT(SetToolTipCanDoi(int)));
+    connect(set1, SIGNAL(clicked(int)), this, SLOT(SetToolTipCanDoi(int)));
+
+
+}
+
+
+
+void ExpenseTracker::on_btn_P5_TheoNam_tab1_clicked()
+{
+    QString Nam;
+
+    Nam = ui->dateEdit_p5_ThangThuChi_tab1->date().toString("yyyy");
+
+    Thu = ThongKeQL.LayDuLieuTongThuTheoNam(TenDangNhap, Nam );
+    Chi = ThongKeQL.LayDuLieuTongChiTheoNam(TenDangNhap, Nam );
+    CanDoi = ThongKeQL.LayDuLieuCanDoiTheoNam(TenDangNhap, Nam);
+    lli Max = Thu[1] , Min = Chi[1];
+
+    for (int i = 1; i < 13; ++i) {
+        if( Thu[i] > Max ) Max = Thu[i];
+        if( Chi[i] < Min ) Min = Chi[i];
+    }
+
+    QBarSet *set0 = new QBarSet("Thu Nhập");
+    QBarSet *set1 = new QBarSet("Chi Tiêu");
+
+    *set0 << Thu[1] << Thu[2] << Thu[3] << Thu[4] << Thu[5] << Thu[6] << Thu[7] << Thu[8] << Thu[9] << Thu[10] << Thu[11] << Thu[12];
+    *set1 << Chi[1] << Chi[2] << Chi[3] << Chi[4] << Chi[5] << Chi[6] << Chi[7] << Chi[8] << Chi[9] << Chi[10] << Chi[11] << Chi[12];
+
+
+
+    QStackedBarSeries *series = new QStackedBarSeries();
+
+    series->append(set0);
+    series->append(set1);
+
+
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->setTitle("Biểu đồ cân đối chi tiêu vào năm "+Nam+"");
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+
+    QStringList categ;
+
+    categ << "Jan" << "Feb" << "Mar" << "Apr" <<"May" << "Jun" << "Jul" <<"Aug" << "Sep" << "Oct" << "Nov" <<"Dec";
+
+    QBarCategoryAxis *axisX = new QBarCategoryAxis();
+
+    axisX->append(categ);
+    axisX->setTitleText("Các tháng trong năm "+Nam+"");
+    chart->addAxis(axisX, Qt::AlignBottom);
+
+
+    QValueAxis *axisY = new QValueAxis();
+
+    axisY->setRange(Min + Min/4, Max + Max/4);
+    axisY->setTickCount(11);
+    axisY->setTitleText("Tiền thu/ chi (VNĐ)");
+
+    chart->addAxis(axisY, Qt::AlignLeft);
+
+    series->attachAxis(axisX);
+    series->attachAxis(axisY);
+
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+    chart->setBackgroundVisible(false);
+
+
+    QChartView *chartView = new QChartView(chart);
+    chartView->setParent(ui->frame_P5_tab1);
+    chartView->setRenderHint(QPainter::Antialiasing);
+
+    chartView->resize(1201, 631);
+    chartView->setRubberBand(QChartView::RectangleRubberBand);
+    //chartView->setRubberBand(QChartView::VerticalRubberBand);
+
+    chartView->show();
+
+    this->setMouseTracking(true);
+
+    connect(set0, SIGNAL(hovered(bool, int)), this, SLOT(SetToolTipThuNhap(bool, int)));
+    connect(set1, SIGNAL(hovered(bool, int)), this, SLOT(SetToolTipChiTieu(bool, int)));
+    connect(set0, SIGNAL(clicked(int)), this, SLOT(SetToolTipCanDoi(int)));
+    connect(set1, SIGNAL(clicked(int)), this, SLOT(SetToolTipCanDoi(int)));
+
+}
+
+
+void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
+{
+    QString TenDanhMuc, TenTaiKhoan, Ngay, Thang, Nam, KhoangThoiGian;
+
+    TenDanhMuc = ui->comboBox_P5_TenDanhMuc_tab2->currentText();
+    TenTaiKhoan = ui->comboBox_P5_TenTaiKhoan_tab2->currentText();
+    Ngay = ui->dateEdit_P5_ThoiGian_tab2->date().toString("dd");
+    Thang = ui->dateEdit_P5_ThoiGian_tab2->date().toString("MM");
+    Nam = ui->dateEdit_P5_ThoiGian_tab2->date().toString("yyyy");
+
+    KhoangThoiGian = ui->comboBox_P5_KhoangThoiGian_tab2->currentText();
+
+    if( TenTaiKhoan == "" )
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Bạn chưa có tài khoản nào, hãy lập tài khoảng ngay!!"));
+
+    //
+    ///Tạo đối tượng biểu đồ
+
+
+    //Xử lý biểu đồ
+    ///7 ngày trước
+    if( KhoangThoiGian == "7 ngày trước" ){
+        QVector<QVector<lli>> Chi = DanhMucQL.LayThongKe7NgayTruoc(TenDangNhap, TenDanhMuc, TenTaiKhoan, Ngay, Thang, Nam);
+
+        lli Max = Chi[1][2];
+        for (int i = 2; i < 8; ++i) {
+            if( Chi[i][2] > Max ) Max = Chi[i][2];
+        }
+
+        QLineSeries *series = new QLineSeries();
+        series->setName(TenDanhMuc);
+        series->append(0, Chi[1][2]);
+        series->append(3, Chi[2][2]);
+        series->append(6, Chi[3][2]);
+        series->append(9, Chi[4][2]);
+        series->append(12, Chi[5][2]);
+        series->append(15, Chi[6][2]);
+        series->append(18, Chi[7][2]);
+
+        QChart *chart = new QChart();
+        //chart->legend()->hide();
+        chart->addSeries(series);
+        //chart->createDefaultAxes();
+
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+        // Customize series
+        QPen pen(QRgb(0xfdb157));
+        pen.setWidth(5);
+        series->setPen(pen);
+
+        // Customize chart title
+        QFont font;
+        font.setPixelSize(20);
+        chart->setTitleFont(font);
+        chart->setTitleBrush(QBrush(Qt::black));
+        chart->setTitle("Biểu đồ chi tiêu vào 7 ngày gần nhất");
+
+        QStringList categ;
+
+        for ( int i = 1; i < 8; ++i ) {
+           categ << QString::number(Chi[i][0])+"/"+QString::number(Chi[i][1]);
+           //qDebug()<<Chi[i][2]<<" ";
+        }
+
+        QBarCategoryAxis *axisX = new QBarCategoryAxis();
+
+        axisX->append(categ);
+        axisX->setTitleText("Các ngày trong 7 ngày trước");
+
+        chart->addAxis(axisX, Qt::AlignBottom);
+
+        QValueAxis *axisY = new QValueAxis();
+
+        axisY->setRange(0, Max + Max/5);
+        axisY->setTickCount(8);
+        axisY->setTitleText("Tiền chi tiêu (VNĐ)");
+
+        chart->addAxis(axisY, Qt::AlignLeft);
+
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignBottom);
+        chart->setBackgroundVisible(false);
+
+        QChartView *chartView = new QChartView(chart);
+        chartView->setParent(ui->frame_P5_tab2);
+        chartView->setRenderHint(QPainter::Antialiasing);
+
+        chartView->resize(1001, 671);
+        chartView->setRubberBand(QChartView::RectangleRubberBand);
+
+        chartView->show();
+
+
+    }
+    ///done
+    /// 30 ngày trước
+
+    else if( KhoangThoiGian == "30 ngày trước" ){
+        QVector<QVector<lli>> Chi = DanhMucQL.LayThongKe30NgayTruoc(TenDangNhap, TenDanhMuc, TenTaiKhoan, Ngay, Thang, Nam);
+
+        lli Max = Chi[1][3];
+        for (int i = 2; i < 11; ++i) {
+            if( Chi[i][3] > Max ) Max = Chi[i][3];
+        }
+
+        QLineSeries *series = new QLineSeries();
+        series->setName(TenDanhMuc);
+        series->append(0, Chi[1][3]);
+        series->append(3, Chi[2][3]);
+        series->append(6, Chi[3][3]);
+        series->append(9, Chi[4][3]);
+        series->append(12, Chi[5][3]);
+        series->append(15, Chi[6][3]);
+        series->append(18, Chi[7][3]);
+        series->append(21, Chi[8][3]);
+        series->append(24, Chi[9][3]);
+        series->append(27, Chi[10][3]);
+
+        QChart *chart = new QChart();
+        //chart->legend()->hide();
+        chart->addSeries(series);
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+
+        // Customize series
+        QPen pen(QRgb(0xfdb157));
+        pen.setWidth(5);
+        series->setPen(pen);
+
+        // Customize chart title
+        QFont font;
+        font.setPixelSize(20);
+        chart->setTitleFont(font);
+        chart->setTitleBrush(QBrush(Qt::black));
+        chart->setTitle("Biểu đồ chi tiêu vào 30 ngày gần nhất");
+
+        QStringList categ;
+
+        for ( int i = 1; i < 11; ++i ) {
+           categ << QString::number(Chi[i][0])+"-"+QString::number(Chi[i][1])+"/"+QString::number(Chi[i][2]);
+        }
+
+        QBarCategoryAxis *axisX = new QBarCategoryAxis();
+
+        axisX->append(categ);
+        axisX->setTitleText("Các ngày trong 7 ngày trước");
+
+        chart->addAxis(axisX, Qt::AlignBottom);
+
+        QValueAxis *axisY = new QValueAxis();
+
+        axisY->setRange(0, Max + Max/5);
+        axisY->setTickCount(8);
+        axisY->setTitleText("Tiền chi tiêu (VNĐ)");
+
+        chart->addAxis(axisY, Qt::AlignLeft);
+
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignBottom);
+        chart->setBackgroundVisible(false);
+
+        QChartView *chartView = new QChartView(chart);
+        chartView->setParent(ui->frame_P5_tab2);
+        chartView->setRenderHint(QPainter::Antialiasing);
+
+        chartView->resize(1001, 671);
+        chartView->setRubberBand(QChartView::RectangleRubberBand);
+
+        chartView->show();
+    }
+
+    ///done
+    else if( KhoangThoiGian == "3 tháng trước" ){
+        QVector<QVector<lli>> Chi = DanhMucQL.LayThongKe3ThangTruoc(TenDangNhap, TenDanhMuc, TenTaiKhoan, Ngay, Thang, Nam);
+
+        lli Max = Chi[1][3];
+        for (int i = 2; i < 11; ++i) {
+            if( Chi[i][3] > Max ) Max = Chi[i][3];
+        }
+
+        QLineSeries *series = new QLineSeries();
+        series->setName(TenDanhMuc);
+        series->append(0, Chi[1][3]);
+        series->append(3, Chi[2][3]);
+        series->append(6, Chi[3][3]);
+        series->append(9, Chi[4][3]);
+        series->append(12, Chi[5][3]);
+        series->append(15, Chi[6][3]);
+        series->append(18, Chi[7][3]);
+        series->append(21, Chi[8][3]);
+        series->append(24, Chi[9][3]);
+        series->append(27, Chi[10][3]);
+
+        QChart *chart = new QChart();
+        //chart->legend()->hide();
+        chart->addSeries(series);
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+
+        // Customize series
+        QPen pen(QRgb(0xfdb157));
+        pen.setWidth(5);
+        series->setPen(pen);
+
+        // Customize chart title
+        QFont font;
+        font.setPixelSize(20);
+        chart->setTitleFont(font);
+        chart->setTitleBrush(QBrush(Qt::black));
+        chart->setTitle("Biểu đồ chi tiêu vào quý gần nhất");
+
+        QStringList categ;
+
+        for ( int i = 1; i < 11; ++i ) {
+           categ << QString::number(Chi[i][0])+"-"+QString::number(Chi[i][1])+"/"+QString::number(Chi[i][2]);
+        }
+
+        QBarCategoryAxis *axisX = new QBarCategoryAxis();
+
+        axisX->append(categ);
+        axisX->setTitleText("Các khoảng ngày trong tháng trước");
+
+        chart->addAxis(axisX, Qt::AlignBottom);
+
+        QValueAxis *axisY = new QValueAxis();
+
+        axisY->setRange(0, Max + Max/5);
+        axisY->setTickCount(8);
+        axisY->setTitleText("Tiền chi tiêu (VNĐ)");
+
+        chart->addAxis(axisY, Qt::AlignLeft);
+
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignBottom);
+        chart->setBackgroundVisible(false);
+
+        QChartView *chartView = new QChartView(chart);
+        chartView->setParent(ui->frame_P5_tab2);
+        chartView->setRenderHint(QPainter::Antialiasing);
+
+        chartView->resize(1001, 671);
+        chartView->setRubberBand(QChartView::RectangleRubberBand);
+
+        chartView->show();
+    }
+    else if( KhoangThoiGian == "Năm này" ){
+        QVector<lli> Chi = DanhMucQL.LayThongKe1Nam(TenDangNhap, TenDanhMuc, TenTaiKhoan, Nam);
+
+        lli Max = Chi[1];
+        for (int i = 2; i < 13; ++i) {
+            if( Chi[i] > Max ) Max = Chi[i];
+        }
+
+        QLineSeries *series = new QLineSeries();
+        series->setName(TenDanhMuc);
+        series->append(0, Chi[1]);
+        series->append(3, Chi[2]);
+        series->append(6, Chi[3]);
+        series->append(9, Chi[4]);
+        series->append(12, Chi[5]);
+        series->append(15, Chi[6]);
+        series->append(18, Chi[7]);
+        series->append(21, Chi[8]);
+        series->append(24, Chi[9]);
+        series->append(27, Chi[10]);
+        series->append(30, Chi[11]);
+        series->append(33, Chi[12]);
+
+        QChart *chart = new QChart();
+        //chart->legend()->hide();
+        chart->addSeries(series);
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+        // Customize series
+        QPen pen(QRgb(0xfdb157));
+        pen.setWidth(5);
+        series->setPen(pen);
+
+        // Customize chart title
+        QFont font;
+        font.setPixelSize(20);
+        chart->setTitleFont(font);
+        chart->setTitleBrush(QBrush(Qt::black));
+        chart->setTitle("Biểu đồ chi tiêu vào năm "+Nam+"");
+
+        QStringList categ;
+
+        categ << "Jan" << "Feb" << "Mar" << "Apr" <<"May" << "Jun" << "Jul" <<"Aug" << "Sep" << "Oct" << "Nov" <<"Dec";
+
+        QBarCategoryAxis *axisX = new QBarCategoryAxis();
+
+        axisX->append(categ);
+        axisX->setTitleText("Các tháng trong năm "+Nam+"");
+
+        chart->addAxis(axisX, Qt::AlignBottom);
+
+        QValueAxis *axisY = new QValueAxis();
+
+        axisY->setRange(0, Max + Max/5);
+        axisY->setTickCount(8);
+        axisY->setTitleText("Tiền chi tiêu (VNĐ)");
+
+        chart->addAxis(axisY, Qt::AlignLeft);
+
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignBottom);
+        chart->setBackgroundVisible(false);
+
+        QChartView *chartView = new QChartView(chart);
+        chartView->setParent(ui->frame_P5_tab2);
+        chartView->setRenderHint(QPainter::Antialiasing);
+
+        chartView->resize(1001, 671);
+        chartView->setRubberBand(QChartView::RectangleRubberBand);
+
+        chartView->show();
+    }
+
+}
+
+
+////Cập nhật thu nhập
+void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
+{
+    QString LoaiThuNhap, TenTaiKhoan, Ngay, Thang, Nam, KhoangThoiGian;
+
+    LoaiThuNhap = ui->comboBox_P5_NguonThuNhap_tab3->currentText();
+    TenTaiKhoan = ui->comboBox_P5_DenTaiKhoan_tab3->currentText();
+    Ngay = ui->dateEdit_P5_ThoiGian_tab3->date().toString("dd");
+    Thang = ui->dateEdit_P5_ThoiGian_tab3->date().toString("MM");
+    Nam = ui->dateEdit_P5_ThoiGian_tab3->date().toString("yyyy");
+
+    KhoangThoiGian = ui->comboBox_P5_KhoangThoiGian_tab3->currentText();
+
+    if( TenTaiKhoan == "" )
+        QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Bạn chưa có tài khoản nào, hãy lập tài khoảng ngay!!"));
+
+
+    //Xử lý biểu đồ
+    ///7 ngày trước
+    if( KhoangThoiGian == "7 ngày trước" ){
+        QVector<QVector<lli>> Thu = ThuNhapQL.LayThongKe7NgayTruoc(TenDangNhap, LoaiThuNhap, TenTaiKhoan, Ngay, Thang, Nam);
+
+        lli Max = Thu[1][2];
+        for (int i = 2; i < 8; ++i) {
+            if( Thu[i][2] > Max ) Max = Thu[i][2];
+        }
+
+        QLineSeries *series = new QLineSeries();
+        series->setName(LoaiThuNhap);
+        series->append(0, Thu[1][2]);
+        series->append(3, Thu[2][2]);
+        series->append(6, Thu[3][2]);
+        series->append(9, Thu[4][2]);
+        series->append(12, Thu[5][2]);
+        series->append(15, Thu[6][2]);
+        series->append(18, Thu[7][2]);
+
+        QChart *chart = new QChart();
+        //chart->legend()->hide();
+        chart->addSeries(series);
+        //chart->createDefaultAxes();
+
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+        // Customize series
+        QPen pen(QRgb(0xfdb157));
+        pen.setWidth(5);
+        series->setPen(pen);
+
+        // Customize chart title
+        QFont font;
+        font.setPixelSize(20);
+        chart->setTitleFont(font);
+        chart->setTitleBrush(QBrush(Qt::black));
+        chart->setTitle("Biểu đồ thu nhập vào 7 ngày gần nhất");
+
+        QStringList categ;
+
+        for ( int i = 1; i < 8; ++i ) {
+           categ << QString::number(Thu[i][0])+"/"+QString::number(Thu[i][1]);
+           //qDebug()<<Chi[i][2]<<" ";
+        }
+
+        QBarCategoryAxis *axisX = new QBarCategoryAxis();
+
+        axisX->append(categ);
+        axisX->setTitleText("Các ngày trong 7 ngày trước");
+
+        chart->addAxis(axisX, Qt::AlignBottom);
+
+        QValueAxis *axisY = new QValueAxis();
+
+        axisY->setRange(0, Max + Max/5);
+        axisY->setTickCount(8);
+        axisY->setTitleText("Tiền thu nhập (VNĐ)");
+
+        chart->addAxis(axisY, Qt::AlignLeft);
+
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignBottom);
+        chart->setBackgroundVisible(false);
+
+        QChartView *chartView = new QChartView(chart);
+        chartView->setParent(ui->frame_P5_tab3);
+        chartView->setRenderHint(QPainter::Antialiasing);
+
+        chartView->resize(1001, 671);
+        chartView->setRubberBand(QChartView::RectangleRubberBand);
+
+        chartView->show();
+
+
+    }
+    ///done
+    /// 30 ngày trước
+
+    else if( KhoangThoiGian == "30 ngày trước" ){
+        QVector<QVector<lli>> Thu = ThuNhapQL.LayThongKe30NgayTruoc(TenDangNhap, LoaiThuNhap, TenTaiKhoan, Ngay, Thang, Nam);
+
+        lli Max = Thu[1][3];
+        for (int i = 2; i < 11; ++i) {
+            if( Thu[i][3] > Max ) Max = Thu[i][3];
+        }
+
+        QLineSeries *series = new QLineSeries();
+        series->setName(LoaiThuNhap);
+        series->append(0, Thu[1][3]);
+        series->append(3, Thu[2][3]);
+        series->append(6, Thu[3][3]);
+        series->append(9, Thu[4][3]);
+        series->append(12, Thu[5][3]);
+        series->append(15, Thu[6][3]);
+        series->append(18, Thu[7][3]);
+        series->append(21, Thu[8][3]);
+        series->append(24, Thu[9][3]);
+        series->append(27, Thu[10][3]);
+
+        QChart *chart = new QChart();
+        //chart->legend()->hide();
+        chart->addSeries(series);
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+
+        // Customize series
+        QPen pen(QRgb(0xfdb157));
+        pen.setWidth(5);
+        series->setPen(pen);
+
+        // Customize chart title
+        QFont font;
+        font.setPixelSize(20);
+        chart->setTitleFont(font);
+        chart->setTitleBrush(QBrush(Qt::black));
+        chart->setTitle("Biểu đồ thu nhập vào 30 ngày gần nhất");
+
+        QStringList categ;
+
+        for ( int i = 1; i < 11; ++i ) {
+           categ << QString::number(Thu[i][0])+"-"+QString::number(Thu[i][1])+"/"+QString::number(Thu[i][2]);
+        }
+
+        QBarCategoryAxis *axisX = new QBarCategoryAxis();
+
+        axisX->append(categ);
+        axisX->setTitleText("Các khoảng ngày trong 30 ngày trước");
+
+        chart->addAxis(axisX, Qt::AlignBottom);
+
+        QValueAxis *axisY = new QValueAxis();
+
+        axisY->setRange(0, Max + Max/5);
+        axisY->setTickCount(8);
+        axisY->setTitleText("Tiền thu nhập (VNĐ)");
+
+        chart->addAxis(axisY, Qt::AlignLeft);
+
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignBottom);
+        chart->setBackgroundVisible(false);
+
+        QChartView *chartView = new QChartView(chart);
+        chartView->setParent(ui->frame_P5_tab3);
+        chartView->setRenderHint(QPainter::Antialiasing);
+
+        chartView->resize(1001, 671);
+        chartView->setRubberBand(QChartView::RectangleRubberBand);
+
+        chartView->show();
+    }
+
+    ///done
+    else if( KhoangThoiGian == "3 tháng trước" ){
+        QVector<QVector<lli>> Thu = ThuNhapQL.LayThongKe3ThangTruoc(TenDangNhap, LoaiThuNhap, TenTaiKhoan, Ngay, Thang, Nam);
+
+        lli Max = Thu[1][3];
+        for (int i = 2; i < 11; ++i) {
+            if( Thu[i][3] > Max ) Max = Thu[i][3];
+        }
+
+        QLineSeries *series = new QLineSeries();
+        series->setName(LoaiThuNhap);
+        series->append(0, Thu[1][3]);
+        series->append(3, Thu[2][3]);
+        series->append(6, Thu[3][3]);
+        series->append(9, Thu[4][3]);
+        series->append(12, Thu[5][3]);
+        series->append(15, Thu[6][3]);
+        series->append(18, Thu[7][3]);
+        series->append(21, Thu[8][3]);
+        series->append(24, Thu[9][3]);
+        series->append(27, Thu[10][3]);
+
+        QChart *chart = new QChart();
+        //chart->legend()->hide();
+        chart->addSeries(series);
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+
+        // Customize series
+        QPen pen(QRgb(0xfdb157));
+        pen.setWidth(5);
+        series->setPen(pen);
+
+        // Customize chart title
+        QFont font;
+        font.setPixelSize(20);
+        chart->setTitleFont(font);
+        chart->setTitleBrush(QBrush(Qt::black));
+        chart->setTitle("Biểu đồ thu nhập vào quý gần nhất");
+
+        QStringList categ;
+
+        for ( int i = 1; i < 11; ++i ) {
+           categ << QString::number(Thu[i][0])+"-"+QString::number(Thu[i][1])+"/"+QString::number(Thu[i][2]);
+        }
+
+        QBarCategoryAxis *axisX = new QBarCategoryAxis();
+
+        axisX->append(categ);
+        axisX->setTitleText("Các khoảng ngày trong quý trước");
+
+        chart->addAxis(axisX, Qt::AlignBottom);
+
+        QValueAxis *axisY = new QValueAxis();
+
+        axisY->setRange(0, Max + Max/5);
+        axisY->setTickCount(8);
+        axisY->setTitleText("Tiền thu nhập (VNĐ)");
+
+        chart->addAxis(axisY, Qt::AlignLeft);
+
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignBottom);
+        chart->setBackgroundVisible(false);
+
+        QChartView *chartView = new QChartView(chart);
+        chartView->setParent(ui->frame_P5_tab3);
+        chartView->setRenderHint(QPainter::Antialiasing);
+
+        chartView->resize(1001, 671);
+        chartView->setRubberBand(QChartView::RectangleRubberBand);
+
+        chartView->show();
+    }
+    else if( KhoangThoiGian == "Năm này" ){
+        QVector<lli> Thu = ThuNhapQL.LayThongKe1Nam(TenDangNhap, LoaiThuNhap, TenTaiKhoan, Nam);
+
+        lli Max = Thu[1];
+        for (int i = 2; i < 13; ++i) {
+            if( Thu[i] > Max ) Max = Thu[i];
+        }
+
+        QLineSeries *series = new QLineSeries();
+        series->setName(LoaiThuNhap);
+        series->append(0, Thu[1]);
+        series->append(3, Thu[2]);
+        series->append(6, Thu[3]);
+        series->append(9, Thu[4]);
+        series->append(12, Thu[5]);
+        series->append(15, Thu[6]);
+        series->append(18, Thu[7]);
+        series->append(21, Thu[8]);
+        series->append(24, Thu[9]);
+        series->append(27, Thu[10]);
+        series->append(30, Thu[11]);
+        series->append(33, Thu[12]);
+
+        QChart *chart = new QChart();
+        //chart->legend()->hide();
+        chart->addSeries(series);
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+        // Customize series
+        QPen pen(QRgb(0xfdb157));
+        pen.setWidth(5);
+        series->setPen(pen);
+
+        // Customize chart title
+        QFont font;
+        font.setPixelSize(20);
+        chart->setTitleFont(font);
+        chart->setTitleBrush(QBrush(Qt::black));
+        chart->setTitle("Biểu đồ thu nhập vào năm "+Nam+"");
+
+        QStringList categ;
+
+        categ << "Jan" << "Feb" << "Mar" << "Apr" <<"May" << "Jun" << "Jul" <<"Aug" << "Sep" << "Oct" << "Nov" <<"Dec";
+
+        QBarCategoryAxis *axisX = new QBarCategoryAxis();
+
+        axisX->append(categ);
+        axisX->setTitleText("Các tháng trong năm "+Nam+"");
+
+        chart->addAxis(axisX, Qt::AlignBottom);
+
+        QValueAxis *axisY = new QValueAxis();
+
+        axisY->setRange(0, Max + Max/5);
+        axisY->setTickCount(8);
+        axisY->setTitleText("Tiền thu nhập (VNĐ)");
+
+        chart->addAxis(axisY, Qt::AlignLeft);
+
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignBottom);
+        chart->setBackgroundVisible(false);
+
+        QChartView *chartView = new QChartView(chart);
+        chartView->setParent(ui->frame_P5_tab3);
+        chartView->setRenderHint(QPainter::Antialiasing);
+
+        chartView->resize(1001, 671);
+        chartView->setRubberBand(QChartView::RectangleRubberBand);
+
+        chartView->show();
+    }
 }
