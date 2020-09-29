@@ -33,6 +33,7 @@ ExpenseTracker::ExpenseTracker(QWidget *parent) :
     ui->dateEdit_p3_KyHan_NO->setDate(crrDate);
     ui->dateEdit_p5_ThangThuChi_tab1->setDate(crrDate);
     ui->dateEdit_P5_ThoiGian_tab2->setDate(crrDate);
+    ui->dateEdit_P5_ThoiGian_tab3->setDate(crrDate);
 
 }
 
@@ -545,6 +546,7 @@ void ExpenseTracker::on_pushButton_ThongKe_clicked()
 
     ui->btn_P5_TheoThang_tab1->animateClick(5);
     ui->btn_P5_CapNhat_tab2->animateClick(5);
+    ui->TabWidget_P5->setCurrentIndex(0);
 }
 
 void ExpenseTracker::on_pushButton_NguoiDung_clicked()
@@ -1276,7 +1278,7 @@ void ExpenseTracker::on_btn_p3_XacNhan_clicked()
             QMessageBox::StandardButton reply;
             reply = QMessageBox::question(this, "Chúc mừng", "Bạn đã đạt mục tiêu tiết kiệm, bạn có muốn nối dài mục tiêu không?", QMessageBox::Yes|QMessageBox::No);
 
-            lli MucTieuMoi;
+            lli MucTieuMoi = 0;
             if( reply == QMessageBox::Yes ){
                 QString MucTieuMoiText = QInputDialog::getText(this,"Nhập vào đây", "Mục tiêu mới: ");
 
@@ -1665,7 +1667,6 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
         chartView->setRenderHint(QPainter::Antialiasing);
 
         chartView->resize(1001, 671);
-        chartView->setRubberBand(QChartView::RectangleRubberBand);
 
         chartView->show();
 
@@ -1742,7 +1743,6 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
         chartView->setRenderHint(QPainter::Antialiasing);
 
         chartView->resize(1001, 671);
-        chartView->setRubberBand(QChartView::RectangleRubberBand);
 
         chartView->show();
     }
@@ -1816,7 +1816,6 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
         chartView->setRenderHint(QPainter::Antialiasing);
 
         chartView->resize(1001, 671);
-        chartView->setRubberBand(QChartView::RectangleRubberBand);
 
         chartView->show();
     }
@@ -1887,7 +1886,6 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
         chartView->setRenderHint(QPainter::Antialiasing);
 
         chartView->resize(1001, 671);
-        chartView->setRubberBand(QChartView::RectangleRubberBand);
 
         chartView->show();
     }
@@ -1939,7 +1937,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
 
         chart->setAnimationOptions(QChart::SeriesAnimations);
         // Customize series
-        QPen pen(QRgb(0xfdb157));
+        QPen pen(QRgb(0xefca08));
         pen.setWidth(5);
         series->setPen(pen);
 
@@ -1981,7 +1979,6 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
         chartView->setRenderHint(QPainter::Antialiasing);
 
         chartView->resize(1001, 671);
-        chartView->setRubberBand(QChartView::RectangleRubberBand);
 
         chartView->show();
 
@@ -2017,7 +2014,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
         chart->setAnimationOptions(QChart::SeriesAnimations);
 
         // Customize series
-        QPen pen(QRgb(0xfdb157));
+        QPen pen(QRgb(0xefca08));
         pen.setWidth(5);
         series->setPen(pen);
 
@@ -2058,7 +2055,6 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
         chartView->setRenderHint(QPainter::Antialiasing);
 
         chartView->resize(1001, 671);
-        chartView->setRubberBand(QChartView::RectangleRubberBand);
 
         chartView->show();
     }
@@ -2091,7 +2087,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
         chart->setAnimationOptions(QChart::SeriesAnimations);
 
         // Customize series
-        QPen pen(QRgb(0xfdb157));
+        QPen pen(QRgb(0xefca08));
         pen.setWidth(5);
         series->setPen(pen);
 
@@ -2132,7 +2128,6 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
         chartView->setRenderHint(QPainter::Antialiasing);
 
         chartView->resize(1001, 671);
-        chartView->setRubberBand(QChartView::RectangleRubberBand);
 
         chartView->show();
     }
@@ -2141,6 +2136,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
 
         lli Max = Thu[1];
         for (int i = 2; i < 13; ++i) {
+            //qDebug()<<Thu[i]<<" ";
             if( Thu[i] > Max ) Max = Thu[i];
         }
 
@@ -2164,7 +2160,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
         chart->addSeries(series);
         chart->setAnimationOptions(QChart::SeriesAnimations);
         // Customize series
-        QPen pen(QRgb(0xfdb157));
+        QPen pen(QRgb(0xefca08));
         pen.setWidth(5);
         series->setPen(pen);
 
@@ -2203,7 +2199,6 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
         chartView->setRenderHint(QPainter::Antialiasing);
 
         chartView->resize(1001, 671);
-        chartView->setRubberBand(QChartView::RectangleRubberBand);
 
         chartView->show();
     }

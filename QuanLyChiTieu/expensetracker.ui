@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1321</width>
-    <height>702</height>
+    <height>701</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,6 +18,11 @@
 {
 	border: none;
   	border: 3px solid white;
+}
+QPushButton#btn_Help:hover:!pressed
+{
+	border: none;
+  	border: 0px solid white;
 }
 QPushButton:selected
 {
@@ -205,7 +210,7 @@ QDateEdit{
     <number>0</number>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="page_TrangChinh">
     <property name="styleSheet">
@@ -217,8 +222,8 @@ background-color: rgb(11, 58, 89);</string>
       <rect>
        <x>10</x>
        <y>0</y>
-       <width>51</width>
-       <height>31</height>
+       <width>32</width>
+       <height>32</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -275,8 +280,8 @@ font: 75 13pt &quot;Segoe UI&quot;;</string>
       <rect>
        <x>280</x>
        <y>40</y>
-       <width>71</width>
-       <height>71</height>
+       <width>68</width>
+       <height>68</height>
       </rect>
      </property>
      <property name="focusPolicy">
@@ -286,7 +291,7 @@ font: 75 13pt &quot;Segoe UI&quot;;</string>
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/Images/Pictures/bachHoa.png);
+      <string notr="true">background-image: url(:/Images/Icon_TrangChinh/burger.png);
 border-color: rgb(170, 255, 255);
 </string>
      </property>
@@ -307,7 +312,7 @@ border-color: rgb(170, 255, 255);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/Images/Pictures/GiaDinh.png);
+      <string notr="true">background-image: url(:/Images/Icon_TrangChinh/home.png);
 border-color: rgb(170, 255, 255);
 </string>
      </property>
@@ -321,11 +326,11 @@ border-color: rgb(170, 255, 255);
        <x>790</x>
        <y>40</y>
        <width>68</width>
-       <height>69</height>
+       <height>68</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/Images/Pictures/SucKhoe.png);
+      <string notr="true">background-image: url(:/Images/Icon_TrangChinh/shield.png);
 border-color: rgb(170, 255, 255);</string>
      </property>
      <property name="text">
@@ -342,7 +347,7 @@ border-color: rgb(170, 255, 255);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/Images/Pictures/HoaDon.png);
+      <string notr="true">background-image: url(:/Images/Icon_TrangChinh/barcode.png);
 border-color: rgb(170, 255, 255);</string>
      </property>
      <property name="text">
@@ -359,7 +364,7 @@ border-color: rgb(170, 255, 255);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/Images/Pictures/MuaSam.png);
+      <string notr="true">background-image: url(:/Images/Icon_TrangChinh/shopping-cart.png);
 border-color: rgb(170, 255, 255);</string>
      </property>
      <property name="text">
@@ -371,12 +376,12 @@ border-color: rgb(170, 255, 255);</string>
       <rect>
        <x>710</x>
        <y>610</y>
-       <width>71</width>
-       <height>71</height>
+       <width>68</width>
+       <height>68</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/Images/Pictures/KinhDoanh.png);
+      <string notr="true">background-image: url(:/Images/Icon_TrangChinh/bar-chart.png);
 border-color: rgb(170, 255, 255);</string>
      </property>
      <property name="text">
@@ -393,7 +398,7 @@ border-color: rgb(170, 255, 255);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/Images/Pictures/HocPhi.png);
+      <string notr="true">background-image: url(:/Images/Icon_TrangChinh/ticket.png);
 border-color: rgb(170, 255, 255);</string>
      </property>
      <property name="text">
@@ -406,11 +411,11 @@ border-color: rgb(170, 255, 255);</string>
        <x>350</x>
        <y>610</y>
        <width>68</width>
-       <height>69</height>
+       <height>68</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/Images/Pictures/Khac.png);
+      <string notr="true">background-image: url(:/Images/Icon_TrangChinh/button.png);
 border-color: rgb(170, 255, 255);</string>
      </property>
      <property name="text">
@@ -423,11 +428,11 @@ border-color: rgb(170, 255, 255);</string>
        <x>40</x>
        <y>460</y>
        <width>68</width>
-       <height>69</height>
+       <height>68</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/Images/Pictures/QuaTang.png);
+      <string notr="true">background-image: url(:/Images/Icon_TrangChinh/gift.png);
 border-color: rgb(170, 255, 255);</string>
      </property>
      <property name="text">
@@ -440,11 +445,11 @@ border-color: rgb(170, 255, 255);</string>
        <x>40</x>
        <y>300</y>
        <width>68</width>
-       <height>69</height>
+       <height>68</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/Images/Pictures/DiChuyen.png);
+      <string notr="true">background-image: url(:/Images/Icon_TrangChinh/delivery-truck.png);
 border-color: rgb(170, 255, 255);</string>
      </property>
      <property name="text">
@@ -457,11 +462,11 @@ border-color: rgb(170, 255, 255);</string>
        <x>40</x>
        <y>160</y>
        <width>68</width>
-       <height>69</height>
+       <height>68</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/Images/Pictures/GiaiTri.png);
+      <string notr="true">background-image: url(:/Images/Icon_TrangChinh/gamepad.png);
 border-color: rgb(170, 255, 255);</string>
      </property>
      <property name="text">
@@ -472,7 +477,7 @@ border-color: rgb(170, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>540</x>
-       <y>20</y>
+       <y>10</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -488,7 +493,7 @@ border-color: rgb(170, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>700</x>
-       <y>590</y>
+       <y>580</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -504,7 +509,7 @@ border-color: rgb(170, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>770</x>
-       <y>20</y>
+       <y>10</y>
        <width>101</width>
        <height>21</height>
       </rect>
@@ -520,7 +525,7 @@ border-color: rgb(170, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>1060</x>
-       <y>150</y>
+       <y>140</y>
        <width>71</width>
        <height>21</height>
       </rect>
@@ -536,7 +541,7 @@ border-color: rgb(170, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>1050</x>
-       <y>280</y>
+       <y>270</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -552,7 +557,7 @@ border-color: rgb(170, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>1050</x>
-       <y>440</y>
+       <y>430</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -568,7 +573,7 @@ border-color: rgb(170, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>140</y>
+       <y>130</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -584,7 +589,7 @@ border-color: rgb(170, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>280</y>
+       <y>270</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -600,7 +605,7 @@ border-color: rgb(170, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>440</y>
+       <y>430</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -616,7 +621,7 @@ border-color: rgb(170, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>340</x>
-       <y>590</y>
+       <y>580</y>
        <width>81</width>
        <height>21</height>
       </rect>
@@ -632,7 +637,7 @@ border-color: rgb(170, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>20</y>
+       <y>10</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -870,7 +875,7 @@ background-image: url(:/Images/Pictures/reload-icon.png);</string>
        <x>190</x>
        <y>140</y>
        <width>761</width>
-       <height>441</height>
+       <height>431</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -896,7 +901,6 @@ background-image: url(:/Images/Pictures/reload-icon.png);</string>
     <zorder>btn_GiaiTriPic</zorder>
     <zorder>label_GiaDinh</zorder>
     <zorder>label_KinhDoanh</zorder>
-    <zorder>label_SucKhoe</zorder>
     <zorder>label_MuaSam</zorder>
     <zorder>label_HocPhi</zorder>
     <zorder>label_HoaDon</zorder>
@@ -918,10 +922,11 @@ background-image: url(:/Images/Pictures/reload-icon.png);</string>
     <zorder>label_BachHoa_money</zorder>
     <zorder>btn_Refresh</zorder>
     <zorder>frame</zorder>
-    <zorder>comboBox</zorder>
     <zorder>btn_ThemTaiKhoan</zorder>
     <zorder>btn_BachHoaPic</zorder>
     <zorder>btn_KinhDoanhPic</zorder>
+    <zorder>label_SucKhoe</zorder>
+    <zorder>comboBox</zorder>
    </widget>
    <widget class="QWidget" name="page_ChiTieu">
     <property name="styleSheet">
@@ -1002,7 +1007,7 @@ background-color: #F0E6EF;</string>
        <property name="geometry">
         <rect>
          <x>230</x>
-         <y>300</y>
+         <y>280</y>
          <width>121</width>
          <height>41</height>
         </rect>
@@ -1770,7 +1775,7 @@ border-radius: 8px;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">font: 75 20pt &quot;Segoe UI&quot;;
-color: #495d63;</string>
+color: #ef5b5b;</string>
      </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TÀI KHOẢN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1813,7 +1818,7 @@ color: #495d63;</string>
 background-color:#eae6e5;</string>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -2498,7 +2503,7 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
        <property name="geometry">
         <rect>
          <x>190</x>
-         <y>180</y>
+         <y>110</y>
          <width>151</width>
          <height>41</height>
         </rect>
@@ -2517,7 +2522,7 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
        <property name="geometry">
         <rect>
          <x>190</x>
-         <y>100</y>
+         <y>50</y>
          <width>261</width>
          <height>41</height>
         </rect>
@@ -2534,7 +2539,7 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
        <property name="geometry">
         <rect>
          <x>21</x>
-         <y>81</y>
+         <y>31</y>
          <width>161</width>
          <height>72</height>
         </rect>
@@ -2554,8 +2559,8 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
       <widget class="QComboBox" name="comboBox_p4_LoaiTaiKhoan_XemBang">
        <property name="geometry">
         <rect>
-         <x>221</x>
-         <y>70</y>
+         <x>220</x>
+         <y>50</y>
          <width>291</width>
          <height>41</height>
         </rect>
@@ -2598,10 +2603,10 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
       <widget class="QLabel" name="label_p4_LoaiTaiKhoan_XemBang">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>70</y>
+         <x>9</x>
+         <y>50</y>
          <width>201</width>
-         <height>41</height>
+         <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -2614,8 +2619,8 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
       <widget class="QPushButton" name="btn_page4_CapNhat_XemBang">
        <property name="geometry">
         <rect>
-         <x>220</x>
-         <y>130</y>
+         <x>219</x>
+         <y>110</y>
          <width>131</width>
          <height>41</height>
         </rect>
@@ -3526,6 +3531,53 @@ font: 75 8pt &quot;MS Shell Dlg 2&quot;;</string>
     </property>
     <property name="text">
      <string>Minimize</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_Help">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>540</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+border-image: url(:/Images/Icon/copyright.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Copyright">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>540</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt;&quot;&gt;Phần mềm &lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-style:italic;&quot;&gt;quản lý thu chi&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt;&quot;&gt; được thiết kế và phát triển bởi &lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:600;&quot;&gt;Duc Truong&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt;&quot;&gt;. Mong các bạn hài lòng với sản phẩm của mình ^-^. &lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:600; font-style:italic;&quot;&gt;Thanks for using!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 14pt &quot;Segoe UI&quot;;
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Copyright&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::RichText</enum>
     </property>
    </widget>
   </widget>

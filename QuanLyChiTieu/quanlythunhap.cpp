@@ -316,7 +316,7 @@ QVector<lli> QuanLyThuNhap::LayThongKe1Nam(QString Username, QString LoaiThuNhap
             qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year AND LoaiThuNhap = :LoaiThuNhap AND TenTaiKhoan = :TenTaiKhoan");
 
         qry.bindValue(":Username", Username);
-        qry.bindValue(":day", i);
+        qry.bindValue(":month", i);
         qry.bindValue(":year", year);
         qry.bindValue(":LoaiThuNhap", LoaiThuNhap);
         qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
