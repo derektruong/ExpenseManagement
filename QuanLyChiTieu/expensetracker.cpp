@@ -546,6 +546,7 @@ void ExpenseTracker::on_pushButton_ThongKe_clicked()
 
     ui->btn_P5_TheoThang_tab1->animateClick(5);
     ui->btn_P5_CapNhat_tab2->animateClick(5);
+    ui->btn_P5_CapNhat_tab3->animateClick(5);
     ui->TabWidget_P5->setCurrentIndex(0);
 }
 
@@ -850,7 +851,7 @@ void ExpenseTracker::on_btn_page4_XoaTaiKhoan_clicked()
         //done
 
         // Xoá trong bảng TaiKhoan
-        qry.prepare("DELETE FROM TaiKhoan WHERE TenChu = :Username AND TaiKhoan.Ten = :TenTaiKhoan ");
+        qry.prepare("DELETE FROM TaiKhoan WHERE TenChu = :Username AND Ten = :TenTaiKhoan ");
 
         qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
         qry.bindValue(":Username", TenDangNhap);

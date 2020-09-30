@@ -137,7 +137,7 @@ void ChiTieu::on_btn_OK_clicked()
 
     SoTien += DanhMucQL.LaySoTienTong(MaDanhMuc,Username);
 
-    qry.prepare("UPDATE DanhMucChiTieu SET TongTien = :SoTien WHERE TenChu = :Username AND  dbo.DanhMucChiTieu.MaDanhMuc = :MaDanhMuc; ");
+    qry.prepare("UPDATE DanhMucChiTieu SET TongTien = :SoTien WHERE TenChu = :Username AND  MaDanhMuc = :MaDanhMuc; ");
 
     qry.bindValue(":SoTien", SoTien);
     qry.bindValue(":Username", Username);

@@ -188,9 +188,9 @@ color: rgb(254, 88, 91);</string>
    <widget class="QLabel" name="label_TrangThai">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>310</x>
       <y>350</y>
-      <width>271</width>
+      <width>321</width>
       <height>61</height>
      </rect>
     </property>

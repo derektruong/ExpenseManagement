@@ -16,9 +16,12 @@ LoginAPP::LoginAPP(QWidget *parent)
 
     //DataBase
 
-    QSqlDatabase myDB = QSqlDatabase::addDatabase("QODBC");
+    myDB = QSqlDatabase::addDatabase("QODBC");
 
-    myDB.setDatabaseName("DRIVER={SQL Server Native Client 11.0};SERVER=DEREKPC;DATABASE=DO_AN_CHI_TIEU;UID=sa;PWD=derek123;WSID=.;Trusted_connection=yes");
+
+    myDB.setDatabaseName("DRIVER={SQL Server Native Client 11.0};SERVER=.;DATABASE=DO_AN_CHI_TIEU;UID=.;PWD=.;WSID=.;Trusted_connection=yes");
+
+
 
     bool connected = myDB.open();
 
