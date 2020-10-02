@@ -73,6 +73,16 @@ private slots:
 
     void indexChanged(int index);
 
+    //slots cho signals Page 5
+
+    void SetToolTipThuNhap(bool status,int index);
+
+    void SetToolTipChiTieu(bool status,int index);
+
+    void SetToolTipCanDoi(int index);
+
+    //done
+
     void on_pushButton_TrangChinh_clicked();
 
     void on_pushButton_ChiTieu_clicked();
@@ -89,6 +99,20 @@ private slots:
 
     void on_pushButton_ThayMaPin_clicked();
 
+    void on_btn_p2_TimTheoNgay_clicked();
+
+    void on_btn_p2_TimTheoThang_clicked();
+
+    void on_btn_p2_TimTheoNam_clicked();
+
+    void on_btn_p2_TimKiemChung_clicked();
+
+    void on_btn_p3_XacNhan_clicked();
+
+    void on_btn_p3_XacNhan_tab2_clicked();
+
+    void on_btn_p3_XacNhan_tab3_clicked();
+
     void on_btn_page4_ThemTK_TX_clicked();
 
     void on_btn_page4_ThemTK_TK_clicked();
@@ -100,6 +124,14 @@ private slots:
     void on_btn_page4_XoaTaiKhoan_clicked();
 
     void on_btn_page4_CapNhat_XemBang_clicked();
+
+    void on_btn_P5_TheoThang_tab1_clicked();
+
+    void on_btn_P5_TheoNam_tab1_clicked();
+
+    void on_btn_P5_CapNhat_tab2_clicked();
+
+    void on_btn_P5_CapNhat_tab3_clicked();
 
     void on_btn_GiaDinhPic_clicked();
 
@@ -127,37 +159,7 @@ private slots:
 
     void on_btn_ThemTaiKhoan_clicked();
 
-    void on_btn_p2_TimTheoNgay_clicked();
 
-    void on_btn_p2_TimTheoThang_clicked();
-
-    void on_btn_p2_TimTheoNam_clicked();
-
-    void on_btn_p2_TimKiemChung_clicked();
-
-    void on_btn_p3_XacNhan_clicked();
-
-    void on_btn_p3_XacNhan_tab2_clicked();
-
-    void on_btn_p3_XacNhan_tab3_clicked();
-
-    void on_btn_P5_TheoThang_tab1_clicked();
-
-    void on_btn_P5_TheoNam_tab1_clicked();
-
-    //
-
-    void SetToolTipThuNhap(bool status,int index);
-
-    void SetToolTipChiTieu(bool status,int index);
-
-    void SetToolTipCanDoi(int index);
-
-
-
-    void on_btn_P5_CapNhat_tab2_clicked();
-
-    void on_btn_P5_CapNhat_tab3_clicked();
 
 private:
     Ui::ExpenseTracker *ui;

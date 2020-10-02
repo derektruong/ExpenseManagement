@@ -5,6 +5,7 @@
 #include <quanlytaikhoan.h>
 #include <expensetracker.h>
 #include <quanlychitieu.h>
+#include <tietkiem.h>
 #include <thongke.h>
 
 #include <QString>
@@ -46,6 +47,7 @@ private:
     Ui::ChiTieu *ui;
     QuanLyTaiKhoan TaiKhoanQL;
     QuanLyChiTieu DanhMucQL;
+    TietKiem TietKiemQL;
     ThongKe ThongKeQL;
 };
 

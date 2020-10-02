@@ -4,10 +4,13 @@
 #include <QMainWindow>
 #include <expensetracker.h>
 
+
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlDriver>
 #include <QtSql/QSqlDriverPlugin>
+#include <QtSql/QSqlError>
 #include <QtSql/QSqlQuery>
+#include <QDir>
 #include <QMessageBox>
 #include <QDebug>
 #include <QString>

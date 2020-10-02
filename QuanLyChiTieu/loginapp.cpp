@@ -4,6 +4,9 @@
 #include <adduser.h>
 #include <expensetracker.h>
 
+//#include "C:\\Qt\\Qt5.14.2\\5.14.2\\Src\\qtbase\\src\\plugins\\sqldrivers\\odbc\\qsql_odbc.cpp"
+
+
 LoginAPP::LoginAPP(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LoginAPP)
@@ -18,12 +21,15 @@ LoginAPP::LoginAPP(QWidget *parent)
 
     myDB = QSqlDatabase::addDatabase("QODBC");
 
+    //myDB.setDatabaseName("DRIVER={SQL Server Native Client 11.0};SERVER=.;DATABASE=DO_AN_THU_CHI;UID=.;PWD=.;WSID=.;Trusted_connection=yes");
 
-    myDB.setDatabaseName("DRIVER={SQL Server Native Client 11.0};SERVER=.;DATABASE=DO_AN_CHI_TIEU;UID=.;PWD=.;WSID=.;Trusted_connection=yes");
+    QString dbFilename = QDir::toNativeSeparators(QCoreApplication::applicationDirPath()+"/DO_AN_THU_CHI.mdf");
 
-
+    QString connStr = "DRIVER={ODBC Driver 13 for SQL Server};SERVER=%1;AttachDbFilename=%2;Integrated Security=true;";
+    myDB.setDatabaseName(connStr.arg("(localdb)\\MSSQLLocalDB").arg(dbFilename));
 
     bool connected = myDB.open();
+    //qDebug()<<myDB.lastError().text();
 
     if(!connected) ui->label_TrangThai->setText(QString::fromUtf8("Lỗi! Không kết nối được CSDL!"));
     else if(connected) ui->label_TrangThai->setText(QString::fromUtf8("Đã kết nối được CSDL!"));

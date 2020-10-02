@@ -8,7 +8,7 @@ AddUser::AddUser(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    this->setFixedSize(1147,749);
+    this->setFixedSize(1151,671);
 
     this->setWindowIcon(QIcon(":/Images\\Icon\\cash-icon.png"));
 
@@ -68,6 +68,11 @@ void AddUser::on_pushButton_DangKy_AddUser_clicked()
     if( qry.exec("INSERT NguoiDung( TenDangNhap,MaPin,HoVaTen,Email,CongViec ) VALUES('"+TenDangNhap+"', '" +EncryptMaPin+"',  N'" + HoVaTen +"', '" + Email +"', N'"+ CongViec +"' )")){
         ChiTieu.ThemDanhMucMacDinh(TenDangNhap);
         QMessageBox::information(this, QString::fromUtf8("Chúc mừng"), QString::fromUtf8("Bạn đã đăng ký thành công!!"));
+
+        QString Index = TenDangNhap+"_index";
+        qry.exec("CREATE UNIQUE INDEX "+Index+" ON LoaiThuNhap(LoaiThuNhap) WHERE TenChu = '"+TenDangNhap+"' ");
+        qry.exec("CREATE UNIQUE INDEX "+Index+" ON TaiKhoan(Ten) WHERE TenChu = '"+TenDangNhap+"' ");
+
         hide();
 
     }

@@ -90,21 +90,29 @@ void ChiTieu::on_btn_OK_clicked()
 
 
     // Truy vấn DB
-
-    //// Trừ tiền trong tài khoản
-
     QSqlQuery qry;
 
     lli SoDuTK = TaiKhoanQL.LaySoDu(Username,TenTaiKhoan);
 
     SoDuTK -= SoTien;
+    //Lấy mã tài khoản
+    int MTK = TaiKhoanQL.LayMaTaiKhoan(this->Username, TenTaiKhoan);
 
+
+    //Kiểm tra có đủ số dư trong tài khoản hay không
     if( SoDuTK < 0 ){
         QMessageBox::warning(this,"Nguy hiểm",QString::fromUtf8("Số tiền chi tiêu vượt quá số dư của tài khoản này!!"));
         return;
     }
 
     else{
+        //Trừ trong bảng TietKiem nếu có
+        if( TaiKhoanQL.LayLoaiTaiKhoan(this->Username, TenTaiKhoan) == "Tiết kiệm" ){
+            TietKiemQL.CapNhatSoDu(this->Username, MTK, SoDuTK);
+        }
+        //done
+
+        // Trừ tiền trong tài khoản
         qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK  WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
 
         qry.bindValue(":SoDuTK", SoDuTK);
@@ -112,6 +120,7 @@ void ChiTieu::on_btn_OK_clicked()
         qry.bindValue(":Username", Username);
 
         qry.exec();
+        //done
 
 
     }
