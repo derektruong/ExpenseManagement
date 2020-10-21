@@ -5,7 +5,7 @@ Loan::Loan()
 
 }
 
-int Loan::LayMaTaiKhoan(QString Username, QString TenTaiKhoan){
+int Loan::LayMaTaiKhoanInLoan(QString Username, QString TenTaiKhoan){
     int res = -1;
 
     this->TenChu = Username;
@@ -13,7 +13,7 @@ int Loan::LayMaTaiKhoan(QString Username, QString TenTaiKhoan){
 
     QSqlQuery qry;
 
-    if( qry.exec("SELECT MaTaiKhoan FROM Loan WHERE TenChu = '"+TenChu+"' AND Ten = N'"+TenTaiKhoan+"' ") ){
+    if( qry.exec("SELECT MaTaiKhoan FROM TaiKhoan WHERE TenChu = '"+TenChu+"' AND Ten = N'"+TenTaiKhoan+"' ") ){
         while ( qry.next() ) {
             res = qry.value("MaTaiKhoan").toInt();
         }
@@ -30,7 +30,7 @@ void Loan::CapNhatDuNo(QString Username, int MaTaiKhoan, lli SoDuNo){
 
     QSqlQuery qry;
 
-    qry.prepare("UPDATE Loan SET TienNo = :SoDuNo WHERE MaTaiKhoan = :MaTaiKhoan AND TenChu = :Username; ");
+    qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuNo WHERE MaTaiKhoan = :MaTaiKhoan AND TenChu = :Username; ");
 
     qry.bindValue(":SoDuNo", SoDuNo);
     qry.bindValue(":MaTaiKhoan", MaTaiKhoan);
@@ -47,7 +47,7 @@ void Loan::XoaNo(QString Username, int MaTaiKhoan){
 
     QSqlQuery qry;
 
-    qry.prepare("DELETE FROM Loan WHERE TenChu = :Username AND MaTaiKhoan = :MaTaiKhoan ");
+    qry.prepare("DELETE lo FROM Loan lo INNER JOIN TaiKhoan tk ON tk.MaTaiKhoan = lo.MaTaiKhoan WHERE tk.TenChu = :Username AND lo.MaTaiKhoan = :MaTaiKhoan ");
 
     qry.bindValue(":MaTaiKhoan", MaTaiKhoan);
     qry.bindValue(":Username", Username);
@@ -57,22 +57,18 @@ void Loan::XoaNo(QString Username, int MaTaiKhoan){
     }
 }
 
-void Loan::ThemNo(QString Username, QString TenNo, lli TienNo, QString KyHan, int MaTaiKhoan){
-    this->TenChu = Username;
+void Loan::ThemNo(QString TenNo, QString KyHan, int MaTaiKhoan){
     this->TenNo = TenNo;
-    this->TienNo = TienNo;
     this->KyHan = KyHan;
     this->MaTaiKhoan = MaTaiKhoan;
 
     QSqlQuery qry;
 
-    qry.prepare("INSERT INTO Loan ( TenNo, TienNo, KyHan, MaTaiKhoan, TenChu )" "VALUES ( :TenNo, :TienNo, :KyHan, :MaTaiKhoan, :TenChu )");
+    qry.prepare("INSERT INTO Loan ( TenNo, KyHan, MaTaiKhoan)" "VALUES ( :TenNo, :KyHan, :MaTaiKhoan )");
 
     qry.bindValue(":TenNo", TenNo);
-    qry.bindValue(":TienNo", TienNo);
     qry.bindValue(":KyHan", KyHan);
     qry.bindValue(":MaTaiKhoan", MaTaiKhoan);
-    qry.bindValue(":TenChu", Username);
 
     if( !qry.exec() ){
         qDebug()<<"Lỗi không kết nối được CSDL!";
@@ -83,7 +79,7 @@ lli Loan::KiemTraDuNo(QString Username, int MaTaiKhoan){
     QSqlQuery qry;
     lli res = 0;
 
-    qry.prepare("SELECT TienNo FROM Loan WHERE TenChu = :Username AND MaTaiKhoan = :MaTaiKhoan");
+    qry.prepare("SELECT tk.SoDu FROM Loan lo JOIN TaiKhoan tk ON tk.MaTaiKhoan = lo.MaTaiKhoan WHERE tk.TenChu = :Username AND lo.MaTaiKhoan = :MaTaiKhoan");
 
     qry.bindValue(":Username", Username);
     qry.bindValue(":MaTaiKhoan", MaTaiKhoan);

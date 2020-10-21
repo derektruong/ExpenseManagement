@@ -20,6 +20,12 @@ public:
 
     QString LayMaDanhMuc(QString TenDanhMuc, QString Username);
 
+    int LayID_DanhMuc(QString MaDanhMuc, QString Username);
+
+    //Hàm này chỉ được gọi sau khi INSERT vào bảng KhoanChi
+    int LayMaKhoanChi();
+    //
+
     lli LaySoTienTong(QString MaDanhMuc, QString Username);
 
     void XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan );

@@ -47,6 +47,25 @@ QVector<QString> QuanLyThuNhap::LayTenThuNhap(QString Username){
     return  res;
 }
 
+//LoaiThuNhap
+int QuanLyThuNhap::LayMaLoaiThuNhap(QString Username, QString LoaiThuNhap){
+    int res = 0;
+
+    QSqlQuery qry;
+
+    qry.prepare("SELECT ltn.MaLoaiThuNhap FROM LoaiThuNhap ltn WHERE ltn.TenChu = :Username AND ltn.LoaiThuNhap = :LoaiThuNhap");
+
+    qry.bindValue(":Username", Username);
+    qry.bindValue(":LoaiThuNhap", LoaiThuNhap);
+    if( qry.exec() ){
+        while ( qry.next() ) {
+            res = qry.value("MaLoaiThuNhap").toInt();
+        }
+    }
+    return res;
+}
+
+//LoaiThuNhap
 void QuanLyThuNhap::XoaLoaiThuNhap(QString Username, QString LoaiThuNhap){
     this->TenChu = Username;
     this->LoaiThuNhap = LoaiThuNhap;
@@ -66,7 +85,7 @@ void QuanLyThuNhap::XoaLoaiThuNhap(QString Username, QString LoaiThuNhap){
 
     //Xoá trong bảng ThuNhap
 
-    qry.prepare("DELETE FROM ThuNhap WHERE TenChu = :Username AND LoaiThuNhap = :LoaiThuNhap");
+    qry.prepare("DELETE tn FROM ThuNhap tn INNER JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND ltn.LoaiThuNhap = :LoaiThuNhap");
 
     qry.bindValue(":Username", Username);
     qry.bindValue(":LoaiThuNhap", LoaiThuNhap);
@@ -82,7 +101,7 @@ void QuanLyThuNhap::XoaTaiKhoanInThuNhap(QString Username, QString TenTaiKhoan )
 
     //Xoá trong bảng ThuNhap
 
-    qry.prepare("DELETE FROM ThuNhap WHERE TenChu = :Username AND TenTaiKhoan = :TenTaiKhoan");
+    qry.prepare("DELETE tn FROM ThuNhap tn INNER JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND tn.TenTaiKhoan = :TenTaiKhoan");
 
     qry.bindValue(":Username", Username);
     qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
@@ -119,13 +138,13 @@ QVector<QVector<lli>> QuanLyThuNhap::LayThongKe7NgayTruoc(QString Username, QStr
         }
 
         if( LoaiThuNhap == "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Day(NgayThuNhap) =:day AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year");
+            qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Day(tn.NgayThuNhap) =:day AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year");
         if( LoaiThuNhap != "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Day(NgayThuNhap) =:day AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year AND LoaiThuNhap = :LoaiThuNhap");
+            qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Day(tn.NgayThuNhap) =:day AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year AND ltn.LoaiThuNhap = :LoaiThuNhap");
         if( LoaiThuNhap == "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Day(NgayThuNhap) =:day AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year AND TenTaiKhoan = :TenTaiKhoan");
+            qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Day(tn.NgayThuNhap) =:day AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year AND tn.TenTaiKhoan = :TenTaiKhoan");
         if( LoaiThuNhap != "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Day(NgayThuNhap) =:day AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year AND LoaiThuNhap = :LoaiThuNhap AND TenTaiKhoan = :TenTaiKhoan");
+            qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Day(tn.NgayThuNhap) =:day AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year AND ltn.LoaiThuNhap = :LoaiThuNhap AND tn.TenTaiKhoan = :TenTaiKhoan");
 
         qry.bindValue(":Username", Username);
         qry.bindValue(":day", i);
@@ -187,13 +206,13 @@ QVector<QVector<lli>> QuanLyThuNhap::LayThongKe30NgayTruoc(QString Username, QSt
 
             //Xử lý query tuỳ theo trường hợp
             if( LoaiThuNhap == "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Day(NgayThuNhap) =:day AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year");
+                qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Day(tn.NgayThuNhap) =:day AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year");
             if( LoaiThuNhap != "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Day(NgayThuNhap) =:day AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year AND LoaiThuNhap = :LoaiThuNhap");
+                qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Day(tn.NgayThuNhap) =:day AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year AND ltn.LoaiThuNhap = :LoaiThuNhap");
             if( LoaiThuNhap == "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Day(NgayThuNhap) =:day AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year AND TenTaiKhoan = :TenTaiKhoan");
+                qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Day(tn.NgayThuNhap) =:day AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year AND tn.TenTaiKhoan = :TenTaiKhoan");
             if( LoaiThuNhap != "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Day(NgayThuNhap) =:day AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year AND LoaiThuNhap = :LoaiThuNhap AND TenTaiKhoan = :TenTaiKhoan");
+                qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Day(tn.NgayThuNhap) =:day AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year AND ltn.LoaiThuNhap = :LoaiThuNhap AND tn.TenTaiKhoan = :TenTaiKhoan");
 
             qry.bindValue(":Username", Username);
             qry.bindValue(":day", i);
@@ -261,13 +280,13 @@ QVector<QVector<lli>> QuanLyThuNhap::LayThongKe3ThangTruoc(QString Username, QSt
             }
             //Xử lý query tuỳ theo trường hợp
             if( LoaiThuNhap == "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Day(NgayThuNhap) =:day AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year");
+                qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Day(tn.NgayThuNhap) =:day AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year");
             if( LoaiThuNhap != "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Day(NgayThuNhap) =:day AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year AND LoaiThuNhap = :LoaiThuNhap");
+                qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Day(tn.NgayThuNhap) =:day AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year AND ltn.LoaiThuNhap = :LoaiThuNhap");
             if( LoaiThuNhap == "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Day(NgayThuNhap) =:day AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year AND TenTaiKhoan = :TenTaiKhoan");
+                qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Day(tn.NgayThuNhap) =:day AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year AND tn.TenTaiKhoan = :TenTaiKhoan");
             if( LoaiThuNhap != "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Day(NgayThuNhap) =:day AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year AND LoaiThuNhap = :LoaiThuNhap AND TenTaiKhoan = :TenTaiKhoan");
+                qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Day(tn.NgayThuNhap) =:day AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year AND ltn.LoaiThuNhap = :LoaiThuNhap AND tn.TenTaiKhoan = :TenTaiKhoan");
 
             qry.bindValue(":Username", Username);
             qry.bindValue(":day", i);
@@ -307,13 +326,13 @@ QVector<lli> QuanLyThuNhap::LayThongKe1Nam(QString Username, QString LoaiThuNhap
     for( int i = 12; i > 0; --i ){
         //Xử lý query tuỳ theo trường hợp
         if( LoaiThuNhap == "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year");
+            qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year");
         if( LoaiThuNhap != "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year AND LoaiThuNhap = :LoaiThuNhap");
+            qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year AND ltn.LoaiThuNhap = :LoaiThuNhap");
         if( LoaiThuNhap == "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year AND TenTaiKhoan = :TenTaiKhoan");
+            qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year AND tn.TenTaiKhoan = :TenTaiKhoan");
         if( LoaiThuNhap != "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username AND Month(NgayThuNhap) = :month AND Year(NgayThuNhap) = :year AND LoaiThuNhap = :LoaiThuNhap AND TenTaiKhoan = :TenTaiKhoan");
+            qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND Month(tn.NgayThuNhap) = :month AND Year(tn.NgayThuNhap) = :year AND ltn.LoaiThuNhap = :LoaiThuNhap AND tn.TenTaiKhoan = :TenTaiKhoan");
 
         qry.bindValue(":Username", Username);
         qry.bindValue(":month", i);

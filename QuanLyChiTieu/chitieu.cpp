@@ -125,26 +125,11 @@ void ChiTieu::on_btn_OK_clicked()
 
     }
 
-    ////
+    //
 
-    //// Thêm vào bảng KhoanChi
+    /// Thêm tiền trong danh mục
 
-    qry.prepare("INSERT KhoanChi ( SoTien, NgayChiTieu, GhiChu, MaDanhMuc, TenChu, TenTaiKhoan )" "VALUES ( :SoTien, :NgayChiTieu, :GhiChu, :MaDanhMuc, :TenChu, :TenTaiKhoan )");
-
-    qry.bindValue(":SoTien", SoTien);
-    qry.bindValue(":NgayChiTieu", NgayChiTieu);
-    qry.bindValue(":GhiChu", MoTa);
-    qry.bindValue(":MaDanhMuc", MaDanhMuc);
-    qry.bindValue(":TenChu", Username);
-    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
-
-    qry.exec();
-
-    ////
-
-    //// Thêm tiền trong danh mục
-
-    SoTien += DanhMucQL.LaySoTienTong(MaDanhMuc,Username);
+    SoTien += DanhMucQL.LaySoTienTong(MaDanhMuc, Username);
 
     qry.prepare("UPDATE DanhMucChiTieu SET TongTien = :SoTien WHERE TenChu = :Username AND  MaDanhMuc = :MaDanhMuc; ");
 
@@ -154,7 +139,31 @@ void ChiTieu::on_btn_OK_clicked()
 
     qry.exec();
 
+    ///done
+
+    ////Lấy ID_DanhMuc đưa vào bảng KhoanChi
+
+    int ID_DanhMuc = DanhMucQL.LayID_DanhMuc(MaDanhMuc, Username);
+
     ////
+
+    /// Thêm vào bảng KhoanChi
+
+    qry.prepare("INSERT KhoanChi ( SoTien, NgayChiTieu, GhiChu, MaDanhMuc, TenChu, TenTaiKhoan, ID_DanhMuc )" "VALUES ( :SoTien, :NgayChiTieu, :GhiChu, :MaDanhMuc, :TenChu, :TenTaiKhoan, :ID_DanhMuc )");
+
+    qry.bindValue(":SoTien", SoTien);
+    qry.bindValue(":NgayChiTieu", NgayChiTieu);
+    qry.bindValue(":GhiChu", MoTa);
+    qry.bindValue(":MaDanhMuc", MaDanhMuc);
+    qry.bindValue(":TenChu", Username);
+    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+    qry.bindValue(":ID_DanhMuc", ID_DanhMuc);
+
+    qry.exec();
+
+    ///done
+
+
     buttonPressed();
 
     this->hide();

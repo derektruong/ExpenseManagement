@@ -26,6 +26,7 @@ void QuanLyChiTieu::ThemDanhMucMacDinh(QString Username){
 
 }
 
+//DMCT
 QString QuanLyChiTieu::LayMaDanhMuc(QString TenDanhMuc, QString Username){
     QString MDM;
 
@@ -41,6 +42,38 @@ QString QuanLyChiTieu::LayMaDanhMuc(QString TenDanhMuc, QString Username){
     return MDM;
 
 }
+//DMCT
+int QuanLyChiTieu::LayID_DanhMuc(QString MaDanhMuc, QString Username){
+    int res = 0;
+
+    this->TenChu = Username;
+
+    QSqlQuery qry;
+
+    if( qry.exec("SELECT ID_DanhMuc FROM DanhMucChiTieu WHERE TenDanhMuc = '"+MaDanhMuc+"' AND TenChu = '"+Username+"'") ){
+        while ( qry.next() ) {
+            res = qry.value("ID_DanhMuc").toInt();
+        }
+    }
+    return res;
+
+}
+
+//Hàm này chỉ được gọi sau khi INSERT vào bảng KhoanChi
+int QuanLyChiTieu::LayMaKhoanChi(){
+    int res = 0;
+
+    QSqlQuery qry;
+
+    if( qry.exec("SELECT MaKhoanChi FROM KhoanChi WHERE MaKhoanChi = SCOPE_IDENTITY()") ){
+        while ( qry.next() ) {
+            res = qry.value("MaKhoanChi").toInt();
+        }
+    }
+    return res;
+
+}
+//
 
 lli QuanLyChiTieu::LaySoTienTong(QString MaDanhMuc, QString Username){
 
@@ -72,7 +105,7 @@ void QuanLyChiTieu::XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan )
     lli TienGD = 0, TienSK = 0, TienMS = 0, TienHP = 0, TienHD = 0, TienKD = 0, TienOT = 0, TienQT = 0, TienDC = 0, TienGT = 0, TienBH = 0;
 
 
-    qry.prepare("SELECT MaDanhMuc, SoTien FROM KhoanChi WHERE TenChu = :Username AND TenTaiKhoan = :TenTaiKhoan");
+    qry.prepare("SELECT dmct.MaDanhMuc, kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND kc.TenTaiKhoan = :TenTaiKhoan");
 
     qry.bindValue(":Username", Username);
     qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
@@ -102,7 +135,7 @@ void QuanLyChiTieu::XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan )
 
     //Xoá trong bảng KhoanChi
 
-    qry.prepare("DELETE FROM KhoanChi WHERE TenChu = :Username AND TenTaiKhoan = :TenTaiKhoan");
+    qry.prepare("DELETE kc FROM KhoanChi kc INNER JOIN dbo.DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND kc.TenTaiKhoan = :TenTaiKhoan");
 
     qry.bindValue(":Username", Username);
     qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
@@ -171,13 +204,13 @@ QVector<QVector<lli>> QuanLyChiTieu::LayThongKe7NgayTruoc(QString Username, QStr
         }
 
         if( TenDanhMuc == "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Day(NgayChiTieu) =:day AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year");
+            qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Day(kc.NgayChiTieu) =:day AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year");
         if( TenDanhMuc != "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Day(NgayChiTieu) =:day AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year AND MaDanhMuc = :MDM");
+            qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Day(kc.NgayChiTieu) =:day AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year AND dmct.MaDanhMuc = :MDM");
         if( TenDanhMuc == "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Day(NgayChiTieu) =:day AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year AND TenTaiKhoan = :TenTaiKhoan");
+            qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Day(kc.NgayChiTieu) =:day AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year AND kc.TenTaiKhoan = :TenTaiKhoan");
         if( TenDanhMuc != "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Day(NgayChiTieu) =:day AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year AND MaDanhMuc = :MDM AND TenTaiKhoan = :TenTaiKhoan");
+            qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Day(kc.NgayChiTieu) =:day AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year AND dmct.MaDanhMuc = :MDM AND kc.TenTaiKhoan = :TenTaiKhoan");
 
         qry.bindValue(":Username", Username);
         qry.bindValue(":day", i);
@@ -241,13 +274,13 @@ QVector<QVector<lli>> QuanLyChiTieu::LayThongKe30NgayTruoc(QString Username, QSt
 
             //Xử lý query tuỳ theo trường hợp
             if( TenDanhMuc == "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Day(NgayChiTieu) =:day AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year");
+                qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Day(kc.NgayChiTieu) =:day AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year");
             if( TenDanhMuc != "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Day(NgayChiTieu) =:day AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year AND MaDanhMuc = :MDM");
+                qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Day(kc.NgayChiTieu) =:day AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year AND dmct.MaDanhMuc = :MDM");
             if( TenDanhMuc == "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Day(NgayChiTieu) =:day AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year AND TenTaiKhoan = :TenTaiKhoan");
+                qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Day(kc.NgayChiTieu) =:day AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year AND kc.TenTaiKhoan = :TenTaiKhoan");
             if( TenDanhMuc != "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Day(NgayChiTieu) =:day AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year AND MaDanhMuc = :MDM AND TenTaiKhoan = :TenTaiKhoan");
+                qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Day(kc.NgayChiTieu) =:day AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year AND dmct.MaDanhMuc = :MDM AND kc.TenTaiKhoan = :TenTaiKhoan");
 
             qry.bindValue(":Username", Username);
             qry.bindValue(":day", i);
@@ -316,13 +349,13 @@ QVector<QVector<lli>> QuanLyChiTieu::LayThongKe3ThangTruoc(QString Username, QSt
             }
             //Xử lý query tuỳ theo trường hợp
             if( TenDanhMuc == "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Day(NgayChiTieu) =:day AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year");
+                qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Day(kc.NgayChiTieu) =:day AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year");
             if( TenDanhMuc != "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Day(NgayChiTieu) =:day AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year AND MaDanhMuc = :MDM");
+                qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Day(kc.NgayChiTieu) =:day AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year AND dmct.MaDanhMuc = :MDM");
             if( TenDanhMuc == "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Day(NgayChiTieu) =:day AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year AND TenTaiKhoan = :TenTaiKhoan");
+                qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Day(kc.NgayChiTieu) =:day AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year AND kc.TenTaiKhoan = :TenTaiKhoan");
             if( TenDanhMuc != "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-                qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Day(NgayChiTieu) =:day AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year AND MaDanhMuc = :MDM AND TenTaiKhoan = :TenTaiKhoan");
+                qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Day(kc.NgayChiTieu) =:day AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year AND dmct.MaDanhMuc = :MDM AND kc.TenTaiKhoan = :TenTaiKhoan");
 
             qry.bindValue(":Username", Username);
             qry.bindValue(":day", i);
@@ -363,13 +396,13 @@ QVector<lli> QuanLyChiTieu::LayThongKe1Nam(QString Username, QString TenDanhMuc,
     for( int i = 12; i > 0; --i ){
         //Xử lý query tuỳ theo trường hợp
         if( TenDanhMuc == "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year");
+            qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year");
         if( TenDanhMuc != "Tất Cả" && TenTaiKhoan == "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year AND MaDanhMuc = :MDM");
+            qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year AND dmct.MaDanhMuc = :MDM");
         if( TenDanhMuc == "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year AND TenTaiKhoan = :TenTaiKhoan");
+            qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year AND kc.TenTaiKhoan = :TenTaiKhoan");
         if( TenDanhMuc != "Tất Cả" && TenTaiKhoan != "Tất Cả" )
-            qry.prepare("SELECT SoTien FROM KhoanChi WHERE TenChu = :Username AND Month(NgayChiTieu) = :month AND Year(NgayChiTieu) = :year AND MaDanhMuc = :MDM AND TenTaiKhoan = :TenTaiKhoan");
+            qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND Month(kc.NgayChiTieu) = :month AND Year(kc.NgayChiTieu) = :year AND dmct.MaDanhMuc = :MDM AND kc.TenTaiKhoan = :TenTaiKhoan");
 
         qry.bindValue(":Username", Username);
         qry.bindValue(":month", i);

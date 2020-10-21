@@ -18,6 +18,8 @@ public:
 
     QVector<QString> LayTenThuNhap(QString Username);
 
+    int LayMaLoaiThuNhap(QString Username, QString LoaiThuNhap);
+
     void XoaLoaiThuNhap(QString Username, QString LoaiThuNhap);
 
     void XoaTaiKhoanInThuNhap(QString Username, QString TenTaiKhoan );

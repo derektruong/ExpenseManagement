@@ -21,7 +21,7 @@ public:
 
     void XoaNo(QString Username, int MaTaiKhoan);
 
-    void ThemNo(QString Username, QString TenNo, lli TienNo, QString KyHan, int MaTaiKhoan);
+    void ThemNo(QString TenNo, QString KyHan, int MaTaiKhoan);
 
     lli KiemTraDuNo(QString Username, int MaTaiKhoan);
 

@@ -21,14 +21,53 @@ LoginAPP::LoginAPP(QWidget *parent)
 
     myDB = QSqlDatabase::addDatabase("QODBC");
 
-    //myDB.setDatabaseName("DRIVER={SQL Server Native Client 11.0};SERVER=.;DATABASE=DO_AN_THU_CHI;UID=.;PWD=.;WSID=.;Trusted_connection=yes");
+    myDB.setDatabaseName("DRIVER={SQL Server Native Client 11.0};SERVER=DEREKPC\\DEREK;DATABASE=DO_AN_THU_CHI;UID=.;PWD=.;WSID=.;Trusted_connection=yes");
+    bool connected = myDB.open();
 
-    QString dbFilename = QDir::toNativeSeparators(QCoreApplication::applicationDirPath()+"/DO_AN_THU_CHI.mdf");
+    /*QString dbFilename = QDir::toNativeSeparators(QCoreApplication::applicationDirPath()+"/DO_AN_THU_CHI.mdf");
 
-    QString connStr = "DRIVER={ODBC Driver 13 for SQL Server};SERVER=%1;AttachDbFilename=%2;Integrated Security=true;";
-    myDB.setDatabaseName(connStr.arg("(localdb)\\MSSQLLocalDB").arg(dbFilename));
+    qDebug()<<QCoreApplication::applicationDirPath();
+
+    QString connStr0 = "DRIVER={ODBC Driver 13.1 for SQL Server};SERVER=%1;AttachDbFilename=%2;Integrated Security=true;";
+    QString connStr1 = "DRIVER={ODBC Driver 13 for SQL Server};SERVER=%1;AttachDbFilename=%2;Integrated Security=true;";
+    QString connStr2 = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=%1;AttachDbFilename=%2;Integrated Security=true;";
+    QString connStr3 = "DRIVER={ODBC Driver 11 for SQL Server};SERVER=%1;AttachDbFilename=%2;Integrated Security=true;";
+    QString connStr4 = "DRIVER={SQL Server Native Client 11.0};SERVER=%1;AttachDbFilename=%2;Integrated Security=true;";
+    QString connStr5 = "DRIVER={SQL Server};SERVER=%1;AttachDbFilename=%2;Integrated Security=true;";
+    QString connStr6 = "DRIVER={SQL Server Native Client RDA};SERVER=%1;AttachDbFilename=%2;Integrated Security=true;";
+
+    myDB.setDatabaseName(connStr1.arg("(localdb)\\MSSQLLocalDB").arg(dbFilename));
 
     bool connected = myDB.open();
+
+    if( !connected ){
+        myDB.setDatabaseName(connStr2.arg("(localdb)\\MSSQLLocalDB").arg(dbFilename));
+        connected = myDB.open();
+    }
+
+    if( !connected ){
+        myDB.setDatabaseName(connStr0.arg("(localdb)\\MSSQLLocalDB").arg(dbFilename));
+        connected = myDB.open();
+    }
+
+    if( !connected ){
+        myDB.setDatabaseName(connStr3.arg("(localdb)\\MSSQLLocalDB").arg(dbFilename));
+        connected = myDB.open();
+    }
+
+    if( !connected ){
+        myDB.setDatabaseName(connStr4.arg("(localdb)\\MSSQLLocalDB").arg(dbFilename));
+        connected = myDB.open();
+    }
+    if( !connected ){
+        myDB.setDatabaseName(connStr5.arg("(localdb)\\MSSQLLocalDB").arg(dbFilename));
+        connected = myDB.open();
+    }
+
+    if( !connected ){
+        myDB.setDatabaseName(connStr6.arg("(localdb)\\MSSQLLocalDB").arg(dbFilename));
+        connected = myDB.open();
+    }*/
     //qDebug()<<myDB.lastError().text();
 
     if(!connected) ui->label_TrangThai->setText(QString::fromUtf8("Lỗi! Không kết nối được CSDL!"));
