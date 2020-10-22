@@ -1,6 +1,9 @@
 #ifndef THONGKE_H
 #define THONGKE_H
 
+#include "quanlythunhap.h"
+#include "quanlychitieu.h"
+
 #include <QString>
 #include <QVector>
 #include <QtSql/QSqlQuery>
@@ -14,10 +17,11 @@ class ThongKe
 public:
     ThongKe();
 
-    void CapNhatTongThu(QString Username, QString ThoiGian, lli SoTien );
+    void CapNhatMaKhoanChi(QString Username, QString ThoiGian, int MaKhoanChi );
 
-    void CapNhatTongChi(QString Username, QString ThoiGian, lli SoTien );
+    void CapNhatMaThuNhap(QString Username, QString ThoiGian, int MaThuNhap );
 
+    //Chưa fix 22102020
     QVector<lli> LayDuLieuTongThuTheoTuan(QString Username, QString Thang, QString Nam);
 
     QVector<lli> LayDuLieuTongChiTheoTuan(QString Username, QString Thang, QString Nam);
@@ -34,6 +38,8 @@ public:
 
 private:
     QString TenChu, ThoiGian;
+    QuanLyChiTieu ChiTieuQL;
+    QuanLyThuNhap ThuNhapQL;
 };
 
 #endif // THONGKE_H

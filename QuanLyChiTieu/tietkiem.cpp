@@ -5,26 +5,6 @@ TietKiem::TietKiem()
 
 }
 
-
-int TietKiem::LayMaTaiKhoan(QString Username, QString TenTaiKhoan){
-    int res = -1;
-
-    this->TenChu = Username;
-    this->TenTaiKhoan = TenTaiKhoan;
-
-    QSqlQuery qry;
-
-    if( qry.exec("SELECT MaTaiKhoan FROM TietKiem WHERE TenChu = '"+TenChu+"' AND Ten = N'"+TenTaiKhoan+"'  ") ){
-        while ( qry.next() ) {
-            res = qry.value("MaTaiKhoan").toInt();
-        }
-    }
-
-    else qDebug()<<"Lỗi không kết nối được CSDL!";
-
-    return  res;
-}
-
 lli TietKiem::LayMucTieu(QString Username, QString TenTaiKhoan){
     lli res = -1;
 
@@ -33,7 +13,7 @@ lli TietKiem::LayMucTieu(QString Username, QString TenTaiKhoan){
 
     QSqlQuery qry;
 
-    if( qry.exec("SELECT MucTieu FROM TietKiem WHERE TenChu = '"+TenChu+"' AND Ten = N'"+TenTaiKhoan+"'  ") ){
+    if( qry.exec("SELECT tkiem.MucTieu FROM TietKiem tkiem JOIN TaiKhoan tk ON tkiem.MaTaiKhoan = tk.MaTaiKhoan WHERE tk.TenChu = '"+TenChu+"' AND tk.Ten = N'"+TenTaiKhoan+"'  ") ){
         while ( qry.next() ) {
             res = qry.value("MucTieu").toLongLong();
         }
@@ -50,7 +30,7 @@ void TietKiem::CapNhatMucTieu(QString Username, int MaTaiKhoan, lli MucTieu){
 
     QSqlQuery qry;
 
-    qry.prepare("UPDATE TietKiem SET MucTieu = :MucTieu WHERE MaTaiKhoan = :MaTaiKhoan AND TenChu = :Username; ");
+    qry.prepare("UPDATE TietKiem SET tkiem.MucTieu = :MucTieu FROM TietKiem tkiem INNER JOIN TaiKhoan tk ON tkiem.MaTaiKhoan = tk.MaTaiKhoan WHERE tkiem.MaTaiKhoan = :MaTaiKhoan AND tk.TenChu = :Username; ");
 
     qry.bindValue(":MucTieu", MucTieu);
     qry.bindValue(":MaTaiKhoan", MaTaiKhoan);
@@ -67,7 +47,7 @@ void TietKiem::CapNhatSoDu(QString Username, int MaTaiKhoan, lli SoDuTK){
 
     QSqlQuery qry;
 
-    qry.prepare("UPDATE TietKiem SET SoDu = :SoDuTK WHERE MaTaiKhoan = :MaTaiKhoan AND TenChu = :Username; ");
+    qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK WHERE MaTaiKhoan = :MaTaiKhoan AND TenChu = :Username; ");
 
     qry.bindValue(":SoDuTK", SoDuTK);
     qry.bindValue(":MaTaiKhoan", MaTaiKhoan);
@@ -84,7 +64,7 @@ void TietKiem::XoaTietKiem(QString Username, int MaTaiKhoan){
 
     QSqlQuery qry;
 
-    qry.prepare("DELETE FROM TietKiem WHERE TenChu = :Username AND MaTaiKhoan = :MaTaiKhoan ");
+    qry.prepare("DELETE tkiem FROM TietKiem tkiem INNER JOIN TaiKhoan tk ON tkiem.MaTaiKhoan = tk.MaTaiKhoan WHERE tk.TenChu = :Username AND tkiem.MaTaiKhoan = :MaTaiKhoan ");
 
     qry.bindValue(":MaTaiKhoan", MaTaiKhoan);
     qry.bindValue(":Username", Username);
@@ -95,16 +75,14 @@ void TietKiem::XoaTietKiem(QString Username, int MaTaiKhoan){
 
 }
 
-void TietKiem::ThemTietKiem(QString Username, QString TenTietKiem, lli SoDu, lli MucTieu, int MaTaiKhoan){
+void TietKiem::ThemTietKiem( QString TenTietKiem, lli MucTieu, int MaTaiKhoan){
     QSqlQuery qry;
 
-    qry.prepare("INSERT INTO TietKiem ( TenTietKiem, SoDu, MucTieu, MaTaiKhoan, TenChu )" "VALUES (  :TenTietKiem, :SoDu, :MucTieu, :MaTaiKhoan, :TenChu )");
+    qry.prepare("INSERT INTO TietKiem ( TenTietKiem, MucTieu, MaTaiKhoan )" "VALUES (  :TenTietKiem, :MucTieu, :MaTaiKhoan )");
 
     qry.bindValue(":TenTietKiem", TenTietKiem);
-    qry.bindValue(":SoDu", SoDu);
     qry.bindValue(":MucTieu", MucTieu);
     qry.bindValue(":MaTaiKhoan", MaTaiKhoan);
-    qry.bindValue(":TenChu", Username);
 
     if( !qry.exec() ){
         qDebug()<<"Lỗi không kết nối được CSDL!";
@@ -116,7 +94,7 @@ lli TietKiem::KiemTraMucTieu(QString Username, int MaTaiKhoan){
     QSqlQuery qry;
     lli res = 0;
 
-    qry.prepare("SELECT SoDu, MucTieu FROM TietKiem WHERE TenChu = :Username AND MaTaiKhoan = :MaTaiKhoan");
+    qry.prepare("SELECT tk.SoDu, tkiem.MucTieu FROM TietKiem tkiem JOIN TaiKhoan tk ON tkiem.MaTaiKhoan = tk.MaTaiKhoan WHERE tk.TenChu = :Username AND tkiem.MaTaiKhoan = :MaTaiKhoan");
 
     qry.bindValue(":Username", Username);
     qry.bindValue(":MaTaiKhoan", MaTaiKhoan);

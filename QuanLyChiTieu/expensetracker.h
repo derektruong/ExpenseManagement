@@ -168,7 +168,7 @@ private:
     QSqlQueryModel *qryModel;
     QString HoTen = "Username";
     QuanLyTaiKhoan TaiKhoanQL;
-    QuanLyChiTieu DanhMucQL;
+    QuanLyChiTieu ChiTieuQL;
     QuanLyThuNhap ThuNhapQL;
     TietKiem TietKiemQL;
     Loan NoQL;

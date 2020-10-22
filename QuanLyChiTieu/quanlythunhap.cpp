@@ -5,14 +5,20 @@ QuanLyThuNhap::QuanLyThuNhap()
 
 }
 
-lli QuanLyThuNhap::LaySoTienTong(QString Username){
+lli QuanLyThuNhap::LaySoTienTong(QString Username, int MaThuNhap){
 
     this->TenChu = Username;
     lli res = 0;
 
     QSqlQuery qry;
+    if( MaThuNhap < 0 )
+        qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username ");
+    else {
+        qry.prepare("SELECT tn.SoTien FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND tn.MaThuNhap = :MaThuNhap ");
+    }
 
-    qry.prepare("SELECT SoTien FROM ThuNhap WHERE TenChu = :Username ");
+    qry.bindValue(":MaThuNhap", MaThuNhap);
+    qry.bindValue(":Username", Username);
 
     if( qry.exec() ){
 
@@ -65,12 +71,38 @@ int QuanLyThuNhap::LayMaLoaiThuNhap(QString Username, QString LoaiThuNhap){
     return res;
 }
 
+//Hàm này chỉ được gọi sau khi INSERT vào bảng LoaiThuNhap
+int QuanLyThuNhap::LayMaThuNhap(){
+    int res = 0;
+
+    QSqlQuery qry;
+
+    if( qry.exec("SELECT MaThuNhap FROM ThuNhap WHERE MaThuNhap = SCOPE_IDENTITY()") ){
+        while ( qry.next() ) {
+            res = qry.value("MaThuNhap").toInt();
+            qDebug()<<res;
+        }
+    }
+    return res;
+}
+//
+
 //LoaiThuNhap
 void QuanLyThuNhap::XoaLoaiThuNhap(QString Username, QString LoaiThuNhap){
     this->TenChu = Username;
     this->LoaiThuNhap = LoaiThuNhap;
 
     QSqlQuery qry;
+    //Xoá trong bảng ThuNhap
+
+    qry.prepare("DELETE tn FROM ThuNhap tn INNER JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND ltn.LoaiThuNhap = :LoaiThuNhap");
+
+    qry.bindValue(":Username", Username);
+    qry.bindValue(":LoaiThuNhap", LoaiThuNhap);
+
+    if( !qry.exec() ){
+       qDebug()<<"Lỗi không kết nối được CSDL!";
+    }
 
     //Xoá trong bảng LoaiThuNhap
 
@@ -83,16 +115,6 @@ void QuanLyThuNhap::XoaLoaiThuNhap(QString Username, QString LoaiThuNhap){
        qDebug()<<"Lỗi không kết nối được CSDL!";
     }
 
-    //Xoá trong bảng ThuNhap
-
-    qry.prepare("DELETE tn FROM ThuNhap tn INNER JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND ltn.LoaiThuNhap = :LoaiThuNhap");
-
-    qry.bindValue(":Username", Username);
-    qry.bindValue(":LoaiThuNhap", LoaiThuNhap);
-
-    if( !qry.exec() ){
-       qDebug()<<"Lỗi không kết nối được CSDL!";
-    }
 
 }
 

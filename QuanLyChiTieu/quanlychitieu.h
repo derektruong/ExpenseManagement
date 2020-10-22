@@ -28,6 +28,8 @@ public:
 
     lli LaySoTienTong(QString MaDanhMuc, QString Username);
 
+    lli LaySoTienTheoMaKhoanChi(QString Username, int MaKhoanChi);
+
     void XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan );
 
     QVector<QVector<lli>> LayThongKe7NgayTruoc(QString Username, QString TenDanhMuc, QString TenTaiKhoan, QString Ngay, QString Thang,QString Nam);

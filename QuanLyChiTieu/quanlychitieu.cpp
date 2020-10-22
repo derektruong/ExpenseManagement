@@ -97,6 +97,31 @@ lli QuanLyChiTieu::LaySoTienTong(QString MaDanhMuc, QString Username){
     return res;
 }
 
+lli QuanLyChiTieu::LaySoTienTheoMaKhoanChi(QString Username, int MaKhoanChi){
+    this->TenChu = Username;
+    lli res = 0;
+
+    QSqlQuery qry;
+    qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND kc.MaKhoanChi = :MaKhoanChi ");
+
+
+    qry.bindValue(":MaThuNhap", MaKhoanChi);
+    qry.bindValue(":Username", Username);
+
+    if( qry.exec() ){
+
+        while ( qry.next() ) {
+            res += qry.value("SoTien").toLongLong();
+        }
+    }
+    else{
+        qDebug()<<"Loi CSDL";
+        return -1;
+    }
+
+    return res;
+}
+
 void QuanLyChiTieu::XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan ){
 
     QSqlQuery qry;

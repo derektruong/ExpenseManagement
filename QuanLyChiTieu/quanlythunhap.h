@@ -14,11 +14,15 @@ class QuanLyThuNhap
 {
 public:
     QuanLyThuNhap();
-    lli LaySoTienTong(QString Username);
+    lli LaySoTienTong(QString Username, int MaThuNhap = -1);
 
     QVector<QString> LayTenThuNhap(QString Username);
 
     int LayMaLoaiThuNhap(QString Username, QString LoaiThuNhap);
+
+    //Hàm này chỉ được gọi sau khi INSERT vào bảng LoaiThuNhap
+    int LayMaThuNhap();
+    //
 
     void XoaLoaiThuNhap(QString Username, QString LoaiThuNhap);
 

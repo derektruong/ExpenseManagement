@@ -5,25 +5,6 @@ Loan::Loan()
 
 }
 
-int Loan::LayMaTaiKhoanInLoan(QString Username, QString TenTaiKhoan){
-    int res = -1;
-
-    this->TenChu = Username;
-    this->TenTaiKhoan = TenTaiKhoan;
-
-    QSqlQuery qry;
-
-    if( qry.exec("SELECT MaTaiKhoan FROM TaiKhoan WHERE TenChu = '"+TenChu+"' AND Ten = N'"+TenTaiKhoan+"' ") ){
-        while ( qry.next() ) {
-            res = qry.value("MaTaiKhoan").toInt();
-        }
-    }
-
-    else qDebug()<<"Lỗi không kết nối được CSDL!";
-
-    return  res;
-}
-
 void Loan::CapNhatDuNo(QString Username, int MaTaiKhoan, lli SoDuNo){
     this->TenChu = Username;
     this->MaTaiKhoan = MaTaiKhoan;

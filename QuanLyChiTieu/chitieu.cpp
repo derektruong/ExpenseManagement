@@ -74,11 +74,6 @@ void ChiTieu::on_btn_OK_clicked()
 
     SoTien = ui->lineEdit_SoTien->text().toLongLong();
 
-    //Cập nhật thông tin thu nhập cho bảng ThongKe
-    ThoiGianThongKe = ui->dateEdit->date().toString("yyyy-MM-dd");
-    ThongKeQL.CapNhatTongChi(this->Username, ThoiGianThongKe, SoTien);
-
-    //done
 
     //Continue..
     if( MoTa == "" ||  SoTien < 0){
@@ -149,19 +144,26 @@ void ChiTieu::on_btn_OK_clicked()
 
     /// Thêm vào bảng KhoanChi
 
-    qry.prepare("INSERT KhoanChi ( SoTien, NgayChiTieu, GhiChu, MaDanhMuc, TenChu, TenTaiKhoan, ID_DanhMuc )" "VALUES ( :SoTien, :NgayChiTieu, :GhiChu, :MaDanhMuc, :TenChu, :TenTaiKhoan, :ID_DanhMuc )");
+    qry.prepare("INSERT KhoanChi ( SoTien, NgayChiTieu, GhiChu, TenTaiKhoan, ID_DanhMuc )" "VALUES ( :SoTien, :NgayChiTieu, :GhiChu, :TenTaiKhoan, :ID_DanhMuc )");
 
     qry.bindValue(":SoTien", SoTien);
     qry.bindValue(":NgayChiTieu", NgayChiTieu);
     qry.bindValue(":GhiChu", MoTa);
-    qry.bindValue(":MaDanhMuc", MaDanhMuc);
-    qry.bindValue(":TenChu", Username);
     qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
     qry.bindValue(":ID_DanhMuc", ID_DanhMuc);
 
     qry.exec();
 
     ///done
+
+    /// Lấy mã khoản chi
+    int MaKhoanChi = DanhMucQL.LayMaKhoanChi();
+
+    //Cập nhật thông tin thu nhập cho bảng ThongKe
+
+    ThongKeQL.CapNhatMaKhoanChi(this->Username, NgayChiTieu, MaKhoanChi);
+
+    //done
 
 
     buttonPressed();
