@@ -123,6 +123,7 @@ lli QuanLyChiTieu::LaySoTienTheoMaKhoanChi(QString Username, int MaKhoanChi){
 }
 
 void QuanLyChiTieu::XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan ){
+    QVector< int > MaKhoanChi;
 
     QSqlQuery qry;
 
@@ -130,7 +131,7 @@ void QuanLyChiTieu::XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan )
     lli TienGD = 0, TienSK = 0, TienMS = 0, TienHP = 0, TienHD = 0, TienKD = 0, TienOT = 0, TienQT = 0, TienDC = 0, TienGT = 0, TienBH = 0;
 
 
-    qry.prepare("SELECT dmct.MaDanhMuc, kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND kc.TenTaiKhoan = :TenTaiKhoan");
+    qry.prepare("SELECT dmct.MaDanhMuc, kc.SoTien, kc.MaKhoanChi FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND kc.TenTaiKhoan = :TenTaiKhoan");
 
     qry.bindValue(":Username", Username);
     qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
@@ -138,6 +139,7 @@ void QuanLyChiTieu::XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan )
     if( qry.exec() ){
 
         while( qry.next() ){
+            MaKhoanChi.push_back( qry.value("MaKhoanChi").toInt() );
             if( qry.value("MaDanhMuc").toString() == "GD" ) TienGD += qry.value("SoTien").toLongLong();
             if( qry.value("MaDanhMuc").toString() == "SK" ) TienSK += qry.value("SoTien").toLongLong();
             if( qry.value("MaDanhMuc").toString() == "MS" ) TienMS += qry.value("SoTien").toLongLong();
@@ -197,6 +199,14 @@ void QuanLyChiTieu::XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan )
 
         qry.exec();
 
+    }
+
+    //Xoá trong thống kê
+    for( int i = 0; i < MaKhoanChi.size(); ++i ){
+        qry.prepare("DELETE FROM ThongKe WHERE MaKhoanChi = :MKC");
+
+        qry.bindValue(":MKC", MaKhoanChi[i]);
+        qry.exec();
     }
 
 }

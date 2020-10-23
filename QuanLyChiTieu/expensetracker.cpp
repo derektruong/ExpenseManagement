@@ -146,6 +146,7 @@ void ExpenseTracker::UpdateTableP4(){
     qryModel->setHeaderData(3, Qt::Horizontal, QObject::tr("Mô tả"));
 
     ui->tableView_page4->setModel(qryModel);
+    ui->tableView_page4->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->tableView_page4->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->tableView_page4->update();
 
@@ -850,18 +851,34 @@ void ExpenseTracker::on_btn_p3_XacNhan_clicked()
 
     QSqlQuery qry;
 
+    ////Lấy MaLoaiThuNhap đưa vào bảng ThuNhap
+
+    int MaLoaiThuNhap = ThuNhapQL.LayMaLoaiThuNhap(TenDangNhap, LoaiThuNhap);
+
+    ////
+
+    /// Thêm vào thu nhập
+
+    qry.prepare("INSERT ThuNhap ( SoTien, GhiChu, TenTaiKhoan, NgayThuNhap, MaLoaiThuNhap )" "VALUES ( :SoTien, :GhiChu, :TenTaiKhoan, :NgayThuNhap, :MaLoaiThuNhap )");
+
+    qry.bindValue(":SoTien", SoTien);
+    qry.bindValue(":GhiChu", GhiChu);
+    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+    qry.bindValue(":NgayThuNhap", NgayThuNhap);
+    qry.bindValue(":MaLoaiThuNhap", MaLoaiThuNhap);
+
+    if( !qry.exec() ){
+        QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công !!"));
+        return;
+    }
+
     //Lấy mã tài khoản
     int MTK = TaiKhoanQL.LayMaTaiKhoan(TenDangNhap, TenTaiKhoan);
 
-
     lli SoDuTK = TaiKhoanQL.LaySoDu(TenDangNhap,TenTaiKhoan);
-
-    SoDuTK += SoTien;
-
-    //Thêm trong bảng TietKiem nếu có
     if( TaiKhoanQL.LayLoaiTaiKhoan(TenDangNhap, TenTaiKhoan) == "Tiết kiệm" ){
-        TietKiemQL.CapNhatSoDu(TenDangNhap, MTK, SoDuTK);
 
+        //Kiểm tra mục tiêu trong bảng TietKiem
         if( TietKiemQL.KiemTraMucTieu(TenDangNhap, MTK) >= 0 ){
             bool check = false; //Kiểm tra nếu mục tiêu mới hợp lệ
 
@@ -886,13 +903,9 @@ void ExpenseTracker::on_btn_p3_XacNhan_clicked()
 
         }
     }
-
     //done
-
-    //Trừ trong bảng Loan nếu có
     if( TaiKhoanQL.LayLoaiTaiKhoan(TenDangNhap, TenTaiKhoan) == "Nợ" ){
-        SoDuTK -= SoTien*2;
-        NoQL.CapNhatDuNo(TenDangNhap, MTK, SoDuTK);
+    //Kiểm tra dư nợ trong bảng Loan
 
         if( NoQL.KiemTraDuNo(TenDangNhap, MTK) <= 0 ){
             QMessageBox::StandardButton reply;
@@ -920,41 +933,8 @@ void ExpenseTracker::on_btn_p3_XacNhan_clicked()
             }
         }
     }
-
     //done
 
-    /// Cộng tiền vào tài khoản
-    qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK  WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
-
-    qry.bindValue(":SoDuTK", SoDuTK);
-    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
-    qry.bindValue(":Username", TenDangNhap);
-
-    if( qry.exec() ){
-        qDebug()<<"Đã thêm thành công!";
-    }
-    else QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công !!"));
-
-    /// done
-    ////Lấy MaLoaiThuNhap đưa vào bảng ThuNhap
-
-    int MaLoaiThuNhap = ThuNhapQL.LayMaLoaiThuNhap(TenDangNhap, LoaiThuNhap);
-
-    ////
-
-    /// Thêm vào thu nhập
-
-    qry.prepare("INSERT ThuNhap ( SoTien, GhiChu, TenTaiKhoan, NgayThuNhap, MaLoaiThuNhap )" "VALUES ( :SoTien, :GhiChu, :TenTaiKhoan, :NgayThuNhap, :MaLoaiThuNhap )");
-
-    qry.bindValue(":SoTien", SoTien);
-    qry.bindValue(":GhiChu", GhiChu);
-    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
-    qry.bindValue(":NgayThuNhap", NgayThuNhap);
-    qry.bindValue(":MaLoaiThuNhap", MaLoaiThuNhap);
-
-    if( !qry.exec() ){
-        QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công !!"));
-    }
     RefreshP3();
 
 
@@ -1205,7 +1185,6 @@ void ExpenseTracker::on_btn_page4_ThemSoDu_clicked()
 
     //Thêm trong bảng TietKiem nếu có
     if( TaiKhoanQL.LayLoaiTaiKhoan(TenDangNhap, TenTaiKhoan) == "Tiết kiệm" ){
-        TietKiemQL.CapNhatSoDu(TenDangNhap, MTK, SoDuTK);
 
         if( TietKiemQL.KiemTraMucTieu(TenDangNhap, MTK) >= 0 ){
             bool check = false; //Kiểm tra nếu mục tiêu mới hợp lệ
@@ -1234,10 +1213,14 @@ void ExpenseTracker::on_btn_page4_ThemSoDu_clicked()
     }
     //done
 
-    if( MoTa != "" ) qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK, MoTa = :MoTa  WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
-    else qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
+    if( MoTa != "" )
+        qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK, MoTa = :MoTa  WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
+    else
+        qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
     qry.bindValue(":SoDuTK", SoDuTK);
+
     if( MoTa != "" ) qry.bindValue(":MoTa", MoTa);
+
     qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
     qry.bindValue(":Username", TenDangNhap);
 
@@ -1288,7 +1271,7 @@ void ExpenseTracker::on_btn_page4_XoaTaiKhoan_clicked()
         //done
 
         //Xoá mọi thứ trong việc thu nhập liên quan đến tài khoản này
-            ThuNhapQL.XoaTaiKhoanInThuNhap(TenDangNhap, TenTaiKhoan);
+        ThuNhapQL.XoaTaiKhoanInThuNhap(TenDangNhap, TenTaiKhoan);
 
         //done
 
@@ -1593,7 +1576,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max);
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền chi tiêu (VNĐ)");
 
@@ -1669,7 +1652,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max);
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền chi tiêu (VNĐ)");
 
@@ -1742,7 +1725,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max);
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền chi tiêu (VNĐ)");
 
@@ -1812,7 +1795,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max);
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền chi tiêu (VNĐ)");
 
@@ -1905,7 +1888,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max);
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền thu nhập (VNĐ)");
 
@@ -1981,7 +1964,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max );
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền thu nhập (VNĐ)");
 
@@ -2054,7 +2037,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max );
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền thu nhập (VNĐ)");
 
@@ -2125,7 +2108,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max );
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền thu nhập (VNĐ)");
 
@@ -2234,11 +2217,6 @@ void ExpenseTracker::on_btn_BachHoaPic_clicked()
     WinChiTieu.setModal(true);
     connect(&WinChiTieu,SIGNAL(buttonPressed()), this, SLOT(RefreshP1()));
     WinChiTieu.exec();
-}
-
-void ExpenseTracker::on_btn_Refresh_clicked()
-{
-    ui->pushButton_TrangChinh->animateClick(2);
 }
 
 //Nut cộng thêm thu nhập cho Page 1

@@ -30,26 +30,9 @@ void TietKiem::CapNhatMucTieu(QString Username, int MaTaiKhoan, lli MucTieu){
 
     QSqlQuery qry;
 
-    qry.prepare("UPDATE TietKiem SET tkiem.MucTieu = :MucTieu FROM TietKiem tkiem INNER JOIN TaiKhoan tk ON tkiem.MaTaiKhoan = tk.MaTaiKhoan WHERE tkiem.MaTaiKhoan = :MaTaiKhoan AND tk.TenChu = :Username; ");
+    qry.prepare("UPDATE tkiem SET tkiem.MucTieu = :MucTieu FROM TietKiem tkiem INNER JOIN TaiKhoan tk ON tkiem.MaTaiKhoan = tk.MaTaiKhoan WHERE tkiem.MaTaiKhoan = :MaTaiKhoan AND tk.TenChu = :Username; ");
 
     qry.bindValue(":MucTieu", MucTieu);
-    qry.bindValue(":MaTaiKhoan", MaTaiKhoan);
-    qry.bindValue(":Username", Username);
-
-    if( !qry.exec() ){
-       qDebug()<<"Lỗi không kết nối được CSDL!";
-    }
-}
-
-void TietKiem::CapNhatSoDu(QString Username, int MaTaiKhoan, lli SoDuTK){
-    this->TenChu = Username;
-    this->MaTaiKhoan = MaTaiKhoan;
-
-    QSqlQuery qry;
-
-    qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK WHERE MaTaiKhoan = :MaTaiKhoan AND TenChu = :Username; ");
-
-    qry.bindValue(":SoDuTK", SoDuTK);
     qry.bindValue(":MaTaiKhoan", MaTaiKhoan);
     qry.bindValue(":Username", Username);
 

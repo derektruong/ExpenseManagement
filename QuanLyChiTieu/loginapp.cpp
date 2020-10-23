@@ -4,9 +4,6 @@
 #include <adduser.h>
 #include <expensetracker.h>
 
-//#include "C:\\Qt\\Qt5.14.2\\5.14.2\\Src\\qtbase\\src\\plugins\\sqldrivers\\odbc\\qsql_odbc.cpp"
-
-
 LoginAPP::LoginAPP(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LoginAPP)
@@ -21,7 +18,8 @@ LoginAPP::LoginAPP(QWidget *parent)
 
     myDB = QSqlDatabase::addDatabase("QODBC");
 
-    myDB.setDatabaseName("DRIVER={SQL Server Native Client 11.0};SERVER=DEREKPC\\DEREK;DATABASE=DO_AN_THU_CHI;UID=.;PWD=.;WSID=.;Trusted_connection=yes");
+    //myDB.setDatabaseName("DRIVER={SQL Server Native Client 11.0};SERVER=tcp:localhost,1433;DATABASE=DO_AN_THU_CHI;UID=.;PWD=.;WSID=.;Trusted_connection=yes");
+    myDB.setDatabaseName("DRIVER={SQL Server Native Client 11.0};SERVER=tcp:localhost,1433;DATABASE=DO_AN_THU_CHI;Trusted_connection=yes");
     bool connected = myDB.open();
 
     /*QString dbFilename = QDir::toNativeSeparators(QCoreApplication::applicationDirPath()+"/DO_AN_THU_CHI.mdf");

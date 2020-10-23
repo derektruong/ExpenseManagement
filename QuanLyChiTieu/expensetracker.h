@@ -155,8 +155,6 @@ private slots:
 
     void on_btn_BachHoaPic_clicked();
 
-    void on_btn_Refresh_clicked();
-
     void on_btn_ThemTaiKhoan_clicked();
 
 

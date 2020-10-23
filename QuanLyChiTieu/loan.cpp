@@ -5,23 +5,6 @@ Loan::Loan()
 
 }
 
-void Loan::CapNhatDuNo(QString Username, int MaTaiKhoan, lli SoDuNo){
-    this->TenChu = Username;
-    this->MaTaiKhoan = MaTaiKhoan;
-
-    QSqlQuery qry;
-
-    qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuNo WHERE MaTaiKhoan = :MaTaiKhoan AND TenChu = :Username; ");
-
-    qry.bindValue(":SoDuNo", SoDuNo);
-    qry.bindValue(":MaTaiKhoan", MaTaiKhoan);
-    qry.bindValue(":Username", Username);
-
-    if( !qry.exec() ){
-       qDebug()<<"Lỗi không kết nối được CSDL!";
-    }
-}
-
 void Loan::XoaNo(QString Username, int MaTaiKhoan){
     this->TenChu = Username;
     this->MaTaiKhoan = MaTaiKhoan;
@@ -67,7 +50,7 @@ lli Loan::KiemTraDuNo(QString Username, int MaTaiKhoan){
 
     if( qry.exec() ){
         while ( qry.next() ) {
-            res = qry.value("TienNo").toLongLong();
+            res = qry.value("SoDu").toLongLong();
         }
     }
 

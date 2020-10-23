@@ -119,8 +119,20 @@ void QuanLyThuNhap::XoaLoaiThuNhap(QString Username, QString LoaiThuNhap){
 }
 
 void QuanLyThuNhap::XoaTaiKhoanInThuNhap(QString Username, QString TenTaiKhoan ){
+    QVector< int > MaThuNhap;
     QSqlQuery qry;
 
+    qry.prepare("SELECT tn.MaThuNhap FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND tn.TenTaiKhoan = :TenTaiKhoan");
+
+    qry.bindValue(":Username", Username);
+    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+
+    if( qry.exec() ){
+
+        while( qry.next() ){
+            MaThuNhap.push_back( qry.value("MaThuNhap").toInt() );
+        }
+    }
     //Xoá trong bảng ThuNhap
 
     qry.prepare("DELETE tn FROM ThuNhap tn INNER JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND tn.TenTaiKhoan = :TenTaiKhoan");
@@ -130,6 +142,14 @@ void QuanLyThuNhap::XoaTaiKhoanInThuNhap(QString Username, QString TenTaiKhoan )
 
     if( !qry.exec() ){
        qDebug()<<"Lỗi không kết nối được CSDL!";
+    }
+
+    //Xoá trong thống kê
+    for( int i = 0; i < MaThuNhap.size(); ++i ){
+        qry.prepare("DELETE FROM ThongKe WHERE MaThuNhap = :MTN");
+
+        qry.bindValue(":MTN", MaThuNhap[i]);
+        qry.exec();
     }
 }
 

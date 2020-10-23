@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1321</width>
-    <height>708</height>
+    <height>703</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -213,7 +213,7 @@ QDateEdit{
     <number>0</number>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page_TrangChinh">
     <property name="styleSheet">
@@ -852,26 +852,6 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
       <string>+</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_Refresh">
-     <property name="geometry">
-      <rect>
-       <x>1150</x>
-       <y>650</y>
-       <width>48</width>
-       <height>48</height>
-      </rect>
-     </property>
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Làm mới&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border-radius: 8px;
-background-image: url(:/Images/Pictures/reload-icon.png);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QFrame" name="frame">
      <property name="geometry">
       <rect>
@@ -923,7 +903,6 @@ background-image: url(:/Images/Pictures/reload-icon.png);</string>
     <zorder>label_DiChuyen_money</zorder>
     <zorder>label_GiaiTri_money</zorder>
     <zorder>label_BachHoa_money</zorder>
-    <zorder>btn_Refresh</zorder>
     <zorder>frame</zorder>
     <zorder>btn_ThemTaiKhoan</zorder>
     <zorder>btn_BachHoaPic</zorder>
@@ -1760,7 +1739,7 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255,190);
-font: 75 16pt &quot;Segoe UI&quot;;
+font: 75 15pt &quot;Segoe UI&quot;;
 border-radius: 8px;</string>
      </property>
      <property name="alternatingRowColors">
