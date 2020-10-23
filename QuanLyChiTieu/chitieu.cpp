@@ -144,7 +144,7 @@ void ChiTieu::on_btn_OK_clicked()
 
     /// Thêm vào bảng KhoanChi
 
-    qry.prepare("INSERT KhoanChi ( SoTien, NgayChiTieu, GhiChu, TenTaiKhoan, ID_DanhMuc )" "VALUES ( :SoTien, :NgayChiTieu, :GhiChu, :TenTaiKhoan, :ID_DanhMuc )");
+    qry.prepare("INSERT INTO KhoanChi ( SoTien, NgayChiTieu, GhiChu, TenTaiKhoan, ID_DanhMuc )" "VALUES ( :SoTien, :NgayChiTieu, :GhiChu, :TenTaiKhoan, :ID_DanhMuc )");
 
     qry.bindValue(":SoTien", SoTien);
     qry.bindValue(":NgayChiTieu", NgayChiTieu);
@@ -155,15 +155,6 @@ void ChiTieu::on_btn_OK_clicked()
     qry.exec();
 
     ///done
-
-    /// Lấy mã khoản chi
-    int MaKhoanChi = DanhMucQL.LayMaKhoanChi();
-
-    //Cập nhật thông tin thu nhập cho bảng ThongKe
-
-    ThongKeQL.CapNhatMaKhoanChi(this->Username, NgayChiTieu, MaKhoanChi);
-
-    //done
 
 
     buttonPressed();

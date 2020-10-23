@@ -280,7 +280,7 @@ color: rgb(0, 0, 0);</string>
    <widget class="QPushButton" name="btn_OK">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>240</x>
       <y>470</y>
       <width>101</width>
       <height>41</height>
@@ -299,7 +299,7 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
    <widget class="QPushButton" name="btn_Huy">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>380</x>
       <y>470</y>
       <width>101</width>
       <height>41</height>

@@ -195,10 +195,10 @@ font: 12pt &quot;Segoe UI&quot;;</string>
    <widget class="QPushButton" name="pushButton_DangKy_AddUser">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>230</x>
       <y>400</y>
-      <width>151</width>
-      <height>51</height>
+      <width>131</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">

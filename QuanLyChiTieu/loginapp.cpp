@@ -84,7 +84,7 @@ LoginAPP::~LoginAPP()
 QString LoginAPP::Decrypt(QString str){
     int s=0;
     QString res="";
-    for(int i = 0; i<str.size(); ++i){
+    for(int i = 0; i < str.size(); ++i){
         if( str[i].unicode() < 48 || str[i].unicode() > 57 ){
             s = (s - 1998)/23;
             res += QString::number(s);

@@ -954,18 +954,7 @@ void ExpenseTracker::on_btn_p3_XacNhan_clicked()
 
     if( !qry.exec() ){
         QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công !!"));
-
-
-
     }
-    /// Lấy mã khoản chi
-    int MaThuNhap = ThuNhapQL.LayMaThuNhap();
-    //qDebug()<<MaThuNhap;
-
-    //Cập nhật thông tin thu nhập cho bảng ThongKe
-    ThongKeQL.CapNhatMaThuNhap(TenDangNhap, NgayThuNhap, MaThuNhap);
-
-    //done
     RefreshP3();
 
 

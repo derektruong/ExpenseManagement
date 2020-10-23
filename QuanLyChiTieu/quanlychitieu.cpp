@@ -50,7 +50,7 @@ int QuanLyChiTieu::LayID_DanhMuc(QString MaDanhMuc, QString Username){
 
     QSqlQuery qry;
 
-    if( qry.exec("SELECT ID_DanhMuc FROM DanhMucChiTieu WHERE TenDanhMuc = '"+MaDanhMuc+"' AND TenChu = '"+Username+"'") ){
+    if( qry.exec("SELECT ID_DanhMuc FROM DanhMucChiTieu WHERE MaDanhMuc = '"+MaDanhMuc+"' AND TenChu = '"+Username+"'") ){
         while ( qry.next() ) {
             res = qry.value("ID_DanhMuc").toInt();
         }
@@ -105,7 +105,7 @@ lli QuanLyChiTieu::LaySoTienTheoMaKhoanChi(QString Username, int MaKhoanChi){
     qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND kc.MaKhoanChi = :MaKhoanChi ");
 
 
-    qry.bindValue(":MaThuNhap", MaKhoanChi);
+    qry.bindValue(":MaKhoanChi", MaKhoanChi);
     qry.bindValue(":Username", Username);
 
     if( qry.exec() ){
