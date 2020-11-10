@@ -1,0 +1,45 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/BackGr/bkgr_SignUp.jpg</file>
+        <file>Images/BackGr/budget.jpg</file>
+        <file>Images/Pictures/User_Avatar_.png</file>
+        <file>Images/Pictures/bachHoa.png</file>
+        <file>Images/Pictures/DiChuyen.png</file>
+        <file>Images/Pictures/GiaiTri.png</file>
+        <file>Images/Pictures/HoaDon.png</file>
+        <file>Images/Pictures/HocPhi.png</file>
+        <file>Images/Pictures/Khac.png</file>
+        <file>Images/Pictures/KinhDoanh.png</file>
+        <file>Images/Pictures/MuaSam.png</file>
+        <file>Images/Pictures/QuaTang.png</file>
+        <file>Images/Pictures/SucKhoe.png</file>
+        <file>Images/Pictures/GiaDinh.png</file>
+        <file>Images/Pictures/ID-Card-icon.png</file>
+        <file>Images/Pictures/savings-icon.png</file>
+        <file>Images/Pictures/No-icon.png</file>
+        <file>Images/BackGr/nkgr_p4.jpg</file>
+        <file>Images/Pictures/reload-icon.png</file>
+        <file>Images/Pictures/Arrows-Down.png</file>
+        <file>Images/BackGr/bkgr_Login.jpg</file>
+        <file>Images/Icon/cash-icon.png</file>
+        <file>Images/Icon/ChiTieu-icon.png</file>
+        <file>Images/Icon/Question.png</file>
+        <file>Images/Icon/copyright.png</file>
+        <file>Images/Icon_TrangChinh/shield.png</file>
+        <file>Images/Icon_TrangChinh/shopping-cart.png</file>
+        <file>Images/Icon_TrangChinh/bar-chart.png</file>
+        <file>Images/Icon_TrangChinh/barcode.png</file>
+        <file>Images/Icon_TrangChinh/burger.png</file>
+        <file>Images/Icon_TrangChinh/button.png</file>
+        <file>Images/Icon_TrangChinh/delivery-truck.png</file>
+        <file>Images/Icon_TrangChinh/gamepad.png</file>
+        <file>Images/Icon_TrangChinh/gift.png</file>
+        <file>Images/Icon_TrangChinh/home.png</file>
+        <file>Images/Icon_TrangChinh/ticket.png</file>
+        <file>Images/Pictures/user-icon.png</file>
+        <file>Images/Icon/expand.png</file>
+        <file>Images/Icon/minimize.png</file>
+        <file>DB/DO_AN_THU_CHI.db</file>
+        <file>Images/Icon/restore.png</file>
+    </qresource>
+</RCC>
