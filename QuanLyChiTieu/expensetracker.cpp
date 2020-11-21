@@ -12,17 +12,20 @@ ExpenseTracker::ExpenseTracker(QWidget *parent) :
     ui(new Ui::ExpenseTracker)
 {
     ui->setupUi(this);
-    this->setFixedSize(1320,701);
+    //this->setFixedSize(1320,701);
     this->setWindowIcon(QIcon(":/Images\\Icon\\cash-icon.png"));
 
     // Hiển thị trang chủ đầu tiên khi truy cập phần mềm
+
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    setWindowFlags(windowFlags() & Qt::WindowMinMaxButtonsHint);
 
     ui->stackedWidget->setCurrentIndex(0);
 
     ui->pushButton_TrangChinh->animateClick(10);
 
     // Đặt title
-    this->setWindowTitle(QString::fromUtf8("Quản lý chi tiêu"));
+    this->setWindowTitle(QString::fromUtf8("Quản lý thu chi"));
 
     // Đặt ngày dateEdit về ngày hiện tại
 
@@ -171,11 +174,11 @@ void ExpenseTracker::on_pushButton_TrangChinh_clicked()
     ui->stackedWidget->setCurrentIndex(0);
     ui->comboBox->clear();
 
-    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
     //Đồ thị
     lli TienGD, TienSK, TienMS, TienHP, TienHD, TienKD, TienOT, TienQT, TienDC, TienGT, TienBH;
 
@@ -357,15 +360,16 @@ void ExpenseTracker::on_pushButton_ChiTieu_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 
-    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
 
 
 
     //
+    ui->btn_p2_TimKiemChung->animateClick(5);
     ui->comboBox_p2_TenTaiKhoan->clear();
 
     ui->comboBox_p2_TenTaiKhoan->addItem("Tất Cả");
@@ -389,12 +393,12 @@ void ExpenseTracker::on_pushButton_ThuNhap_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
 
-    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
 
-    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
 
     ui->comboBox_p3_DenTaiKhoan_tab1->clear();
     ui->comboBox_p3_LoaiThuNhap_tab1->clear();
@@ -456,12 +460,12 @@ void ExpenseTracker::on_pushButton_TaiKhoan_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
 
-    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
 
-    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
 
 
     ///Cap nhat bang page 4
@@ -514,12 +518,12 @@ void ExpenseTracker::on_pushButton_ThongKe_clicked()
 {
     ui->stackedWidget->setCurrentIndex(4);
 
-    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
 
-    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
 
     //
     ui->comboBox_P5_TenTaiKhoan_tab2->clear();
@@ -562,12 +566,12 @@ void ExpenseTracker::on_pushButton_ThongKe_clicked()
 void ExpenseTracker::on_pushButton_NguoiDung_clicked()
 {
     ui->stackedWidget->setCurrentIndex(5);
-    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
 
-    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
 
 
     QString HoVaTen, Email,CongViec;
@@ -586,12 +590,6 @@ void ExpenseTracker::on_pushButton_NguoiDung_clicked()
     ui->label_Email_page6_2->setText(Email);
     ui->label_CongViec_page6_2->setText(CongViec);
 
-}
-
-// Resize
-void ExpenseTracker::on_pushButton_minimize_clicked()
-{
-    this->setWindowState(Qt::WindowMinimized);
 }
 
 //Thay mã pin

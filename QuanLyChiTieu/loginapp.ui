@@ -33,7 +33,7 @@
     <property name="styleSheet">
      <string notr="true">font: 75 14pt &quot;MS Shell Dlg 2&quot;;
 background-color: rgb(255, 255, 255, 180);
-border-radius: 25px;</string>
+border-radius: 18px;</string>
     </property>
     <property name="title">
      <string/>
@@ -41,7 +41,7 @@ border-radius: 25px;</string>
     <widget class="QLabel" name="label_TenDangNhap">
      <property name="geometry">
       <rect>
-       <x>40</x>
+       <x>44</x>
        <y>70</y>
        <width>171</width>
        <height>41</height>
@@ -58,7 +58,7 @@ background-color: rgb(228, 236, 255,10);</string>
     <widget class="QLabel" name="label_MaPin">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>131</x>
        <y>120</y>
        <width>91</width>
        <height>31</height>
@@ -92,7 +92,7 @@ background-color: rgb(228, 236, 255,10);</string>
 font: 75 13pt &quot;Segoe UI&quot;;
 background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;</string>
+border-radius: 7px;</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_MaPin">
@@ -108,7 +108,7 @@ border-radius: 10px;</string>
       <string notr="true">background-color: rgb(246, 244, 255);
 background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;
+border-radius: 7px;
 font: 75 11pt &quot;Segoe UI&quot;;</string>
      </property>
      <property name="echoMode">
@@ -125,7 +125,7 @@ font: 75 11pt &quot;Segoe UI&quot;;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-radius: 15px;
+      <string notr="true">border-radius: 10px;
 color: rgb(255, 255, 255);
 background-color: rgb(48, 165, 255);</string>
      </property>
@@ -149,7 +149,7 @@ background-color: rgb(48, 165, 255);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-radius: 15px;
+      <string notr="true">border-radius: 10px;
 color: rgb(255, 255, 255);
 background-color: rgb(48, 165, 255);</string>
      </property>

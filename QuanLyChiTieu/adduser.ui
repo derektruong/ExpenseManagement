@@ -102,7 +102,7 @@ background-color: rgb(255, 119, 137,0);</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;
+border-radius: 7px;
 font: 12pt &quot;Segoe UI&quot;;</string>
     </property>
    </widget>
@@ -118,7 +118,7 @@ font: 12pt &quot;Segoe UI&quot;;</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;
+border-radius: 7px;
 font: 12pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="echoMode">
@@ -137,7 +137,7 @@ font: 12pt &quot;Segoe UI&quot;;</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;
+border-radius: 7px;
 font: 12pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="echoMode">
@@ -156,7 +156,7 @@ font: 12pt &quot;Segoe UI&quot;;</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;
+border-radius: 7px;
 font: 12pt &quot;Segoe UI&quot;;</string>
     </property>
    </widget>
@@ -172,7 +172,7 @@ font: 12pt &quot;Segoe UI&quot;;</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;
+border-radius: 7px;
 font: 12pt &quot;Segoe UI&quot;;</string>
     </property>
    </widget>
@@ -188,7 +188,7 @@ font: 12pt &quot;Segoe UI&quot;;</string>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
 border: 2px solid gray;
-border-radius: 10px;
+border-radius: 7px;
 font: 12pt &quot;Segoe UI&quot;;</string>
     </property>
    </widget>
@@ -202,7 +202,7 @@ font: 12pt &quot;Segoe UI&quot;;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-radius: 15px;
+     <string notr="true">border-radius: 10px;
 color: rgb(255, 255, 255);
 background-color: rgb(48, 165, 255);
 font: 75 18pt &quot;MS Shell Dlg 2&quot;;</string>
@@ -239,7 +239,7 @@ font: 75 18pt &quot;MS Shell Dlg 2&quot;;</string>
     <property name="styleSheet">
      <string notr="true">background-image: url(:/Images/BackGr/budget.jpg);
 border: 2px solid yellow;
-border-radius: 50px;</string>
+border-radius: 40px;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>

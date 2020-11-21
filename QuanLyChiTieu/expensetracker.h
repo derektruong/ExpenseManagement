@@ -95,8 +95,6 @@ private slots:
 
     void on_pushButton_NguoiDung_clicked();
 
-    void on_pushButton_minimize_clicked();
-
     void on_pushButton_ThayMaPin_clicked();
 
     void on_btn_p2_TimTheoNgay_clicked();
