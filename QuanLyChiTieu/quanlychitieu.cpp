@@ -456,3 +456,51 @@ QVector<lli> QuanLyChiTieu::LayThongKe1Nam(QString Username, QString TenDanhMuc,
     return res;
 
 }
+
+void QuanLyChiTieu::MaxHeap (QVector<QVector<lli>>& data, int i, int posVal){
+    int largest;
+    int left = 2*i;                   /* Vị trí của con bên trái */
+    int right = 2*i +1;            /* Vị trí của con bên phải */
+    if(left <= data.size() - 1 and data[left][posVal] > data[i][posVal] ) /* N là số phần tử trong mảng, biến toàn cục */
+          largest = left;
+    else
+         largest = i;
+    if(right <= data.size() - 1 and data[right][posVal] > data[largest][posVal] )
+        largest = right;
+    if(largest != i ){
+        std::swap (data[i] , data[largest]);
+        MaxHeap (data, largest, posVal);
+    }
+ }
+
+void QuanLyChiTieu::RunMaxHeap (QVector<QVector<lli>>& data, int posVal){
+    for(int i = (data.size() - 1) / 2 ; i >= 1 ; i-- ){
+        MaxHeap (data, i, posVal) ;
+    }
+}
+
+QString QuanLyChiTieu::MaxChi( int Arg, QVector<QVector<lli>> data ){
+    switch (Arg) {
+        case 7:{
+            QVector<QVector<lli>> res = data;
+            this->RunMaxHeap(res, 2);
+            return  "Chi tiêu cao nhất \ntrong ngày " + QString::number(res[1][0]) + " tháng " + QString::number(res[1][1]) + " \nvới tổng chi " + QString::number(res[1][2]) + "đ";
+        }
+        break;
+        case 30:{
+            QVector<QVector<lli>> res = data;
+            this->RunMaxHeap(res, 3);
+            return  "Chi tiêu từ ngày " + QString::number(res[1][0]) + " \nđến ngày " + QString::number(res[1][1]) + " là cao nhất \nvới tổng chi " + QString::number(res[1][3]) + "đ";
+        }
+        break;
+        case 3:{
+            QVector<QVector<lli>> res = data;
+            this->RunMaxHeap(res, 3);
+            return  "Chi tiêu từ ngày " + QString::number(res[1][0]) + " \nđến ngày " + QString::number(res[1][1]) + " là cao nhất \nvới tổng chi " + QString::number(res[1][3]) + "đ";
+        }
+        break;
+        default:
+            break;
+    }
+    return "";
+}

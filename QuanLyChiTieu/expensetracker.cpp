@@ -1525,6 +1525,8 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
     if( KhoangThoiGian == "7 ngày trước" ){
         QVector<QVector<lli>> Chi = ChiTieuQL.LayThongKe7NgayTruoc(TenDangNhap, TenDanhMuc, TenTaiKhoan, Ngay, Thang, Nam);
 
+        ui->label_MaxChi->setText(ChiTieuQL.MaxChi(7, Chi));
+
         lli Max = Chi[1][2];
         for (int i = 2; i < 8; ++i) {
             if( Chi[i][2] > Max ) Max = Chi[i][2];
@@ -1600,6 +1602,8 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
     else if( KhoangThoiGian == "30 ngày trước" ){
         QVector<QVector<lli>> Chi = ChiTieuQL.LayThongKe30NgayTruoc(TenDangNhap, TenDanhMuc, TenTaiKhoan, Ngay, Thang, Nam);
 
+        ui->label_MaxChi->setText(ChiTieuQL.MaxChi(30, Chi));
+
         lli Max = Chi[1][3];
         for (int i = 2; i < 11; ++i) {
             if( Chi[i][3] > Max ) Max = Chi[i][3];
@@ -1672,6 +1676,8 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
     ///done
     else if( KhoangThoiGian == "3 tháng trước" ){
         QVector<QVector<lli>> Chi = ChiTieuQL.LayThongKe3ThangTruoc(TenDangNhap, TenDanhMuc, TenTaiKhoan, Ngay, Thang, Nam);
+
+        ui->label_MaxChi->setText(ChiTieuQL.MaxChi(3, Chi));
 
         lli Max = Chi[1][3];
         for (int i = 2; i < 11; ++i) {
@@ -1820,6 +1826,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
 {
     QString LoaiThuNhap, TenTaiKhoan, Ngay, Thang, Nam, KhoangThoiGian;
 
+
     LoaiThuNhap = ui->comboBox_P5_NguonThuNhap_tab3->currentText();
     TenTaiKhoan = ui->comboBox_P5_DenTaiKhoan_tab3->currentText();
     Ngay = ui->dateEdit_P5_ThoiGian_tab3->date().toString("dd");
@@ -1836,6 +1843,8 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
     ///7 ngày trước
     if( KhoangThoiGian == "7 ngày trước" ){
         QVector<QVector<lli>> Thu = ThuNhapQL.LayThongKe7NgayTruoc(TenDangNhap, LoaiThuNhap, TenTaiKhoan, Ngay, Thang, Nam);
+
+        ui->label_MaxThu->setText(ThuNhapQL.MaxThu(7, Thu));
 
         lli Max = Thu[1][2];
         for (int i = 2; i < 8; ++i) {
@@ -1912,6 +1921,8 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
     else if( KhoangThoiGian == "30 ngày trước" ){
         QVector<QVector<lli>> Thu = ThuNhapQL.LayThongKe30NgayTruoc(TenDangNhap, LoaiThuNhap, TenTaiKhoan, Ngay, Thang, Nam);
 
+        ui->label_MaxThu->setText(ThuNhapQL.MaxThu(30, Thu));
+
         lli Max = Thu[1][3];
         for (int i = 2; i < 11; ++i) {
             if( Thu[i][3] > Max ) Max = Thu[i][3];
@@ -1984,6 +1995,8 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
     ///done
     else if( KhoangThoiGian == "3 tháng trước" ){
         QVector<QVector<lli>> Thu = ThuNhapQL.LayThongKe3ThangTruoc(TenDangNhap, LoaiThuNhap, TenTaiKhoan, Ngay, Thang, Nam);
+
+        ui->label_MaxThu->setText(ThuNhapQL.MaxThu(3, Thu));
 
         lli Max = Thu[1][3];
         for (int i = 2; i < 11; ++i) {

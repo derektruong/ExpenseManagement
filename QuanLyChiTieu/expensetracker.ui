@@ -214,7 +214,7 @@ QDateEdit{
     <number>0</number>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>4</number>
    </property>
    <widget class="QWidget" name="page_TrangChinh">
     <property name="styleSheet">
@@ -2652,7 +2652,7 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
       <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab1_P5">
       <attribute name="title">
@@ -3026,6 +3026,19 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
         </item>
        </layout>
       </widget>
+      <widget class="QLabel" name="label_MaxChi">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>370</y>
+         <width>191</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Khoảng thời gian&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;có chi tiêu cao nhất &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="tab3_P5">
       <attribute name="title">
@@ -3200,6 +3213,19 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_MaxThu">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>370</y>
+         <width>191</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Khoảng thời gian&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;có chi tiêu cao nhất &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </widget>

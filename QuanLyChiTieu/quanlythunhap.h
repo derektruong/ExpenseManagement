@@ -36,6 +36,12 @@ public:
 
     QVector<lli> LayThongKe1Nam(QString Username, QString LoaiThuNhap, QString TenTaiKhoan, QString Nam);
 
+    void MaxHeap( QVector<QVector<lli>>& data, int i, int posVal );
+
+    void RunMaxHeap( QVector<QVector<lli>>& data, int posVal );
+
+    QString MaxThu( int Arg, QVector<QVector<lli>> data );
+
 protected:
     QString TenChu, LoaiThuNhap, TenTaiKhoan;
 };
