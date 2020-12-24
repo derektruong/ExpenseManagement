@@ -161,3 +161,33 @@ QString QuanLyTaiKhoan::LayLoaiTaiKhoan(QString Username, QString TenTaiKhoan){
 
     return  res;
 }
+
+bool QuanLyTaiKhoan::ThemTaiKhoan( QString LoaiTaiKhoan, QString TenTaiKhoan, lli SoDu, int inTotal, QString TenDangNhap, QString MoTa ){
+    QSqlQuery qry;
+
+    qry.prepare("INSERT INTO TaiKhoan( Loai,Ten,SoDu,BaoGomTrongTongSoDu,TenChu,MoTa )" "VALUES( :Loai, :Ten, :SoDu, :BaoGomTrongTongSoDu, :TenChu, :MoTa)");
+
+    qry.bindValue(":Loai", LoaiTaiKhoan);
+    qry.bindValue(":Ten", TenTaiKhoan);
+    qry.bindValue(":SoDu", SoDu);
+    qry.bindValue(":BaoGomTrongTongSoDu", inTotal);
+    qry.bindValue(":TenChu", TenDangNhap);
+    qry.bindValue(":MoTa", MoTa);
+    if( !qry.exec() ){
+        return false;
+    }
+    return true;
+}
+
+void QuanLyTaiKhoan::XoaTaiKhoan( QString TenTaiKhoan, QString TenDangNhap ){
+    QSqlQuery qry;
+
+    qry.prepare("DELETE FROM TaiKhoan WHERE TenChu = :Username AND TaiKhoan.Ten = :TenTaiKhoan ");
+
+    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+    qry.bindValue(":Username", TenDangNhap);
+
+    if( !qry.exec() ){
+       qDebug()<<"Lỗi không kết nối được CSDL!";
+    }
+}

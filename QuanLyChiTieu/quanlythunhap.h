@@ -24,6 +24,10 @@ public:
     int LayMaThuNhap();
     //
 
+    void ThemThuNhap( lli SoTien, QString GhiChu, QString TenTaiKhoan, QString NgayThuNhap, int MaLoaiThuNhap );
+
+    bool ThemLoaiThuNhap( QString LoaiThuNhap, QString GhiChu, QString TenDangNhap );
+
     void XoaLoaiThuNhap(QString Username, QString LoaiThuNhap);
 
     void XoaTaiKhoanInThuNhap(QString Username, QString TenTaiKhoan );

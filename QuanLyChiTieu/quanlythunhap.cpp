@@ -88,6 +88,38 @@ int QuanLyThuNhap::LayMaThuNhap(){
 //
 
 //LoaiThuNhap
+void QuanLyThuNhap::ThemThuNhap( lli SoTien, QString GhiChu, QString TenTaiKhoan, QString NgayThuNhap, int MaLoaiThuNhap ){
+    QSqlQuery qry;
+    /// Thêm vào thu nhập
+
+    qry.prepare("INSERT ThuNhap ( SoTien, GhiChu, TenTaiKhoan, NgayThuNhap, MaLoaiThuNhap )" "VALUES ( :SoTien, :GhiChu, :TenTaiKhoan, :NgayThuNhap, :MaLoaiThuNhap )");
+
+    qry.bindValue(":SoTien", SoTien);
+    qry.bindValue(":GhiChu", GhiChu);
+    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+    qry.bindValue(":NgayThuNhap", NgayThuNhap);
+    qry.bindValue(":MaLoaiThuNhap", MaLoaiThuNhap);
+
+    if( !qry.exec() ){
+       qDebug()<<"Lỗi không kết nối được CSDL!";
+    }
+}
+
+bool QuanLyThuNhap::ThemLoaiThuNhap( QString LoaiThuNhap, QString GhiChu, QString TenDangNhap ){
+    QSqlQuery qry;
+
+    qry.prepare("INSERT LoaiThuNhap ( LoaiThuNhap, GhiChu, TenChu )" "VALUES (  :LoaiThuNhap,  :GhiChu,  :TenChu  ) ");
+
+    qry.bindValue(":LoaiThuNhap", LoaiThuNhap);;
+    qry.bindValue(":GhiChu", GhiChu);
+    qry.bindValue(":TenChu", TenDangNhap);
+
+    if( qry.exec() ){
+        return true;
+    }
+    return false;
+}
+
 void QuanLyThuNhap::XoaLoaiThuNhap(QString Username, QString LoaiThuNhap){
     this->TenChu = Username;
     this->LoaiThuNhap = LoaiThuNhap;

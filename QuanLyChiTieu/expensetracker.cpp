@@ -844,31 +844,13 @@ void ExpenseTracker::on_btn_p3_XacNhan_clicked()
 
     NgayThuNhap = ui->dateEdit_p3_NgayThuNhap->date().toString("yyyy/MM/dd");
 
-
-    // Truy vấn DB
-
-    QSqlQuery qry;
-
     ////Lấy MaLoaiThuNhap đưa vào bảng ThuNhap
-
     int MaLoaiThuNhap = ThuNhapQL.LayMaLoaiThuNhap(TenDangNhap, LoaiThuNhap);
 
-    ////
+    // Truy vấn DB
+    QSqlQuery qry;
 
-    /// Thêm vào thu nhập
-
-    qry.prepare("INSERT ThuNhap ( SoTien, GhiChu, TenTaiKhoan, NgayThuNhap, MaLoaiThuNhap )" "VALUES ( :SoTien, :GhiChu, :TenTaiKhoan, :NgayThuNhap, :MaLoaiThuNhap )");
-
-    qry.bindValue(":SoTien", SoTien);
-    qry.bindValue(":GhiChu", GhiChu);
-    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
-    qry.bindValue(":NgayThuNhap", NgayThuNhap);
-    qry.bindValue(":MaLoaiThuNhap", MaLoaiThuNhap);
-
-    if( !qry.exec() ){
-        QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công !!"));
-        return;
-    }
+    ThuNhapQL.ThemThuNhap(SoTien, GhiChu, TenTaiKhoan, NgayThuNhap, MaLoaiThuNhap);
 
     //Lấy mã tài khoản
     int MTK = TaiKhoanQL.LayMaTaiKhoan(TenDangNhap, TenTaiKhoan);
@@ -917,14 +899,8 @@ void ExpenseTracker::on_btn_p3_XacNhan_clicked()
                 //done
 
                 // Xoá trong bảng TaiKhoan
-                qry.prepare("DELETE FROM TaiKhoan WHERE TenChu = :Username AND TaiKhoan.Ten = :TenTaiKhoan ");
+                TaiKhoanQL.XoaTaiKhoan(TenTaiKhoan, TenDangNhap);
 
-                qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
-                qry.bindValue(":Username", TenDangNhap);
-
-                if( ! qry.exec() ){
-                    QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Xoá không thành công !!"));
-                }
                 //done
                 return;
 
@@ -955,15 +931,9 @@ void ExpenseTracker::on_btn_p3_XacNhan_tab2_clicked()
 
     // Truy vấn DB
 
-    QSqlQuery qry;
+    bool insert = ThuNhapQL.ThemLoaiThuNhap(LoaiThuNhap, GhiChu, TenDangNhap);
 
-    qry.prepare("INSERT LoaiThuNhap ( LoaiThuNhap, GhiChu, TenChu )" "VALUES (  :LoaiThuNhap,  :GhiChu,  :TenChu  ) ");
-
-    qry.bindValue(":LoaiThuNhap", LoaiThuNhap);;
-    qry.bindValue(":GhiChu", GhiChu);
-    qry.bindValue(":TenChu", TenDangNhap);
-
-    if( qry.exec() ){
+    if( insert ){
         RefreshP3();
     }
     else QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công hoặc loại thu nhập này đã tồn tại !!"));
@@ -1017,17 +987,9 @@ void ExpenseTracker::on_btn_page4_ThemTK_TX_clicked()
 
     SoDu = (ui->lineEdit_p4_SoDu_TX->text()).toLongLong();
 
-    QSqlQuery qry;
+    bool insert = TaiKhoanQL.ThemTaiKhoan(LoaiTaiKhoan, TenTaiKhoan, SoDu, inTotal, TenDangNhap, MoTa);
 
-    qry.prepare("INSERT INTO TaiKhoan( Loai,Ten,SoDu,BaoGomTrongTongSoDu,TenChu,MoTa )" "VALUES( :Loai, :Ten, :SoDu, :BaoGomTrongTongSoDu, :TenChu, :MoTa)");
-
-    qry.bindValue(":Loai", LoaiTaiKhoan);
-    qry.bindValue(":Ten", TenTaiKhoan);
-    qry.bindValue(":SoDu", SoDu);
-    qry.bindValue(":BaoGomTrongTongSoDu", inTotal);
-    qry.bindValue(":TenChu", TenDangNhap);
-    qry.bindValue(":MoTa", MoTa);
-    if( !qry.exec() ){
+    if( !insert ){
         QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không thể thêm tài khoản hoặc tên tài khoản bị trùng!!"));
         return;
     }
@@ -1061,18 +1023,9 @@ void ExpenseTracker::on_btn_page4_ThemTK_TK_clicked()
 
     /// Insert bảng TaiKhoan
 
-    QSqlQuery qry;
+    bool insert = TaiKhoanQL.ThemTaiKhoan(LoaiTaiKhoan, TenTaiKhoan, SoDu, inTotal, TenDangNhap, MoTa);
 
-    qry.prepare("INSERT INTO TaiKhoan( Loai,Ten,SoDu,BaoGomTrongTongSoDu,TenChu,MoTa )" "VALUES( :Loai, :Ten, :SoDu, :BaoGomTrongTongSoDu, :TenChu, :MoTa)");
-
-    qry.bindValue(":Loai", LoaiTaiKhoan);
-    qry.bindValue(":Ten", TenTaiKhoan);
-    qry.bindValue(":SoDu", SoDu);
-    qry.bindValue(":BaoGomTrongTongSoDu", inTotal);
-    qry.bindValue(":TenChu", TenDangNhap);
-    qry.bindValue(":MoTa", MoTa);
-
-    if( !qry.exec() ){
+    if( !insert ){
         QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không thể thêm tài khoản hoặc tên tài khoản bị trùng!!"));
         return;
     }
@@ -1116,19 +1069,9 @@ void ExpenseTracker::on_btn_page4_ThemTK_NO_clicked()
     //Truy vấn DB
 
     /// Insert bảng TaiKhoan
+    bool insert = TaiKhoanQL.ThemTaiKhoan(LoaiTaiKhoan, TenTaiKhoan, TienNo, inTotal, TenDangNhap, MoTa);
 
-    QSqlQuery qry;
-
-    qry.prepare("INSERT INTO TaiKhoan( Loai,Ten,SoDu,BaoGomTrongTongSoDu,TenChu,MoTa )" "VALUES( :Loai, :Ten, :SoDu, :BaoGomTrongTongSoDu, :TenChu, :MoTa)");
-
-    qry.bindValue(":Loai", LoaiTaiKhoan);
-    qry.bindValue(":Ten", TenTaiKhoan);
-    qry.bindValue(":SoDu", TienNo);
-    qry.bindValue(":BaoGomTrongTongSoDu", inTotal);
-    qry.bindValue(":TenChu", TenDangNhap);
-    qry.bindValue(":MoTa", MoTa);
-
-    if( !qry.exec() ){
+    if( !insert ){
         QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không thể thêm tài khoản hoặc tên tài khoản bị trùng!!"));
         return;
     }
@@ -1147,7 +1090,6 @@ void ExpenseTracker::on_btn_page4_ThemTK_NO_clicked()
     RefreshP4();
 
     ///done
-
 
 }
 
