@@ -15,8 +15,6 @@ class Loan : public QuanLyTaiKhoan
 public:
     Loan();
 
-    void CapNhatDuNo(QString Username, int MaTaiKhoan, lli SoDuNo);
-
     void XoaNo(QString Username, int MaTaiKhoan);
 
     void ThemNo(QString TenNo, QString KyHan, int MaTaiKhoan);

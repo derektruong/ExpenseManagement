@@ -17,11 +17,6 @@ class ThongKe
 public:
     ThongKe();
 
-    void CapNhatMaKhoanChi(QString Username, QString ThoiGian, int MaKhoanChi );
-
-    void CapNhatMaThuNhap(QString Username, QString ThoiGian, int MaThuNhap );
-
-    //Chưa fix 22102020
     QVector<lli> LayDuLieuTongThuTheoTuan(QString Username, QString Thang, QString Nam);
 
     QVector<lli> LayDuLieuTongChiTheoTuan(QString Username, QString Thang, QString Nam);
@@ -33,8 +28,6 @@ public:
     QVector<lli> LayDuLieuCanDoiTheoTuan(QString Username, QString Thang, QString Nam);
 
     QVector<lli> LayDuLieuCanDoiTheoNam(QString Username, QString Nam);
-
-
 
 private:
     QString TenChu, ThoiGian;

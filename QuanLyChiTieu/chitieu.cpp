@@ -87,55 +87,6 @@ void ChiTieu::on_btn_OK_clicked()
     // Truy vấn DB
     QSqlQuery qry;
 
-    lli SoDuTK = TaiKhoanQL.LaySoDu(Username,TenTaiKhoan);
-
-    SoDuTK -= SoTien;
-    //Lấy mã tài khoản
-    int MTK = TaiKhoanQL.LayMaTaiKhoan(this->Username, TenTaiKhoan);
-
-
-    //Kiểm tra có đủ số dư trong tài khoản hay không
-    if( SoDuTK < 0 ){
-        QMessageBox::warning(this,"Nguy hiểm",QString::fromUtf8("Số tiền chi tiêu vượt quá số dư của tài khoản này!!"));
-        return;
-    }
-
-    else{
-        //Trừ trong bảng TietKiem nếu có
-        if( TaiKhoanQL.LayLoaiTaiKhoan(this->Username, TenTaiKhoan) == "Tiết kiệm" ){
-            TietKiemQL.CapNhatSoDu(this->Username, MTK, SoDuTK);
-        }
-        //done
-
-        // Trừ tiền trong tài khoản
-        qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK  WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
-
-        qry.bindValue(":SoDuTK", SoDuTK);
-        qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
-        qry.bindValue(":Username", Username);
-
-        qry.exec();
-        //done
-
-
-    }
-
-    //
-
-    /// Thêm tiền trong danh mục
-
-    SoTien += DanhMucQL.LaySoTienTong(MaDanhMuc, Username);
-
-    qry.prepare("UPDATE DanhMucChiTieu SET TongTien = :SoTien WHERE TenChu = :Username AND  MaDanhMuc = :MaDanhMuc; ");
-
-    qry.bindValue(":SoTien", SoTien);
-    qry.bindValue(":Username", Username);
-    qry.bindValue(":MaDanhMuc", MaDanhMuc);
-
-    qry.exec();
-
-    ///done
-
     ////Lấy ID_DanhMuc đưa vào bảng KhoanChi
 
     int ID_DanhMuc = DanhMucQL.LayID_DanhMuc(MaDanhMuc, Username);
@@ -144,7 +95,7 @@ void ChiTieu::on_btn_OK_clicked()
 
     /// Thêm vào bảng KhoanChi
 
-    qry.prepare("INSERT KhoanChi ( SoTien, NgayChiTieu, GhiChu, TenTaiKhoan, ID_DanhMuc )" "VALUES ( :SoTien, :NgayChiTieu, :GhiChu, :TenTaiKhoan, :ID_DanhMuc )");
+    qry.prepare("INSERT INTO KhoanChi ( SoTien, NgayChiTieu, GhiChu, TenTaiKhoan, ID_DanhMuc )" "VALUES ( :SoTien, :NgayChiTieu, :GhiChu, :TenTaiKhoan, :ID_DanhMuc )");
 
     qry.bindValue(":SoTien", SoTien);
     qry.bindValue(":NgayChiTieu", NgayChiTieu);
@@ -152,18 +103,11 @@ void ChiTieu::on_btn_OK_clicked()
     qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
     qry.bindValue(":ID_DanhMuc", ID_DanhMuc);
 
-    qry.exec();
+    if( !qry.exec() ){
+        QMessageBox::warning(this,"Nguy hiểm",QString::fromUtf8("Số tiền chi tiêu vượt quá số dư của tài khoản này!!"));
+    }
 
     ///done
-
-    /// Lấy mã khoản chi
-    int MaKhoanChi = DanhMucQL.LayMaKhoanChi();
-
-    //Cập nhật thông tin thu nhập cho bảng ThongKe
-
-    ThongKeQL.CapNhatMaKhoanChi(this->Username, NgayChiTieu, MaKhoanChi);
-
-    //done
 
 
     buttonPressed();

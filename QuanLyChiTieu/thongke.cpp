@@ -5,46 +5,6 @@ ThongKe::ThongKe()
 
 }
 
-void ThongKe::CapNhatMaKhoanChi(QString Username, QString ThoiGian, int MaKhoanChi ){
-    this->TenChu = Username;
-    this->ThoiGian = ThoiGian;
-
-    QSqlQuery qry;
-    qry.prepare("INSERT INTO ThongKe ( ThoiGian, TenChu, MaKhoanChi )" "VALUES ( :ThoiGian, :TenChu, :MaKhoanChi )");
-
-    qry.bindValue(":MaKhoanChi", MaKhoanChi);
-    qry.bindValue(":ThoiGian", ThoiGian);
-    qry.bindValue(":TenChu", Username);
-
-    if( !qry.exec() ){
-       qDebug()<<"Lỗi không kết nối được CSDL!";
-       return;
-    }
-
-}
-
-void ThongKe::CapNhatMaThuNhap(QString Username, QString ThoiGian, int MaThuNhap ){
-    this->TenChu = Username;
-    this->ThoiGian = ThoiGian;
-
-    QSqlQuery qry;
-
-
-    qry.prepare("INSERT INTO ThongKe ( ThoiGian, TenChu, MaThuNhap )" "VALUES ( :ThoiGian, :TenChu, :MaThuNhap )");
-
-    qry.bindValue(":MaThuNhap", MaThuNhap);
-    qry.bindValue(":ThoiGian", ThoiGian);
-    qry.bindValue(":TenChu", Username);
-
-    if( !qry.exec() ){
-       qDebug()<<"Lỗi không kết nối được CSDL!";
-       return;
-    }
-
-
-}
-
-//Chưa fix 22102020
 QVector<lli> ThongKe::LayDuLieuTongThuTheoTuan(QString Username, QString Thang, QString Nam){
 
     QVector<lli> res = {0, 0, 0, 0, 0, 0, 0, 0, 0};

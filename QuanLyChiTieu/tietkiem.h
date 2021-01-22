@@ -20,8 +20,6 @@ public:
 
     void CapNhatMucTieu(QString Username, int MaTaiKhoan, lli MucTieu);
 
-    void CapNhatSoDu(QString Username, int MaTaiKhoan, lli SoDuTK);
-
     void XoaTietKiem(QString Username, int MaTaiKhoan);
 
     void ThemTietKiem( QString TenTietKiem, lli MucTieu, int MaTaiKhoan);

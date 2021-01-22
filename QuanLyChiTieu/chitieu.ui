@@ -101,7 +101,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
     <string notr="true">font: 16pt &quot;Segoe UI&quot;;
 background-color: rgb(255, 255, 255);
 
-border-radius: 10px;
+border-radius: 7px;
 border: 2px solid #e1eff6;</string>
    </property>
    <property name="placeholderText">
@@ -118,7 +118,7 @@ border: 2px solid #e1eff6;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-radius: 10px;
+    <string notr="true">border-radius: 7px;
 border: 2px solid #e1eff6;
 color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);
@@ -173,7 +173,7 @@ font: 75 14pt &quot;Segoe UI&quot;;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">font: 14pt &quot;Segoe UI&quot;;
-border-radius: 10px;
+border-radius: 7px;
 border: 2px solid #e1eff6;</string>
    </property>
    <property name="placeholderText">
@@ -280,14 +280,14 @@ color: rgb(0, 0, 0);</string>
    <widget class="QPushButton" name="btn_OK">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>240</x>
       <y>470</y>
       <width>101</width>
       <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-radius: 15px;
+     <string notr="true">border-radius: 10px;
 color: rgb(255, 255, 255);
 background-color: rgb(255, 106, 108);
 font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
@@ -299,14 +299,14 @@ font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>
    <widget class="QPushButton" name="btn_Huy">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>380</x>
       <y>470</y>
       <width>101</width>
       <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-radius: 15px;
+     <string notr="true">border-radius: 10px;
 color: rgb(255, 255, 255);
 background-color: rgb(255, 106, 108);
 font: 75 15pt &quot;MS Shell Dlg 2&quot;;</string>

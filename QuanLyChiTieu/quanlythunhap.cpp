@@ -88,6 +88,38 @@ int QuanLyThuNhap::LayMaThuNhap(){
 //
 
 //LoaiThuNhap
+void QuanLyThuNhap::ThemThuNhap( lli SoTien, QString GhiChu, QString TenTaiKhoan, QString NgayThuNhap, int MaLoaiThuNhap ){
+    QSqlQuery qry;
+    /// Thêm vào thu nhập
+
+    qry.prepare("INSERT ThuNhap ( SoTien, GhiChu, TenTaiKhoan, NgayThuNhap, MaLoaiThuNhap )" "VALUES ( :SoTien, :GhiChu, :TenTaiKhoan, :NgayThuNhap, :MaLoaiThuNhap )");
+
+    qry.bindValue(":SoTien", SoTien);
+    qry.bindValue(":GhiChu", GhiChu);
+    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+    qry.bindValue(":NgayThuNhap", NgayThuNhap);
+    qry.bindValue(":MaLoaiThuNhap", MaLoaiThuNhap);
+
+    if( !qry.exec() ){
+       qDebug()<<"Lỗi không kết nối được CSDL!";
+    }
+}
+
+bool QuanLyThuNhap::ThemLoaiThuNhap( QString LoaiThuNhap, QString GhiChu, QString TenDangNhap ){
+    QSqlQuery qry;
+
+    qry.prepare("INSERT LoaiThuNhap ( LoaiThuNhap, GhiChu, TenChu )" "VALUES (  :LoaiThuNhap,  :GhiChu,  :TenChu  ) ");
+
+    qry.bindValue(":LoaiThuNhap", LoaiThuNhap);;
+    qry.bindValue(":GhiChu", GhiChu);
+    qry.bindValue(":TenChu", TenDangNhap);
+
+    if( qry.exec() ){
+        return true;
+    }
+    return false;
+}
+
 void QuanLyThuNhap::XoaLoaiThuNhap(QString Username, QString LoaiThuNhap){
     this->TenChu = Username;
     this->LoaiThuNhap = LoaiThuNhap;
@@ -119,8 +151,20 @@ void QuanLyThuNhap::XoaLoaiThuNhap(QString Username, QString LoaiThuNhap){
 }
 
 void QuanLyThuNhap::XoaTaiKhoanInThuNhap(QString Username, QString TenTaiKhoan ){
+    QVector< int > MaThuNhap;
     QSqlQuery qry;
 
+    qry.prepare("SELECT tn.MaThuNhap FROM ThuNhap tn JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND tn.TenTaiKhoan = :TenTaiKhoan");
+
+    qry.bindValue(":Username", Username);
+    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
+
+    if( qry.exec() ){
+
+        while( qry.next() ){
+            MaThuNhap.push_back( qry.value("MaThuNhap").toInt() );
+        }
+    }
     //Xoá trong bảng ThuNhap
 
     qry.prepare("DELETE tn FROM ThuNhap tn INNER JOIN LoaiThuNhap ltn ON tn.MaLoaiThuNhap = ltn.MaLoaiThuNhap WHERE ltn.TenChu = :Username AND tn.TenTaiKhoan = :TenTaiKhoan");
@@ -130,6 +174,14 @@ void QuanLyThuNhap::XoaTaiKhoanInThuNhap(QString Username, QString TenTaiKhoan )
 
     if( !qry.exec() ){
        qDebug()<<"Lỗi không kết nối được CSDL!";
+    }
+
+    //Xoá trong thống kê
+    for( int i = 0; i < MaThuNhap.size(); ++i ){
+        qry.prepare("DELETE FROM ThongKe WHERE MaThuNhap = :MTN");
+
+        qry.bindValue(":MTN", MaThuNhap[i]);
+        qry.exec();
     }
 }
 
@@ -371,4 +423,52 @@ QVector<lli> QuanLyThuNhap::LayThongKe1Nam(QString Username, QString LoaiThuNhap
     }
 
     return res;
+}
+
+void QuanLyThuNhap::MaxHeap (QVector<QVector<lli>>& data, int i, int posVal){
+    int largest;
+    int left = 2*i;                   /* Vị trí của con bên trái */
+    int right = 2*i +1;            /* Vị trí của con bên phải */
+    if(left <= data.size() - 1 and data[left][posVal] > data[i][posVal] ) /* N là số phần tử trong mảng, biến toàn cục */
+          largest = left;
+    else
+         largest = i;
+    if(right <= data.size() - 1 and data[right][posVal] > data[largest][posVal] )
+        largest = right;
+    if(largest != i ){
+        std::swap (data[i] , data[largest]);
+        MaxHeap (data, largest, posVal);
+    }
+ }
+
+void QuanLyThuNhap::RunMaxHeap (QVector<QVector<lli>>& data, int posVal){
+    for(int i = (data.size() - 1) / 2 ; i >= 1 ; i-- ){
+        MaxHeap (data, i, posVal) ;
+    }
+}
+
+QString QuanLyThuNhap::MaxThu( int Arg, QVector<QVector<lli>> data ){
+    switch (Arg) {
+        case 7:{
+            QVector<QVector<lli>> res = data;
+            this->RunMaxHeap(res, 2);
+            return  "Thu nhập cao nhất \ntrong ngày " + QString::number(res[1][0]) + " tháng " + QString::number(res[1][1]) + " \nvới tổng thu " + QString::number(res[1][2]) + "đ";
+        }
+        break;
+        case 30:{
+            QVector<QVector<lli>> res = data;
+            this->RunMaxHeap(res, 3);
+            return  "Thu nhập từ ngày " + QString::number(res[1][0]) + " \nđến ngày " + QString::number(res[1][1]) + " là cao nhất \nvới tổng thu " + QString::number(res[1][3]) + "đ";
+        }
+        break;
+        case 3:{
+            QVector<QVector<lli>> res = data;
+            this->RunMaxHeap(res, 3);
+            return  "Thu nhập từ ngày " + QString::number(res[1][0]) + " \nđến ngày " + QString::number(res[1][1]) + " là cao nhất \nvới tổng thu " + QString::number(res[1][3]) + "đ";
+        }
+        break;
+        default:
+            break;
+    }
+    return "";
 }

@@ -12,17 +12,20 @@ ExpenseTracker::ExpenseTracker(QWidget *parent) :
     ui(new Ui::ExpenseTracker)
 {
     ui->setupUi(this);
-    this->setFixedSize(1320,701);
+    //this->setFixedSize(1320,701);
     this->setWindowIcon(QIcon(":/Images\\Icon\\cash-icon.png"));
 
     // Hiển thị trang chủ đầu tiên khi truy cập phần mềm
+
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    setWindowFlags(windowFlags() & Qt::WindowMinMaxButtonsHint);
 
     ui->stackedWidget->setCurrentIndex(0);
 
     ui->pushButton_TrangChinh->animateClick(10);
 
     // Đặt title
-    this->setWindowTitle(QString::fromUtf8("Quản lý chi tiêu"));
+    this->setWindowTitle(QString::fromUtf8("Quản lý thu chi"));
 
     // Đặt ngày dateEdit về ngày hiện tại
 
@@ -146,6 +149,7 @@ void ExpenseTracker::UpdateTableP4(){
     qryModel->setHeaderData(3, Qt::Horizontal, QObject::tr("Mô tả"));
 
     ui->tableView_page4->setModel(qryModel);
+    ui->tableView_page4->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->tableView_page4->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->tableView_page4->update();
 
@@ -170,11 +174,11 @@ void ExpenseTracker::on_pushButton_TrangChinh_clicked()
     ui->stackedWidget->setCurrentIndex(0);
     ui->comboBox->clear();
 
-    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
     //Đồ thị
     lli TienGD, TienSK, TienMS, TienHP, TienHD, TienKD, TienOT, TienQT, TienDC, TienGT, TienBH;
 
@@ -356,15 +360,16 @@ void ExpenseTracker::on_pushButton_ChiTieu_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 
-    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
 
 
 
     //
+    ui->btn_p2_TimKiemChung->animateClick(5);
     ui->comboBox_p2_TenTaiKhoan->clear();
 
     ui->comboBox_p2_TenTaiKhoan->addItem("Tất Cả");
@@ -388,12 +393,12 @@ void ExpenseTracker::on_pushButton_ThuNhap_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
 
-    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
 
-    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
 
     ui->comboBox_p3_DenTaiKhoan_tab1->clear();
     ui->comboBox_p3_LoaiThuNhap_tab1->clear();
@@ -455,12 +460,12 @@ void ExpenseTracker::on_pushButton_TaiKhoan_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
 
-    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
 
-    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
 
 
     ///Cap nhat bang page 4
@@ -513,12 +518,12 @@ void ExpenseTracker::on_pushButton_ThongKe_clicked()
 {
     ui->stackedWidget->setCurrentIndex(4);
 
-    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
 
-    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
 
     //
     ui->comboBox_P5_TenTaiKhoan_tab2->clear();
@@ -561,12 +566,12 @@ void ExpenseTracker::on_pushButton_ThongKe_clicked()
 void ExpenseTracker::on_pushButton_NguoiDung_clicked()
 {
     ui->stackedWidget->setCurrentIndex(5);
-    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_NguoiDung->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: rgb(48, 165, 255); font: 75 15pt 'MS Shell Dlg 2';");
 
-    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThongKe->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
-    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 15px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ChiTieu->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_TaiKhoan->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThongKe->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
+    ui->pushButton_ThuNhap->setStyleSheet("border-radius: 10px; color: rgb(255, 255, 255); background-color: #161925; font: 75 15pt 'MS Shell Dlg 2';");
 
 
     QString HoVaTen, Email,CongViec;
@@ -585,12 +590,6 @@ void ExpenseTracker::on_pushButton_NguoiDung_clicked()
     ui->label_Email_page6_2->setText(Email);
     ui->label_CongViec_page6_2->setText(CongViec);
 
-}
-
-// Resize
-void ExpenseTracker::on_pushButton_minimize_clicked()
-{
-    this->setWindowState(Qt::WindowMinimized);
 }
 
 //Thay mã pin
@@ -845,23 +844,21 @@ void ExpenseTracker::on_btn_p3_XacNhan_clicked()
 
     NgayThuNhap = ui->dateEdit_p3_NgayThuNhap->date().toString("yyyy/MM/dd");
 
+    ////Lấy MaLoaiThuNhap đưa vào bảng ThuNhap
+    int MaLoaiThuNhap = ThuNhapQL.LayMaLoaiThuNhap(TenDangNhap, LoaiThuNhap);
 
     // Truy vấn DB
-
     QSqlQuery qry;
+
+    ThuNhapQL.ThemThuNhap(SoTien, GhiChu, TenTaiKhoan, NgayThuNhap, MaLoaiThuNhap);
 
     //Lấy mã tài khoản
     int MTK = TaiKhoanQL.LayMaTaiKhoan(TenDangNhap, TenTaiKhoan);
 
-
     lli SoDuTK = TaiKhoanQL.LaySoDu(TenDangNhap,TenTaiKhoan);
-
-    SoDuTK += SoTien;
-
-    //Thêm trong bảng TietKiem nếu có
     if( TaiKhoanQL.LayLoaiTaiKhoan(TenDangNhap, TenTaiKhoan) == "Tiết kiệm" ){
-        TietKiemQL.CapNhatSoDu(TenDangNhap, MTK, SoDuTK);
 
+        //Kiểm tra mục tiêu trong bảng TietKiem
         if( TietKiemQL.KiemTraMucTieu(TenDangNhap, MTK) >= 0 ){
             bool check = false; //Kiểm tra nếu mục tiêu mới hợp lệ
 
@@ -886,13 +883,9 @@ void ExpenseTracker::on_btn_p3_XacNhan_clicked()
 
         }
     }
-
     //done
-
-    //Trừ trong bảng Loan nếu có
     if( TaiKhoanQL.LayLoaiTaiKhoan(TenDangNhap, TenTaiKhoan) == "Nợ" ){
-        SoDuTK -= SoTien*2;
-        NoQL.CapNhatDuNo(TenDangNhap, MTK, SoDuTK);
+    //Kiểm tra dư nợ trong bảng Loan
 
         if( NoQL.KiemTraDuNo(TenDangNhap, MTK) <= 0 ){
             QMessageBox::StandardButton reply;
@@ -906,66 +899,16 @@ void ExpenseTracker::on_btn_p3_XacNhan_clicked()
                 //done
 
                 // Xoá trong bảng TaiKhoan
-                qry.prepare("DELETE FROM TaiKhoan WHERE TenChu = :Username AND TaiKhoan.Ten = :TenTaiKhoan ");
+                TaiKhoanQL.XoaTaiKhoan(TenTaiKhoan, TenDangNhap);
 
-                qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
-                qry.bindValue(":Username", TenDangNhap);
-
-                if( ! qry.exec() ){
-                    QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Xoá không thành công !!"));
-                }
                 //done
                 return;
 
             }
         }
     }
-
     //done
 
-    /// Cộng tiền vào tài khoản
-    qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK  WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
-
-    qry.bindValue(":SoDuTK", SoDuTK);
-    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
-    qry.bindValue(":Username", TenDangNhap);
-
-    if( qry.exec() ){
-        qDebug()<<"Đã thêm thành công!";
-    }
-    else QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công !!"));
-
-    /// done
-    ////Lấy MaLoaiThuNhap đưa vào bảng ThuNhap
-
-    int MaLoaiThuNhap = ThuNhapQL.LayMaLoaiThuNhap(TenDangNhap, LoaiThuNhap);
-
-    ////
-
-    /// Thêm vào thu nhập
-
-    qry.prepare("INSERT ThuNhap ( SoTien, GhiChu, TenTaiKhoan, NgayThuNhap, MaLoaiThuNhap )" "VALUES ( :SoTien, :GhiChu, :TenTaiKhoan, :NgayThuNhap, :MaLoaiThuNhap )");
-
-    qry.bindValue(":SoTien", SoTien);
-    qry.bindValue(":GhiChu", GhiChu);
-    qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
-    qry.bindValue(":NgayThuNhap", NgayThuNhap);
-    qry.bindValue(":MaLoaiThuNhap", MaLoaiThuNhap);
-
-    if( !qry.exec() ){
-        QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công !!"));
-
-
-
-    }
-    /// Lấy mã khoản chi
-    int MaThuNhap = ThuNhapQL.LayMaThuNhap();
-    //qDebug()<<MaThuNhap;
-
-    //Cập nhật thông tin thu nhập cho bảng ThongKe
-    ThongKeQL.CapNhatMaThuNhap(TenDangNhap, NgayThuNhap, MaThuNhap);
-
-    //done
     RefreshP3();
 
 
@@ -988,15 +931,9 @@ void ExpenseTracker::on_btn_p3_XacNhan_tab2_clicked()
 
     // Truy vấn DB
 
-    QSqlQuery qry;
+    bool insert = ThuNhapQL.ThemLoaiThuNhap(LoaiThuNhap, GhiChu, TenDangNhap);
 
-    qry.prepare("INSERT LoaiThuNhap ( LoaiThuNhap, GhiChu, TenChu )" "VALUES (  :LoaiThuNhap,  :GhiChu,  :TenChu  ) ");
-
-    qry.bindValue(":LoaiThuNhap", LoaiThuNhap);;
-    qry.bindValue(":GhiChu", GhiChu);
-    qry.bindValue(":TenChu", TenDangNhap);
-
-    if( qry.exec() ){
+    if( insert ){
         RefreshP3();
     }
     else QMessageBox::warning(this,"Lỗi",QString::fromUtf8("Thêm không thành công hoặc loại thu nhập này đã tồn tại !!"));
@@ -1050,17 +987,9 @@ void ExpenseTracker::on_btn_page4_ThemTK_TX_clicked()
 
     SoDu = (ui->lineEdit_p4_SoDu_TX->text()).toLongLong();
 
-    QSqlQuery qry;
+    bool insert = TaiKhoanQL.ThemTaiKhoan(LoaiTaiKhoan, TenTaiKhoan, SoDu, inTotal, TenDangNhap, MoTa);
 
-    qry.prepare("INSERT INTO TaiKhoan( Loai,Ten,SoDu,BaoGomTrongTongSoDu,TenChu,MoTa )" "VALUES( :Loai, :Ten, :SoDu, :BaoGomTrongTongSoDu, :TenChu, :MoTa)");
-
-    qry.bindValue(":Loai", LoaiTaiKhoan);
-    qry.bindValue(":Ten", TenTaiKhoan);
-    qry.bindValue(":SoDu", SoDu);
-    qry.bindValue(":BaoGomTrongTongSoDu", inTotal);
-    qry.bindValue(":TenChu", TenDangNhap);
-    qry.bindValue(":MoTa", MoTa);
-    if( !qry.exec() ){
+    if( !insert ){
         QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không thể thêm tài khoản hoặc tên tài khoản bị trùng!!"));
         return;
     }
@@ -1094,18 +1023,9 @@ void ExpenseTracker::on_btn_page4_ThemTK_TK_clicked()
 
     /// Insert bảng TaiKhoan
 
-    QSqlQuery qry;
+    bool insert = TaiKhoanQL.ThemTaiKhoan(LoaiTaiKhoan, TenTaiKhoan, SoDu, inTotal, TenDangNhap, MoTa);
 
-    qry.prepare("INSERT INTO TaiKhoan( Loai,Ten,SoDu,BaoGomTrongTongSoDu,TenChu,MoTa )" "VALUES( :Loai, :Ten, :SoDu, :BaoGomTrongTongSoDu, :TenChu, :MoTa)");
-
-    qry.bindValue(":Loai", LoaiTaiKhoan);
-    qry.bindValue(":Ten", TenTaiKhoan);
-    qry.bindValue(":SoDu", SoDu);
-    qry.bindValue(":BaoGomTrongTongSoDu", inTotal);
-    qry.bindValue(":TenChu", TenDangNhap);
-    qry.bindValue(":MoTa", MoTa);
-
-    if( !qry.exec() ){
+    if( !insert ){
         QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không thể thêm tài khoản hoặc tên tài khoản bị trùng!!"));
         return;
     }
@@ -1149,19 +1069,9 @@ void ExpenseTracker::on_btn_page4_ThemTK_NO_clicked()
     //Truy vấn DB
 
     /// Insert bảng TaiKhoan
+    bool insert = TaiKhoanQL.ThemTaiKhoan(LoaiTaiKhoan, TenTaiKhoan, TienNo, inTotal, TenDangNhap, MoTa);
 
-    QSqlQuery qry;
-
-    qry.prepare("INSERT INTO TaiKhoan( Loai,Ten,SoDu,BaoGomTrongTongSoDu,TenChu,MoTa )" "VALUES( :Loai, :Ten, :SoDu, :BaoGomTrongTongSoDu, :TenChu, :MoTa)");
-
-    qry.bindValue(":Loai", LoaiTaiKhoan);
-    qry.bindValue(":Ten", TenTaiKhoan);
-    qry.bindValue(":SoDu", TienNo);
-    qry.bindValue(":BaoGomTrongTongSoDu", inTotal);
-    qry.bindValue(":TenChu", TenDangNhap);
-    qry.bindValue(":MoTa", MoTa);
-
-    if( !qry.exec() ){
+    if( !insert ){
         QMessageBox::warning(this,"Chú ý",QString::fromUtf8("Không thể thêm tài khoản hoặc tên tài khoản bị trùng!!"));
         return;
     }
@@ -1180,7 +1090,6 @@ void ExpenseTracker::on_btn_page4_ThemTK_NO_clicked()
     RefreshP4();
 
     ///done
-
 
 }
 
@@ -1216,7 +1125,6 @@ void ExpenseTracker::on_btn_page4_ThemSoDu_clicked()
 
     //Thêm trong bảng TietKiem nếu có
     if( TaiKhoanQL.LayLoaiTaiKhoan(TenDangNhap, TenTaiKhoan) == "Tiết kiệm" ){
-        TietKiemQL.CapNhatSoDu(TenDangNhap, MTK, SoDuTK);
 
         if( TietKiemQL.KiemTraMucTieu(TenDangNhap, MTK) >= 0 ){
             bool check = false; //Kiểm tra nếu mục tiêu mới hợp lệ
@@ -1245,10 +1153,14 @@ void ExpenseTracker::on_btn_page4_ThemSoDu_clicked()
     }
     //done
 
-    if( MoTa != "" ) qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK, MoTa = :MoTa  WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
-    else qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
+    if( MoTa != "" )
+        qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK, MoTa = :MoTa  WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
+    else
+        qry.prepare("UPDATE TaiKhoan SET SoDu = :SoDuTK WHERE Ten = :TenTaiKhoan AND TenChu = :Username; ");
     qry.bindValue(":SoDuTK", SoDuTK);
+
     if( MoTa != "" ) qry.bindValue(":MoTa", MoTa);
+
     qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
     qry.bindValue(":Username", TenDangNhap);
 
@@ -1299,7 +1211,7 @@ void ExpenseTracker::on_btn_page4_XoaTaiKhoan_clicked()
         //done
 
         //Xoá mọi thứ trong việc thu nhập liên quan đến tài khoản này
-            ThuNhapQL.XoaTaiKhoanInThuNhap(TenDangNhap, TenTaiKhoan);
+        ThuNhapQL.XoaTaiKhoanInThuNhap(TenDangNhap, TenTaiKhoan);
 
         //done
 
@@ -1555,6 +1467,8 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
     if( KhoangThoiGian == "7 ngày trước" ){
         QVector<QVector<lli>> Chi = ChiTieuQL.LayThongKe7NgayTruoc(TenDangNhap, TenDanhMuc, TenTaiKhoan, Ngay, Thang, Nam);
 
+        ui->label_MaxChi->setText(ChiTieuQL.MaxChi(7, Chi));
+
         lli Max = Chi[1][2];
         for (int i = 2; i < 8; ++i) {
             if( Chi[i][2] > Max ) Max = Chi[i][2];
@@ -1604,7 +1518,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max);
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền chi tiêu (VNĐ)");
 
@@ -1629,6 +1543,8 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
 
     else if( KhoangThoiGian == "30 ngày trước" ){
         QVector<QVector<lli>> Chi = ChiTieuQL.LayThongKe30NgayTruoc(TenDangNhap, TenDanhMuc, TenTaiKhoan, Ngay, Thang, Nam);
+
+        ui->label_MaxChi->setText(ChiTieuQL.MaxChi(30, Chi));
 
         lli Max = Chi[1][3];
         for (int i = 2; i < 11; ++i) {
@@ -1680,7 +1596,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max);
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền chi tiêu (VNĐ)");
 
@@ -1702,6 +1618,8 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
     ///done
     else if( KhoangThoiGian == "3 tháng trước" ){
         QVector<QVector<lli>> Chi = ChiTieuQL.LayThongKe3ThangTruoc(TenDangNhap, TenDanhMuc, TenTaiKhoan, Ngay, Thang, Nam);
+
+        ui->label_MaxChi->setText(ChiTieuQL.MaxChi(3, Chi));
 
         lli Max = Chi[1][3];
         for (int i = 2; i < 11; ++i) {
@@ -1753,7 +1671,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max);
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền chi tiêu (VNĐ)");
 
@@ -1823,7 +1741,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab2_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max);
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền chi tiêu (VNĐ)");
 
@@ -1850,6 +1768,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
 {
     QString LoaiThuNhap, TenTaiKhoan, Ngay, Thang, Nam, KhoangThoiGian;
 
+
     LoaiThuNhap = ui->comboBox_P5_NguonThuNhap_tab3->currentText();
     TenTaiKhoan = ui->comboBox_P5_DenTaiKhoan_tab3->currentText();
     Ngay = ui->dateEdit_P5_ThoiGian_tab3->date().toString("dd");
@@ -1866,6 +1785,8 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
     ///7 ngày trước
     if( KhoangThoiGian == "7 ngày trước" ){
         QVector<QVector<lli>> Thu = ThuNhapQL.LayThongKe7NgayTruoc(TenDangNhap, LoaiThuNhap, TenTaiKhoan, Ngay, Thang, Nam);
+
+        ui->label_MaxThu->setText(ThuNhapQL.MaxThu(7, Thu));
 
         lli Max = Thu[1][2];
         for (int i = 2; i < 8; ++i) {
@@ -1916,7 +1837,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max);
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền thu nhập (VNĐ)");
 
@@ -1941,6 +1862,8 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
 
     else if( KhoangThoiGian == "30 ngày trước" ){
         QVector<QVector<lli>> Thu = ThuNhapQL.LayThongKe30NgayTruoc(TenDangNhap, LoaiThuNhap, TenTaiKhoan, Ngay, Thang, Nam);
+
+        ui->label_MaxThu->setText(ThuNhapQL.MaxThu(30, Thu));
 
         lli Max = Thu[1][3];
         for (int i = 2; i < 11; ++i) {
@@ -1992,7 +1915,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max );
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền thu nhập (VNĐ)");
 
@@ -2014,6 +1937,8 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
     ///done
     else if( KhoangThoiGian == "3 tháng trước" ){
         QVector<QVector<lli>> Thu = ThuNhapQL.LayThongKe3ThangTruoc(TenDangNhap, LoaiThuNhap, TenTaiKhoan, Ngay, Thang, Nam);
+
+        ui->label_MaxThu->setText(ThuNhapQL.MaxThu(3, Thu));
 
         lli Max = Thu[1][3];
         for (int i = 2; i < 11; ++i) {
@@ -2065,7 +1990,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max );
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền thu nhập (VNĐ)");
 
@@ -2136,7 +2061,7 @@ void ExpenseTracker::on_btn_P5_CapNhat_tab3_clicked()
 
         QValueAxis *axisY = new QValueAxis();
 
-        axisY->setRange(0, Max + Max/5);
+        axisY->setRange(0, Max );
         axisY->setTickCount(8);
         axisY->setTitleText("Tiền thu nhập (VNĐ)");
 
@@ -2245,11 +2170,6 @@ void ExpenseTracker::on_btn_BachHoaPic_clicked()
     WinChiTieu.setModal(true);
     connect(&WinChiTieu,SIGNAL(buttonPressed()), this, SLOT(RefreshP1()));
     WinChiTieu.exec();
-}
-
-void ExpenseTracker::on_btn_Refresh_clicked()
-{
-    ui->pushButton_TrangChinh->animateClick(2);
 }
 
 //Nut cộng thêm thu nhập cho Page 1

@@ -50,7 +50,7 @@ int QuanLyChiTieu::LayID_DanhMuc(QString MaDanhMuc, QString Username){
 
     QSqlQuery qry;
 
-    if( qry.exec("SELECT ID_DanhMuc FROM DanhMucChiTieu WHERE TenDanhMuc = '"+MaDanhMuc+"' AND TenChu = '"+Username+"'") ){
+    if( qry.exec("SELECT ID_DanhMuc FROM DanhMucChiTieu WHERE MaDanhMuc = '"+MaDanhMuc+"' AND TenChu = '"+Username+"'") ){
         while ( qry.next() ) {
             res = qry.value("ID_DanhMuc").toInt();
         }
@@ -105,7 +105,7 @@ lli QuanLyChiTieu::LaySoTienTheoMaKhoanChi(QString Username, int MaKhoanChi){
     qry.prepare("SELECT kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND kc.MaKhoanChi = :MaKhoanChi ");
 
 
-    qry.bindValue(":MaThuNhap", MaKhoanChi);
+    qry.bindValue(":MaKhoanChi", MaKhoanChi);
     qry.bindValue(":Username", Username);
 
     if( qry.exec() ){
@@ -123,6 +123,7 @@ lli QuanLyChiTieu::LaySoTienTheoMaKhoanChi(QString Username, int MaKhoanChi){
 }
 
 void QuanLyChiTieu::XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan ){
+    QVector< int > MaKhoanChi;
 
     QSqlQuery qry;
 
@@ -130,7 +131,7 @@ void QuanLyChiTieu::XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan )
     lli TienGD = 0, TienSK = 0, TienMS = 0, TienHP = 0, TienHD = 0, TienKD = 0, TienOT = 0, TienQT = 0, TienDC = 0, TienGT = 0, TienBH = 0;
 
 
-    qry.prepare("SELECT dmct.MaDanhMuc, kc.SoTien FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND kc.TenTaiKhoan = :TenTaiKhoan");
+    qry.prepare("SELECT dmct.MaDanhMuc, kc.SoTien, kc.MaKhoanChi FROM KhoanChi kc JOIN DanhMucChiTieu dmct ON kc.ID_DanhMuc = dmct.ID_DanhMuc WHERE dmct.TenChu = :Username AND kc.TenTaiKhoan = :TenTaiKhoan");
 
     qry.bindValue(":Username", Username);
     qry.bindValue(":TenTaiKhoan", TenTaiKhoan);
@@ -138,6 +139,7 @@ void QuanLyChiTieu::XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan )
     if( qry.exec() ){
 
         while( qry.next() ){
+            MaKhoanChi.push_back( qry.value("MaKhoanChi").toInt() );
             if( qry.value("MaDanhMuc").toString() == "GD" ) TienGD += qry.value("SoTien").toLongLong();
             if( qry.value("MaDanhMuc").toString() == "SK" ) TienSK += qry.value("SoTien").toLongLong();
             if( qry.value("MaDanhMuc").toString() == "MS" ) TienMS += qry.value("SoTien").toLongLong();
@@ -197,6 +199,14 @@ void QuanLyChiTieu::XoaTaiKhoanInChiTieu(QString Username, QString TenTaiKhoan )
 
         qry.exec();
 
+    }
+
+    //Xoá trong thống kê
+    for( int i = 0; i < MaKhoanChi.size(); ++i ){
+        qry.prepare("DELETE FROM ThongKe WHERE MaKhoanChi = :MKC");
+
+        qry.bindValue(":MKC", MaKhoanChi[i]);
+        qry.exec();
     }
 
 }
@@ -445,4 +455,52 @@ QVector<lli> QuanLyChiTieu::LayThongKe1Nam(QString Username, QString TenDanhMuc,
 
     return res;
 
+}
+
+void QuanLyChiTieu::MaxHeap (QVector<QVector<lli>>& data, int i, int posVal){
+    int largest;
+    int left = 2*i;                   /* Vị trí của con bên trái */
+    int right = 2*i +1;            /* Vị trí của con bên phải */
+    if(left <= data.size() - 1 and data[left][posVal] > data[i][posVal] ) /* N là số phần tử trong mảng, biến toàn cục */
+          largest = left;
+    else
+         largest = i;
+    if(right <= data.size() - 1 and data[right][posVal] > data[largest][posVal] )
+        largest = right;
+    if(largest != i ){
+        std::swap (data[i] , data[largest]);
+        MaxHeap (data, largest, posVal);
+    }
+ }
+
+void QuanLyChiTieu::RunMaxHeap (QVector<QVector<lli>>& data, int posVal){
+    for(int i = (data.size() - 1) / 2 ; i >= 1 ; i-- ){
+        MaxHeap (data, i, posVal) ;
+    }
+}
+
+QString QuanLyChiTieu::MaxChi( int Arg, QVector<QVector<lli>> data ){
+    switch (Arg) {
+        case 7:{
+            QVector<QVector<lli>> res = data;
+            this->RunMaxHeap(res, 2);
+            return  "Chi tiêu cao nhất \ntrong ngày " + QString::number(res[1][0]) + " tháng " + QString::number(res[1][1]) + " \nvới tổng chi " + QString::number(res[1][2]) + "đ";
+        }
+        break;
+        case 30:{
+            QVector<QVector<lli>> res = data;
+            this->RunMaxHeap(res, 3);
+            return  "Chi tiêu từ ngày " + QString::number(res[1][0]) + " \nđến ngày " + QString::number(res[1][1]) + " là cao nhất \nvới tổng chi " + QString::number(res[1][3]) + "đ";
+        }
+        break;
+        case 3:{
+            QVector<QVector<lli>> res = data;
+            this->RunMaxHeap(res, 3);
+            return  "Chi tiêu từ ngày " + QString::number(res[1][0]) + " \nđến ngày " + QString::number(res[1][1]) + " là cao nhất \nvới tổng chi " + QString::number(res[1][3]) + "đ";
+        }
+        break;
+        default:
+            break;
+    }
+    return "";
 }

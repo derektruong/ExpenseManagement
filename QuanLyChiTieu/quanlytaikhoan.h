@@ -31,6 +31,10 @@ public:
     virtual int LayMaTaiKhoan(QString Username, QString TenTaiKhoan);
     QString LayLoaiTaiKhoan(QString Username, QString TenTaiKhoan);
 
+    bool ThemTaiKhoan( QString LoaiTaiKhoan, QString TenTaiKhoan, lli SoDu, int inTotal, QString TenDangNhap, QString MoTa );
+
+    void XoaTaiKhoan( QString TenTaiKhoan, QString TenDangNhap );
+
 
 protected:
     QString LoaiTaiKhoan;
